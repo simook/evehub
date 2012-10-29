@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Dmp Site" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Dmp Site" %>">
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
-    <%= yield(:head) %>
-  </head>
-  <body class="<%= controller_name %> <%= action_name %>">
-    <header class="navbar navbar-fixed-top">
-      <nav class="navbar-inner">
-        <div class="container">
-          <%= render 'layouts/navigation' %>
-        </div>
-      </nav>
-    </header>
-    <div id="main" role="main">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "Dmp Site" %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Dmp Site" %>">
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+</head>
+<body class="<%= controller_name %> <%= action_name %>">
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <nav class="navbar-inner">
       <div class="container">
-        <div class="content">
-           <div class="row">
-            <div class="span12">
-              <%= render 'layouts/messages' %>
-              <%= yield %>
-            </div>
-          </div>
-          <footer>
-          </footer>
-        </div>
-      </div> <!--! end of .container -->
-    </div> <!--! end of #main -->
-  </body>
+        <%= render 'layouts/navigation' %>
+      </div>
+    </nav>
+  </div>
+  <div class="header">
+    <div class="container">
+      <h1>[D-M-P]</h1>
+      <p class="lead">Dangerous Metaphysical Productions - <small>An Industry Corporation</small></p>
+    </div>
+  </div>
+  <div id="main" role="main">
+    <div class="container">
+    <%= render 'layouts/messages' %>
+    <%= yield %>
+    </div>
+  </div>
+</div>
+<% if !user_signed_in? %>
+<div class="modal hide fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Register with [D-M-P]</h3>
+    </div>
+    <div class="modal-body">
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
+</div>
+<% end %>
+</body>
 </html>

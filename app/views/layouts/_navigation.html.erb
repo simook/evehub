@@ -1,26 +1,23 @@
-<%= link_to "Dmp Site", root_path, :class => 'brand' %>
 <ul class="nav">
+  <%= nav_link 'Home', root_path %>
+  <%= nav_link 'Recruitment', recruitment_index_path %>
+</ul>
+<ul class="nav pull-right">
   <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>        
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= current_user.name %> <b class="caret"></b></a>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <%= nav_link 'Your Account', edit_user_registration_path %>
+        <% if current_user.has_role? :admin %>
+          <%= nav_link 'Admin', users_path %>
+        <% end %>
+        <li class="divider"></li>
+        <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+      </ul>
     </li>
   <% else %>
-    <li>
-    <%= link_to 'Login', new_user_session_path %>  
-    </li>
-  <% end %>
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Edit account', edit_user_registration_path %>
-    </li>
-    <% if current_user.has_role? :admin %>
-      <li>
-      <%= link_to 'Admin', users_path %>
-      </li>
-    <% end %>
-  <% else %>
-    <li>
-    <%= link_to 'Sign up', new_user_registration_path %>
-    </li>
+    <li><%= link_to 'Login', new_user_session_path, :class=>'' %></li>
+    <li><button type="button" data-toggle="modal" data-target="#signup" class="btn btn-small">Sign Up</button></li>
+    <li><%= link_to 'Sign Up', new_user_registration_path, :data=>{:target=>'#modal'} %></li>
   <% end %>
 </ul>

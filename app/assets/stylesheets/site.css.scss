@@ -1,0 +1,30 @@
+@import 'bootstrap';
+@import 'compass';
+
+$dark: #001920;
+$darkblue: #092D45;
+$darkgreen: #2E534C;
+$lightblue: #9FC3DD;
+$greywhite: #B8D0DA;
+$white: #fff;
+
+body {
+  position: relative;
+  padding-top: 40px;
+}
+.header {
+  //@include background(radial-gradient(#8c2a07 50%,#250700));
+  @include background(linear-gradient(left, $dark, $darkblue));
+  padding: 40px 0;
+  color: $white;
+  h1 {
+   font-size: 60px;
+   line-height: 70px;
+   font-weight: 200;
+   text-shadow: 0 1px 1px $dark;
+  }
+  p {
+   color: $greywhite;
+   text-shadow: 0 1px 1px $dark;
+  }
+}
