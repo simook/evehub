@@ -1,13 +1,32 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :name, :autofocus => true %>
-  <%= f.input :email, :required => true %>
-  <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-  <%= f.input :password_confirmation, :required => false %>
-  <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-  <%= f.button :submit, 'Update', :class => 'btn-primary' %>
-<% end %>
-<h3>Cancel my account</h3>
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-<%= link_to "Back", :back %>
+<div class="mt20">
+  <ul class="nav nav-tabs" id="accountTabs">
+    <li class="active">
+      <a href="#account">Your Account</a>
+    </li>
+    <li>
+      <a href="#pilot">Pilot Info</a>
+    </li>
+  </ul>
+  <div class="mt15 tab-content">
+    <div class="tab-pane active row" id="account">
+      <div class="span7 well">
+        <h4>Your Account</h4>
+        <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
+          <%= f.input :name, :autofocus => true %>
+          <%= f.input :email, :required => true %>
+          <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+          <%= f.input :password_confirmation, :required => false %>
+          <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => false%>
+          <%= f.button :submit, 'Update', :class => 'btn-primary pull-right' %>
+        <% end %>
+      </div>
+      <div class="span4 well">
+        <h5>Cancel my account</h5>
+        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+      </div>
+    </div>
+    <div class="tab-pane" id="pilot">
+      <div class="well well-small muted">coming soon</div>
+    </div>
+  </div>
+</div>
