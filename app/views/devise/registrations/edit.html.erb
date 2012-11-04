@@ -12,23 +12,23 @@
       <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
       <div class="span6 ">
         <h5>General Info</h5>
-          <%= f.input :name %>
-          <%= f.input :username %>
-          <%= f.input :email, :required => true %>
+        <%= f.input :name %>
+        <%= f.input :username %>
+        <%= f.input :email, :required => true %>
       </div>
       <div class="span6">
-        <h5>Your <a href="https://support.eveonline.com/api/" target="_blank">EVE API</a></h5>
-          <%= f.input :apikey, :label => 'ID' %>
-          <%= f.input :secretkey, :label => 'Verification Code'  %>
+        <h5><a href="https://support.eveonline.com/api/" target="_blank">EVE API</a></h5>
+        <%= f.input :apikey, :label => 'ID' %>
+        <%= f.input :secretkey, :label => 'Verification Code'  %>
       </div>
       <div class="span6">
-        <h5>Change your password<h5>
-          <%= f.input :password, :autocomplete => "off", :required => false %>
-          <%= f.input :password_confirmation, :required => false %>
+        <h5>Change Password<h5>
+        <%= f.input :password, :autocomplete => "off", :required => false, :label => 'New Password' %>
+        <%= f.input :password_confirmation, :required => false %>
       </div>
       <div class="span12 mt20">
         <div class="well well-small clearfix">
-        <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class=>"pull-left" %>
+        <%= link_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class=>"pull-left text-error mt10" %>
         <%= f.button :submit, 'Save', :class => 'btn-primary pull-right' %>
         </div>
       </div>
