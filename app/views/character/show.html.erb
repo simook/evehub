@@ -1,0 +1,41 @@
+<div class="navbar mt20">
+  <div class="navbar-inner">
+    <ul class="breadcrumb">
+      <li><%= link_to 'Users', users_path %><span class="divider">/</span></li>
+      <li><%= link_to @user.username, @user %><span class="divider">/</span></li>
+      <li class="active"><%= @character.name %></li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="span2">
+    <div class="thumbnail">
+      <img src="http://image.eveonline.com/Character/<%= @character.characterID %>_128.jpg" alt="">
+    </div>
+  </div>
+  <div class="span4">
+    <h2><%= @character.name %></h2>
+  </div>
+  <div class="span12 mt20">
+    <div class="row">
+      <div class="span6">
+        <%= render 'sheet' %>
+      </div>
+      <div class="span6">
+        <%= render 'attributes' %>
+      </div>
+    </div>
+  </div>
+  <div class="span12">
+    <ul class="nav nav-tabs" id="characterTabs">
+      <li><a href="#employment" data-toggle="tab">Employment</a></li>
+      <li><a href="#skills" data-toggle="tab">Skills</a></li>
+      <li><a href="#killlog" data-toggle="tab">Kill Log</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane" id="employment"><%= render 'employment' %></div>
+      <div class="tab-pane well muted" id="skills">coming soon</div>
+      <div class="tab-pane well muted" id="killlog">coming soon</div>
+    <div>
+  </div>
+</div>

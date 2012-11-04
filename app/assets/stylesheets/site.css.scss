@@ -65,3 +65,14 @@ body {
     @include box-shadow(0 0 10px #000);
   }
 }
+.navbar {
+  .breadcrumb {
+    background: none;
+    margin: 0px;
+    padding: 0px;
+    a {
+      padding: 10px 0;
+      display: inline-block;
+    }
+  }
+}

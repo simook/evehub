@@ -1,0 +1,32 @@
+<table class="table table-bordered table-condensed">
+  <tbody>
+    <tr>
+      <td><b>Corporation</b></td>
+      <td><%= @character.corporationName %></td>
+    </tr>
+    <tr>
+      <td><b>Alliance</b></td>
+      <td><%= @character.allianceName ? 'none' : @character.allianceName %></td>
+    </tr>
+    <tr>
+      <td><b>Date of Birth</b></td>
+      <td><%= @character.DoB %></td>
+    </tr>
+    <tr>
+      <td><b>R / B / A</b></td>
+      <td><%= @character.race %> / <%= @character.bloodLine %> / <%= @character.ancestry %></td>
+    </tr>
+    <tr>
+      <td><b>Skill Points</b></td>
+      <td><%= @info.skillPoints %></td>
+    </tr>
+    <tr>
+      <td><b>Clone</b></td>
+      <td><%= @character.cloneName %></td>
+    </tr>
+    <tr>
+      <td><b>ISK</b></td>
+      <td><%= @character.balance %></td>
+    </tr>
+  </tbody>
+</table>
