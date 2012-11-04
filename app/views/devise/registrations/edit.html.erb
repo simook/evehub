@@ -9,21 +9,30 @@
   </ul>
   <div class="mt15 tab-content">
     <div class="tab-pane active row" id="account">
-      <div class="span7 well">
-        <h4>Your Account</h4>
-        <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
-          <%= f.input :name, :autofocus => true %>
+      <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
+      <div class="span6 ">
+        <h5>General Info</h5>
+          <%= f.input :name %>
+          <%= f.input :username %>
           <%= f.input :email, :required => true %>
-          <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+      </div>
+      <div class="span6">
+        <h5>Your <a href="https://support.eveonline.com/api/" target="_blank">EVE API</a></h5>
+          <%= f.input :apikey, :label => 'ID' %>
+          <%= f.input :secretkey, :label => 'Verification Code'  %>
+      </div>
+      <div class="span6">
+        <h5>Change your password<h5>
+          <%= f.input :password, :autocomplete => "off", :required => false %>
           <%= f.input :password_confirmation, :required => false %>
-          <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => false%>
-          <%= f.button :submit, 'Update', :class => 'btn-primary pull-right' %>
-        <% end %>
       </div>
-      <div class="span4 well">
-        <h5>Cancel my account</h5>
-        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+      <div class="span12 mt20">
+        <div class="well well-small clearfix">
+        <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class=>"pull-left" %>
+        <%= f.button :submit, 'Save', :class => 'btn-primary pull-right' %>
+        </div>
       </div>
+      <% end %>
     </div>
     <div class="tab-pane" id="pilot">
       <div class="well well-small muted">coming soon</div>

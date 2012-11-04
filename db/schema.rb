@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121028223402) do
+ActiveRecord::Schema.define(:version => 20121103213409) do
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -26,8 +26,6 @@ ActiveRecord::Schema.define(:version => 20121028223402) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
-    t.string   "api_id", :default => ""
-    t.string   "api_key", :default => ""
     t.string   "encrypted_password",                   :default => ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -50,6 +48,9 @@ ActiveRecord::Schema.define(:version => 20121028223402) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "username"
+    t.string   "apikey"
+    t.string   "secretkey"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

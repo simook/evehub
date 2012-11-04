@@ -1,18 +1,49 @@
 <div class="row">
-  <div class="span6 well offset3 mt20">
-    <h3>Sign Up</h3>
-    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal' }) do |f| %>
-          <%= f.error_notification %>
-          <%= f.input :name, :autofocus => true %>
-          <%= f.input :email, :required => true %>
-          <%= f.input :password, :required => true %>
-          <%= f.input :password_confirmation, :required => true %>
-          <div class="control-group">
-            <div class="controls">
-              <%= f.button :submit, 'Sign up', :class => 'btn btn-primary pull-right' %>
-            </div>
-          </div>
-        <%= render "devise/shared/links" %>
-    <% end %>
+  <div class="span12">
+    <div class="page-header">
+      <h2>Membership</h2>
+    </div>
+    <p class="lead">Registering with the [D-M-P] website is required to be accepted into the corporation.</p>
   </div>
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal clearfix' }) do |f| %>
+  <div class="span12 reg-step">
+    <div class="row">
+      <div class="span6">
+        <h3>Step 1</h3>
+        <p class="muted">Please fill in the general account information. You will recieve a verification email after submitting your membership.</p>
+        <p class="mt20">* All fields are required</p>
+      </div>
+      <div class="span6">
+        <%= f.error_notification %>
+        <%= f.input :username, :autofocus => true, :required => true %>
+        <%= f.input :email, :required => true %>
+        <%= f.input :password, :required => true %>
+        <%= f.input :password_confirmation, :required => true %>
+      </div>
+    </div>
+  </div>
+  <div class="span12 reg-step">
+    <div class="row">
+      <div class="span6">
+        <h3>Step 2</h3>
+        <p class="muted">Your EVE api key is required to be accepted into our corporation. Your api information is only visible to the corporation CEO and Director.</p>
+      </div>
+      <div class="span6">
+        <%= f.input :apikey, :label => 'ID', :required => true %>
+          <%= f.input :secretkey, :label => 'Verification Code', :required => true  %>
+      </div>
+    </div>
+  </div>
+  <div class="span12 reg-step">
+    <div class="row">
+      <div class="span6">
+        <h3>Final</h3>
+        <p>After submitting your membership here, you will then need to go and apply to our corp in EVE.</p>
+      </div>
+      <div class="span5 mt20">
+        <%= f.button :submit, 'Submit My Membership', :class => 'btn btn-primary btn-large pull-right' %>
+      </div>
+    </div>
+  </div>
+  <% end %>
 </div>

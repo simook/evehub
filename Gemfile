@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
-gem 'heroku'
+#ruby '1.9.3'
 gem 'rails', '3.2.8'
-group :development do
-  gem 'sqlite3'
-end
+gem 'pg'
+
 group :assets do
   gem 'jquery-rails'
   gem 'sass-rails',   '~> 3.2.3'
@@ -18,6 +16,5 @@ gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"
 gem "simple_form", ">= 2.0.4"
 group :production do
-  gem 'pg'
   gem "thin", ">= 1.5.0"
 end

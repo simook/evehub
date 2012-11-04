@@ -19,7 +19,7 @@ body {
 .mt20{
   margin-top: 20px;
 }
-.sessions,.registrations {
+.sessions,.registrations,.recruitment {
   .header {
     padding: 0px;
   }
@@ -55,5 +55,13 @@ body {
   .container {
     position: relative;
     z-index: 100;
+  }
+}
+.reg-step {
+  border-top: 1px dashed #EEE;
+  padding-top: 20px;
+  h3 {
+    margin-top: -10px;
+    padding-top: 0px;
   }
 }

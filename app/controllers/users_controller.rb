@@ -4,10 +4,12 @@ class UsersController < ApplicationController
   def index
     authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @users = User.all
+    render :layout => 'admin'
   end
 
   def show
     @user = User.find(params[:id])
+    render :layout => 'admin'
   end
 
   def update
