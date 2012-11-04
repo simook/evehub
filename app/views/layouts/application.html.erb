@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= content_for?(:title) ? yield(:title) : "Dmp Site" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "[D-M-P]" %></title>
   <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Dmp Site" %>">
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -30,18 +30,5 @@
     </div>
   </div>
 </div>
-<% if !user_signed_in? %>
-<div class="modal hide fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="myModalLabel">Register with [D-M-P]</h3>
-    </div>
-    <div class="modal-body">
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-    </div>
-</div>
-<% end %>
 </body>
 </html>

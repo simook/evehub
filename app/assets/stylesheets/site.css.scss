@@ -12,6 +12,15 @@ $white: #fff;
 body {
   position: relative;
   padding-top: 40px;
+  background-repeat: no-repeat;
+  &.recruitment,&.sessions {
+    @include background(url('2.jpg'));
+    background-color: #04090d;
+  }
+  &.home,&.registrations {
+    @include background(url('3.jpg'));
+    background-color: #0d0e10;
+  }
 }
 .mt15 {
   margin-top: 15px;
@@ -19,14 +28,7 @@ body {
 .mt20{
   margin-top: 20px;
 }
-.sessions,.registrations,.recruitment {
-  .header {
-    padding: 0px;
-  }
-}
 .header {
-  //@include background(radial-gradient(#8c2a07 50%,#250700));
-  @include background(linear-gradient(left, $dark, $darkblue));
   padding: 40px 0;
   color: $white;
   position: relative;
@@ -40,18 +42,6 @@ body {
    color: $greywhite;
    text-shadow: 0 1px 1px $dark;
   }
-  &:after{
-    content:'';
-    @include background(url('1.jpg'));
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    @include opacity(.4);
-    z-index: 50;
-    @include filter(blur(5px));
-  }
   .container {
     position: relative;
     z-index: 100;
@@ -63,5 +53,15 @@ body {
   h3 {
     margin-top: -10px;
     padding-top: 0px;
+  }
+}
+#main {
+  .container {
+    @include background(linear-gradient(top,#fff,darken(#fff,2)));
+    position: relative;
+    padding: 10px 20px 20px;
+    //width: 900px;
+    margin-top: 20px;
+    @include box-shadow(0 0 10px #000);
   }
 }

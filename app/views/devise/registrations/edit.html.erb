@@ -16,12 +16,12 @@
         <%= f.input :username %>
         <%= f.input :email, :required => true %>
       </div>
-      <div class="span6">
+      <div class="span5">
         <h5><a href="https://support.eveonline.com/api/" target="_blank">EVE API</a></h5>
         <%= f.input :apikey, :label => 'ID' %>
         <%= f.input :secretkey, :label => 'Verification Code'  %>
       </div>
-      <div class="span6">
+      <div class="span5">
         <h5>Change Password<h5>
         <%= f.input :password, :autocomplete => "off", :required => false, :label => 'New Password' %>
         <%= f.input :password_confirmation, :required => false %>
