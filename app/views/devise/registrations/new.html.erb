@@ -27,10 +27,11 @@
       <div class="span6">
         <h3>Step 2</h3>
         <p class="muted">Your EVE api key is required to be accepted into our corporation. Your api information is only visible to the corporation CEO and Director.</p>
+        <p><a href="https://support.eveonline.com/api/Key/CreatePredefined/27140479" target="_blank">Create API key</a></p>
       </div>
       <div class="span6">
         <%= f.input :apikey, :label => 'ID', :required => true %>
-          <%= f.input :secretkey, :label => 'Verification Code', :required => true  %>
+        <%= f.input :secretkey, :label => 'Verification Code', :required => true  %>
       </div>
     </div>
   </div>
