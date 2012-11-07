@@ -9,4 +9,5 @@ $(function(){
   });
   $('#characterTabs a:first').tab('show')
   $('.dropdown-toggle').dropdown();
+  $('a[rel="tooltip"]').tooltip();
 });

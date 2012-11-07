@@ -1,14 +1,6 @@
 <table class="table table-bordered table-condensed">
   <tbody>
     <tr>
-      <td><b>Corporation</b></td>
-      <td><%= @character.corporationName %></td>
-    </tr>
-    <tr>
-      <td><b>Alliance</b></td>
-      <td><%= @character.allianceName ? 'none' : @character.allianceName %></td>
-    </tr>
-    <tr>
       <td><b>Date of Birth</b></td>
       <td><%= @character.DoB %></td>
     </tr>
@@ -18,15 +10,21 @@
     </tr>
     <tr>
       <td><b>Skill Points</b></td>
-      <td><%= @info.skillPoints %></td>
+      <td><%= number_with_delimiter(@info.skillPoints) %></td>
     </tr>
     <tr>
       <td><b>Clone</b></td>
-      <td><%= @character.cloneName %></td>
+      <td>
+        <a href="#" rel="tooltip" title="<%= number_with_delimiter(@character.cloneSkillPoints) %>"><%= @character.cloneName %></a>
+      </td>
     </tr>
     <tr>
       <td><b>ISK</b></td>
-      <td><%= @character.balance %></td>
+      <td><%= number_with_delimiter(@character.balance) %></td>
+    </tr>
+    <tr>
+      <td><b>Security Status</b></td>
+      <td><%= number_with_precision(@info.securityStatus) %></td>
     </tr>
   </tbody>
 </table>

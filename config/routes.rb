@@ -1,4 +1,6 @@
 DmpSite::Application.routes.draw do
+  get "corporation/show"
+
   get "character/index"
 
   get "character/show"
@@ -9,7 +11,8 @@ DmpSite::Application.routes.draw do
   root :to => "home#index"
   devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users do
-    resources :character
+    resources :character, :only => :show
+    resources :corporation, :only => :show
   end
   resources :recruitment
 end

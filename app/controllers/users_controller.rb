@@ -37,6 +37,12 @@ class UsersController < ApplicationController
 
   private
   def init_eve_api(user)
-     EAAL::API.new(user.apikey,user.secretkey)
+    begin
+      EAAL.cache = EAAL::Cache::FileCache.new
+      EAAL::API.new(user.apikey,user.secretkey)
+    rescue EAAL::Exception::EveAPIException => e
+      flash[:notice] = "#{e.message}"
+      render "show"
+    end
   end
 end

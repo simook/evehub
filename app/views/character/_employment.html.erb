@@ -8,7 +8,7 @@
   <tbody>
     <% @info.employmentHistory.each do |e| %>
     <tr>
-      <td><%= e.corporationID %></td>
+      <td><%= link_to id_to_name(e.corporationID), user_corporation_path(@user, e.corporationID) %></td>
       <td><%= e.startDate %></td>
     </tr>
     <% end %>

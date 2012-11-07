@@ -1,0 +1,28 @@
+<div class="navbar mt20">
+  <div class="navbar-inner">
+    <ul class="breadcrumb">
+      <li><%= link_to 'Users', users_path %><span class="divider">/</span></li>
+      <li><%= link_to @user.username, @user %><span class="divider">/</span></li>
+      <li class="active"><%= @corp.corporationName %></li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="span2">
+    <div class="thumbnail">
+      <img src="http://image.eveonline.com/Corporation/<%= @corp.corporationID %>_128.png" alt="">
+    </div>
+  </div>
+  <div class="span10">
+    <h2>[<%= @corp.ticker %>] <%= @corp.corporationName %></h2>
+    <p><%= @corp.description %></p>
+  </div>
+  <div class="span12 mt20">
+    <div class="row">
+      <div class="span6">
+        <%= render 'sheet' %>
+      </div>
+    </div>
+  </div>
+
+</div>
