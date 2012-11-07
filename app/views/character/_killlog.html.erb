@@ -1,0 +1,21 @@
+<table class="table table-condensed table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Ship</th>
+      <th>Victim</th>
+      <th>Attacker</th>
+      <th>Items</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @kills.kills.each do |kill| %>
+      <tr>
+        <td>
+          <%= type_icon(kill.victim.shipTypeID,'32') %>
+          <%= type_id_to_name(kill.victim.shipTypeID) %></td>
+        <td><%= kill.victim.characterName %></td>
+        <td><%= kill.inspect %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
