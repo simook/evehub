@@ -4,6 +4,7 @@ gem 'rails', '3.2.8'
 
 group :development, :test do
  gem 'sqlite3'
+ gem 'debugger'
 end
 
 group :assets do

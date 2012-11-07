@@ -12,8 +12,13 @@ $white: #fff;
 body {
   position: relative;
   padding-top: 40px;
-  &.home {
-    @include background(url('3.jpg') top center no-repeat);
+  background-repeat: no-repeat;
+  &.recruitment,&.sessions {
+    @include background(image-url('2.jpg'));
+    background-color: #04090d;
+  }
+  &.home,&.registrations {
+    @include background(image-url('3.jpg'));
     background-color: #0d0e10;
   }
   &.recruitment, &.registrations.new, &.registrations.create {

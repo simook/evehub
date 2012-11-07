@@ -25,32 +25,28 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource
-    apikey = params[:user][:apikey]
-    apisecret = params[:user][:secretkey]
+    apikey = resource.apikey
+    apisecret = resource.secretkey
 
     if verify_eve_api(apikey,apisecret)
-
+      # if verify_eve_api is true
     else
-      if resource.save
-        if resource.active_for_authentication?
-          set_flash_message :notice, :signed_up if is_navigational_format?
-          sign_up(resource_name, resource)
-          respond_with resource, :location => after_sign_up_path_for(resource)
-        else
-          set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-          expire_session_data_after_sign_in!
-          respond_with resource, :location => after_inactive_sign_up_path_for(resource)
-        end
-      else
-        clean_up_passwords resource
-        respond_with resource
-      end
+      # if verify_eve_api is false
+      flash[:alert] = "Your EVE API does not have full access."
+      render "new"
     end
   end
 
   private
   def verify_eve_api(key,secret)
-    accessmask = EAAL::API.new(key,secret).APIKeyInfo.key.to_json
-    puts accessmask
+    begin
+      accessmask = EAAL::API.new(key,secret).APIKeyInfo
+    rescue EAAL::Exception::EveAPIException => e
+      #EAAL::Exception::EveAPIException
+      flash[:alert] = "Step 2: #{e.message}"
+      render "new"
+    else
+      false
+    end
   end
 end
