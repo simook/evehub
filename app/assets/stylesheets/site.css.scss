@@ -16,7 +16,7 @@ body {
     @include background(url('3.jpg') top center no-repeat);
     background-color: #0d0e10;
   }
-  &.recruitment, &.registrations.new {
+  &.recruitment, &.registrations.new, &.registrations.create {
     @include background(url('4.jpg') top center no-repeat);
     background-color: #000;
   }
@@ -80,6 +80,36 @@ body {
     a {
       padding: 10px 0;
       display: inline-block;
+    }
+  }
+}
+.killlog {
+  .item {
+    margin-bottom: 5px;
+    padding: 5px;
+    h5 {
+      margin: 0px;
+    }
+    .badge {
+      margin: 7px;
+    }
+    &.muted {
+      img {
+        @include opacity(.5);
+      }
+      .badge {
+        @include opacity(.5);
+      }
+    }
+  }
+  .attacker,.victim {
+    display: inline-block;
+    .type_icon {
+      padding: 0px;
+      img {
+        width: 28px;
+        height: 28px;
+      }
     }
   }
 }
