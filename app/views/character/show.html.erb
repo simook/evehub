@@ -1,44 +1,28 @@
-<div class="navbar mt20">
-  <div class="navbar-inner">
-    <ul class="breadcrumb">
-      <li><%= link_to 'Users', users_path %><span class="divider">/</span></li>
-      <li><%= link_to @user.username, @user %><span class="divider">/</span></li>
-      <li class="active"><%= @character.name %></li>
-    </ul>
-  </div>
-</div>
-<div class="row">
-  <div class="span2">
-    <div class="thumbnail">
-      <%= character_portrait(@character.characterID,'128') %>
+<%= render 'nav' %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="box">
+        <div class="tab-header"></div>
+        <h2><%= @character.name %></h2>
+        <p><%= @character.corporationName ? @character.corporationName : '<span class="muted">No Corporation</span>'.html_safe %><br/>
+          <%= @character.allianceName && @character.allianceName.nil? ? @character.allianceName : '<span class="muted">No Alliance</span>'.html_safe %>
+        </p>
+      </div>
     </div>
   </div>
-  <div class="span10">
-    <h2><%= @character.name %></h2>
-    <p><%= @character.corporationName ? @character.corporationName : '<span class="muted">No Corporation</span>'.html_safe %><br/>
-      <%= @character.allianceName && @character.allianceName.nil? ? @character.allianceName : '<span class="muted">No Alliance</span>'.html_safe %>
-    </p>
-  </div>
-  <div class="span12 mt20">
-    <div class="row">
-      <div class="span6">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="box">
+        <div class="tab-header">Character Sheet</div>
         <%= render 'sheet' %>
       </div>
-      <div class="span6">
+    </div>
+    <div class="span6">
+      <div class="box">
+        <div class="tab-header">Attributes</div>
         <%= render 'attributes' %>
       </div>
     </div>
-  </div>
-  <div class="span12">
-    <ul class="nav nav-tabs" id="characterTabs">
-      <li><a href="#employment" data-toggle="tab">Employment</a></li>
-      <li><a href="#skills" data-toggle="tab">Skills</a></li>
-      <li><a href="#killlog" data-toggle="tab">Kill Log</a></li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane" id="employment"><%= render 'employment' %></div>
-      <div class="tab-pane well muted" id="skills">coming soon</div>
-      <div class="tab-pane well muted" id="killlog">yeah, this had to be rebuilt</div>
-    <div>
   </div>
 </div>

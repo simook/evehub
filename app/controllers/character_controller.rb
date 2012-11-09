@@ -5,9 +5,33 @@ class CharacterController < ApplicationController
   def show
     @user = User.find(params[:user_id])
     @character = character_sheet_eve_api(@user,params[:id])
-    @kills = character_kills_eve_api(@user,params[:id])
     @info = character_info_eve_api(@user,params[:id])
     render :layout => 'admin'
+  end
+
+  def info
+    @user = User.find(params[:user_id])
+    @character = character_sheet_eve_api(@user,params[:id])
+    @info = character_info_eve_api(@user,params[:id])
+    render :layout => 'admin'
+  end
+
+  def killlog
+    @user = User.find(params[:user_id])
+    @character = character_sheet_eve_api(@user,params[:id])
+    @info = character_info_eve_api(@user,params[:id])
+    @kills = character_kills_eve_api(@user,params[:id])
+    render :layout => 'admin'
+  end
+
+  def employment
+    @user = User.find(params[:user_id])
+    @info = character_info_eve_api(@user,params[:id])
+    @character = character_sheet_eve_api(@user,params[:id])
+    render :layout => 'admin'
+  end
+
+  def skills
   end
 
   private

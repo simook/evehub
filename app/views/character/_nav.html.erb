@@ -1,0 +1,33 @@
+<% content_for :secondary do %>
+<nav id="secondary" class="user-nav">
+  <div class="character-menu">
+    <div class="pull-left">
+      <div class="avatar">
+        <%= character_portrait(@character.characterID,'64') %>
+      </div>
+    </div>
+    <div class="pull-left">
+      <div class="title"><%= @character.name %></div>
+    </div>
+  </div>
+  <ul class="secondary-nav-menu">
+    <%= nav_link 'Character Info', user_character_path(@user, @character.characterID) %>
+    <%= nav_link 'Employment History', employment_user_character_path(@user, @character.characterID) %>
+    <%= nav_link 'Skills', skills_user_character_path(@user, @character.characterID) %>
+    <%= nav_link 'Kill Log', killlog_user_character_path(@user, @character.characterID) %>
+  </ul>
+</nav>
+<% end %>
+<div class="top-nav">
+  <div class="container-fluid">
+    <div class="row-fluid ">
+      <div class="span12">
+        <ul class="breadcrumb">
+          <li><%= link_to 'Users', users_path %></li>
+          <li><%= link_to @user.username, @user %></li>
+          <li class="active"><%= link_to @character.name, user_character_path(@user, @character.characterID) %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

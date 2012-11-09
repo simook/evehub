@@ -9,6 +9,9 @@ $lightblue: #9FC3DD;
 $greywhite: #B8D0DA;
 $white: #fff;
 
+html{
+  height: 100%;
+}
 body {
   position: relative;
   padding-top: 40px;
@@ -68,53 +71,5 @@ body {
   }
 }
 #main {
-  .container {
-    @include background(linear-gradient(top,#fff,darken(#fff,2)));
-    position: relative;
-    padding: 10px 20px 20px;
-    //width: 900px;
-    margin-top: 20px;
-    @include box-shadow(0 0 10px #000);
-  }
-}
-.navbar {
-  .breadcrumb {
-    background: none;
-    margin: 0px;
-    padding: 0px;
-    a {
-      padding: 10px 0;
-      display: inline-block;
-    }
-  }
-}
-.killlog {
-  .item {
-    margin-bottom: 5px;
-    padding: 5px;
-    h5 {
-      margin: 0px;
-    }
-    .badge {
-      margin: 7px;
-    }
-    &.muted {
-      img {
-        @include opacity(.5);
-      }
-      .badge {
-        @include opacity(.5);
-      }
-    }
-  }
-  .attacker,.victim {
-    display: inline-block;
-    .type_icon {
-      padding: 0px;
-      img {
-        width: 28px;
-        height: 28px;
-      }
-    }
-  }
+
 }
