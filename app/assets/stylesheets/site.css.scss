@@ -71,5 +71,111 @@ body {
   }
 }
 #main {
-
+  .container {
+    @include background(linear-gradient(top,#fff,darken(#fff,2)));
+    position: relative;
+    padding: 10px 20px 20px;
+    //width: 900px;
+    margin-top: 20px;
+    @include box-shadow(0 0 10px #000);
+  }
+}
+.box {
+  @include box-shadow(0px 2px 4px rgba(0, 0, 0, 0.4));
+  @include border-radius(5px);
+  background: #F1F1F1;
+  margin-bottom: 20px;
+  .tab-header {
+    color: #666;
+    @include background(linear-gradient(top, #EEE, #CCC));
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid #F8F8F8;
+  }
+  .padded {
+    padding: 20px;
+  }
+}
+.tab-header{
+  line-height: 32px;
+  height: 32px;
+  padding-left: 15px;
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  @include border-radius(5px 5px 0 0 / 5px 5px 0 0);
+  @include background(linear-gradient(top, #494852, #2A2A30));
+  @include box-shadow(inset 0px 1px 0px rgba(255, 255, 255, 0.1));
+  border-bottom: 1px solid #1D1E21;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+}
+.black-box {
+  @include box-shadow(0px 0px 10px rgba(0, 0, 0, 0.6), inset 1px 0px 0px rgba(255, 255, 255, 0.1), inset -1px 0px 0px rgba(255, 255, 255, 0.1), inset 0px -1px 0px rgba(255, 255, 255, 0.1));
+  @include border-radius(5px);
+  border: 1px solid #1D1E21;
+  background: url('linen-light.png'), #3B3B42;
+  color: white;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  .modal-header {
+    padding: 0px 12px;
+    width: auto;
+  }
+  .modal-body {
+    width: auto;
+  }
+  .tab-header {
+    line-height: 32px;
+    height: 32px;
+    padding-left: 15px;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    @include border-radius(5px 5px 0 0 / 5px 5px 0 0);
+    @include background(linear-gradient(top, #494852, #2A2A30));
+    @include box-shadow(inset 0px 1px 0px rgba(255, 255, 255, 0.1));
+    border-bottom: 1px solid #1D1E21;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+  .modal-footer {
+    border-top: none;
+    @include box-shadow(none);
+    width: 100%;
+    background-color: transparent;
+  }
+}
+.seperator {
+  @include box-shadow(0px 1px 0px rgba(255, 255, 255, 0.09));
+  border-bottom: 1px solid #303030;
+}
+.inner-well {
+  @include box-shadow(0px 1px 0px rgba(255, 255, 255, 0.1));
+  border: 1px solid #2B2B2F;
+  background: #3A3A41;
+  @include border-radius(5px);
+  padding: 8px;
+}
+table {
+  &.box {
+    font-size: 12px;
+    background: #fafafa;
+    th,td {
+      padding-left: 15px;
+    }
+  }
+}
+.badge {
+  &.red {
+    @include box-shadow(0px 1px 0px 0px rgba(255, 255, 255, 0.3));
+    color: white;
+    background: #C00;
+    border: 1px solid #8A0000;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+  }
+  &.black {
+    @include box-shadow(0px 1px 0px 0px rgba(255, 255, 255, 0.3));
+    color: white;
+    background: #262626;
+    border: 1px solid #050505;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.8);
+  }
 }

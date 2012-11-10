@@ -20,8 +20,12 @@ class CharacterController < ApplicationController
     @user = User.find(params[:user_id])
     @character = character_sheet_eve_api(@user,params[:id])
     @info = character_info_eve_api(@user,params[:id])
-    @kills = character_kills_eve_api(@user,params[:id])
-    render :layout => 'admin'
+    @killlog = character_kills_eve_api(@user,params[:id])
+
+    respond_to do |format|
+      format.html {render :layout => 'admin'}
+      format.json {render json: @killlog}
+    end
   end
 
   def employment

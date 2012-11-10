@@ -1,73 +1,75 @@
 <%= render 'nav' %>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span12">
+    <div class="span12" data->
       <div class="box">
         <div class="tab-header">Kill Log</div>
         <table class="table table-condensed table-bordered killlog">
           <thead>
             <tr>
-              <th>Time</th>
               <th>Victim</th>
               <th>Attacker/s</th>
               <th>Items</th>
             </tr>
           </thead>
-          <tbody>
-            <% @kills.kills.each_with_index do |kill, i| %>
-              <tr>
-                <td>
-                  <a href="#" class="btn btn-small" rel="tooltip" title="<%= time_ago_in_words(kill.killTime) %><br/><%= kill.killTime %>"><i class="icon-time"></i></a>
-                </td>
-                <td>
-                  <div class="btn-group attacker">
-                    <button class="btn type_icon"><%= type_icon(kill.victim.shipTypeID,'32') %></button>
-                    <button class="btn"><%= kill.victim.characterName %></button>
-                    <button class="btn btn-danger"><%= kill.victim.damageTaken %></button>
-                  </div>
-                </td>
-                <td>
-                  <% kill.attackers.each_with_index do |attacker,i| %>
-                    <div class="btn-group attacker">
-                      <button class="btn type_icon"><%= type_icon(attacker.shipTypeID,'32') %></button>
-                      <button class="btn"><%= attacker.characterName %></button>
-                      <button class="btn"><span class="text-error"><%= attacker.damageDone %></span></button>
-                    </div>
-                  <% end %>
-                </td>
-                <td>
-                  <a href="#items<%= i %>" class="btn btn-mini" data-toggle="modal"><%= kill.items.length %> <span class="caret"></span></a>
-                  <div id="items<%= i %>" class="modal hide fade" role="dialog">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h3><%= kill.items.length %> Items</h3>
-                    </div>
-                    <div class="modal-body">
-                      <% kill.items.each do |item| %>
-                        <div class="well well-small item clearfix <%= item.qtyDestroyed >= item.qtyDropped ? 'muted' : '' %>">
-                          <div class="pull-left">
-                            <span class="span1"><%= type_icon(item.typeID,'32') %></span>
-                            <span class="span5">
-                              <h5><%= type_id_to_name(item.typeID) %></h5>
-                            </span>
-                          </div>
-                          <div class="pull-right">
-                            <% if item.qtyDestroyed >= item.qtyDropped %>
-                            <span class="badge"><%= item.qtyDestroyed %></span>
-                            <% else %>
-                            <span class="badge badge-success"><%= item.qtyDropped %></span>
-                            <% end %>
-                          </div>
-                        </div>
-                      <% end %>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
+          <tbody data-bind="template:{name: 'kills', foreach: kills}">
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
+<script type="text/html" id="kills">
+<tr>
+  <td data-bind="if: victim">
+    <div class="btn-group attacker">
+      <button class="btn type_icon" data-bind="icon:{id:victim.attribs.shipTypeID,size:'32',type:'InventoryType'}"></button>
+      <button class="btn" data-bind="text:victim.attribs.characterName"></button>
+      <button class="btn btn-danger" data-bind="text:victim.attribs.damageTaken"></button>
+    </div>
+  </td>
+  <td data-bind="foreach: attackers">
+    <div class="btn-group attacker">
+      <button class="btn type_icon" data-bind="icon:{id:shipTypeID, size:'32',type:'InventoryType'}"></button>
+      <!-- ko if: weaponTypeID.length > 1 -->
+      <button class="btn type_icon" data-bind="icon:{id:weaponTypeID, size:'32',type:'InventoryType'}"></button>
+      <!-- /ko -->
+      <button class="btn" data-bind="text: characterName.length === 0 ? corporationName : characterName"></button>
+      <button class="btn" rel="tooltip" title="Damage done to the victim"><span class="text-error" data-bind="text: damageDone"></span></button>
+    </div>
+  </td>
+  <td data-bind="if: items">
+    <a class="btn btn-mini" data-toggle="modal" data-bind="attr:{href:'#items'+$index()}">
+      <span data-bind="text: items.length"></span>
+      <span class="caret"></span>
+    </a>
+    <div class="modal hide fade black-box" role="dialog" data-bind="attr:{id:'items'+$index()}">
+      <div class="modal-header tab-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <span data-bind="text: items.length+' Items'"></span>
+      </div>
+      <div class="modal-body" data-bind="foreach: items">
+        <div class="inner-well item clearfix ">
+          <div class="item-info">
+            <span class="span1" data-bind="icon:{id:typeID,size:'32',type:'InventoryType'}"></span>
+            <span class="span6">
+              <h5 data-bind="name:typeID"></h5>
+            </span>
+            <div class="item-count">
+              <!-- ko if: qtyDestroyed >= qtyDropped -->
+              <span class="badge red" data-bind="text: qtyDestroyed"></span>
+              <!-- /ko -->
+              <!-- ko if: qtyDropped > qtyDestroyed -->
+              <span class="badge black" data-bind="text: qtyDropped"></span>
+              <!-- /ko -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
+</script>
+<script type="text/javascript">
+  dmp.character.init();
+</script>

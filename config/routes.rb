@@ -28,4 +28,7 @@ DmpSite::Application.routes.draw do
       get 'welcome'
     end
   end
+  namespace :eve do
+    resources :typename, :only => :show
+  end
 end

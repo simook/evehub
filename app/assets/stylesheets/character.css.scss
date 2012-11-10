@@ -17,6 +17,15 @@
         @include opacity(.5);
       }
     }
+    .item-info {
+      position: relative;
+      .item-count {
+        position: absolute;
+        top: 5px;
+        right: 0px;
+      }
+    }
+
   }
   .attacker,.victim {
     display: inline-block;

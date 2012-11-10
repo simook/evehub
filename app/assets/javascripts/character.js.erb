@@ -1,0 +1,39 @@
+if (typeof window.dmp !== 'object') window.dmp = {};
+dmp.character = function(){
+  var data;
+
+  var viewModel = {
+    kills: ko.observableArray()
+  };
+
+  ko.bindingHandlers.icon = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      var icon = allBindingsAccessor(valueAccessor()).icon;
+      var format = icon.type === 'Character' ? '.jpg' : '.png';
+      var url = 'http://image.eveonline.com/'+icon.type+'/'+icon.id+'_'+icon.size+format;
+      var img = '<img src="'+url+'" />';
+      ko.utils.setHtml(element, img);
+    }
+  };
+
+  ko.bindingHandlers.name = {
+   update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+     var id = allBindingsAccessor(valueAccessor()).name;
+     console.log(id);
+
+
+    }
+  }
+
+  var init = function(){
+    ko.applyBindings(viewModel);
+    $.getJSON(window.location.pathname, function(json){
+      for (var i = 0; i < json.kills.length; i++) {
+       viewModel.kills.push(json.kills[i]);
+      };
+    });
+  };
+
+  return {init:init,
+          viewModel:viewModel};
+}();
