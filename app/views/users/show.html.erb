@@ -1,52 +1,56 @@
-<div class="top-nav">
-  <div class="container-fluid">
-    <div class="row-fluid ">
-      <div class="span12">
-        <ul class="breadcrumb">
-          <li><%= link_to 'Users', users_path %></li>
-          <li class="active"><a href="#"><%= @user.username %></a></li>
-        </ul>
+<% content_for :secondary do %>
+<nav id="secondary" class="user-nav">
+
+</nav>
+<% end %>
+<% content_for :breadcrumb do %>
+<li><%= link_to 'Users', users_path %></li>
+<li class="active"><a href="#"><%= @user.username %></a></li>
+<% end %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="box clearfix">
+        <div class="tab-header">User Info</div>
+          <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd><%= @user.name ? @user.name : "empty" %></dd>
+            <dt>Username</dt>
+            <dd><%= @user.username ? @user.username : "empty" %></dd>
+            <dt>Email</dt>
+            <dd><%= @user.email ? @user.email : "empty" %></dd>
+            <dt>API Id</dt>
+            <dd><%= @user.apikey ? @user.apikey : "empty" %></dd>
+            <dt>Verification Code</dt>
+            <dd><%= @user.secretkey ? @user.secretkey : "empty" %></dd>
+          </dl>
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid">
   <div class="row-fluid">
-    <div class="span8">
-      <h5>General Info</h5>
-      <dl class="dl-horizontal">
-        <dt>Name</dt>
-        <dd><%= @user.name ? @user.name : "empty" %></dd>
-        <dt>Username</dt>
-        <dd><%= @user.username ? @user.username : "empty" %></dd>
-        <dt>Email</dt>
-        <dd><%= @user.email ? @user.email : "empty" %></dd>
-        <dt>API Id</dt>
-        <dd><%= @user.apikey ? @user.apikey : "empty" %></dd>
-        <dt>Verification Code</dt>
-        <dd><%= @user.secretkey ? @user.secretkey : "empty" %></dd>
-      </dl>
-    </div>
-    <div class="span12">
-      <h5>EVE Info</h5>
-      <table class="table table-condensed table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>Character/s</th>
-            <th>ID</th>
-            <th>Corporation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @eve.Characters.characters.each do |c| %>
+    <div class="span6">
+      <div class="box">
+        <div class="tab-header">EVE Characters</div>
+        <table class="table table-condensed table-hover box">
+          <thead>
             <tr>
-              <td><%= link_to c.name, user_character_path(@user, c.characterID) %></td>
-              <td><%= c.characterID %></td>
-              <td><%= c.corporationName %> <small>(<%= c.corporationID %>)</small></td>
+              <th>Character/s</th>
+              <th>ID</th>
+              <th>Corporation</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% @eve.Characters.characters.each do |c| %>
+              <tr>
+                <td><%= link_to c.name, user_character_path(@user, c.characterID) %></td>
+                <td><%= c.characterID %></td>
+                <td><%= c.corporationName %> <small>(<%= c.corporationID %>)</small></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
   </div>
 </div>

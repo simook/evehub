@@ -3,7 +3,8 @@ dmp.character = function(){
   var data;
 
   var viewModel = {
-    kills: ko.observableArray()
+    character: ko.observableArray(),
+    loaded: ko.observable(false)
   };
 
   ko.bindingHandlers.icon = {
@@ -19,21 +20,63 @@ dmp.character = function(){
   ko.bindingHandlers.name = {
    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
      var id = allBindingsAccessor(valueAccessor()).name;
-     console.log(id);
-
-
+     $.getJSON('/eve/items/'+id, function(data){
+       ko.utils.setHtml(element, data.typeName);
+     });
     }
   }
 
-  var init = function(){
+  ko.bindingHandlers.total = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      var values = allBindingsAccessor(valueAccessor()).total;
+      var total = Math.round(parseInt(values.value1)+parseInt(values.value2));
+      ko.utils.setHtml(element, total);
+    }
+  };
+
+  ko.bindingHandlers.isk = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
+      var value = allBindingsAccessor(valueAccessor()).isk;
+      var isk = formatNumber(value)+' ISK'
+      ko.utils.setHtml(element, isk);
+    }
+  };
+
+  var formatNumber = function(nStr){
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+  };
+
+  var killlog = function(){
     ko.applyBindings(viewModel);
     $.getJSON(window.location.pathname, function(json){
       for (var i = 0; i < json.kills.length; i++) {
-       viewModel.kills.push(json.kills[i]);
+       viewModel.character.push(json.kills[i]);
       };
+    }).complete(function(){
+      viewModel.loaded(true);
     });
   };
 
-  return {init:init,
-          viewModel:viewModel};
+  var sheet = function(){
+    ko.applyBindings(viewModel);
+    $.getJSON(window.location.pathname, function(json){
+      console.log(json);
+      viewModel.character.push(json);
+
+    }).complete(function(){
+      viewModel.loaded(true);
+    });
+  };
+
+  return {killlog: killlog,
+          sheet: sheet,
+          viewModel: viewModel};
 }();

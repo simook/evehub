@@ -1,0 +1,164 @@
+<%= render 'nav' %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="box">
+        <div class="tab-header">Character Sheet</div>
+        <!-- ko ifnot: loaded -->
+        <div class="padded muted">Loading</div>
+        <!-- /ko -->
+        <table class="table table-condensed box" data-bind="visible: loaded, foreach: character">
+          <tbody>
+            <tr>
+              <td><b>Date of Birth</b></td>
+              <td data-bind="text:DoB"></td>
+            </tr>
+            <tr>
+              <td><b>R / B / A</b></td>
+              <td><span data-bind="text:race"></span> / <span data-bind="text:bloodLine"></span> / <span data-bind="text:ancestry"></span></td>
+            </tr>
+            <tr>
+              <td><b>Skill Points</b></td>
+              <td data-bind=""></td>
+            </tr>
+            <tr>
+              <td><b>Clone</b></td>
+              <td>
+                <a href="#" rel="tooltip" data-bind="text: cloneName, attr:{title:cloneSkillPoints}"></a>
+              </td>
+            </tr>
+            <tr>
+              <td><b>ISK</b></td>
+              <td data-bind="isk:balance"></td>
+            </tr>
+            <tr>
+              <td><b>Security Status</b></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="span6">
+      <div class="box">
+        <div class="tab-header">Attributes</div>
+        <!-- ko ifnot: loaded -->
+        <div class="padded muted">Loading</div>
+        <!-- /ko -->
+        <table class="table table-condensed box" data-bind="visible: loaded, foreach: character">
+          <thead>
+            <tr>
+              <th>Attributes</th>
+              <th>Base</th>
+              <th>Implants</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Intelligence</td>
+              <!-- ko with: attributes -->
+              <td data-bind="text: intelligence"></td>
+              <!-- /ko -->
+              <!-- ko with: attributeEnhancers.intelligenceBonus -->
+              <td data-bind="text: augmentatorValue"></td>
+              <td><b data-bind="total:{value1:augmentatorValue, value2:$parent.attributes.perception}"></b></td>
+              <!-- /ko -->
+              <!-- ko ifnot: attributeEnhancers.intelligenceBonus -->
+              <td>-</td>
+              <td><b data-bind="text: attributes.intelligence"></b></td>
+              <!-- /ko -->
+            </tr>
+            <tr>
+              <td>Memory</td>
+              <!-- ko with: attributes -->
+              <td data-bind="text: memory"></td>
+              <!-- /ko -->
+              <!-- ko with: attributeEnhancers.memoryBonus -->
+              <td data-bind="text: augmentatorValue"></td>
+              <td><b data-bind="total:{value1:augmentatorValue, value2:$parent.attributes.perception}"></b></td>
+              <!-- /ko -->
+              <!-- ko ifnot: attributeEnhancers.memoryBonus -->
+              <td>-</td>
+              <td><b data-bind="text: attributes.memory"></b></td>
+              <!-- /ko -->
+            </tr>
+            <tr>
+              <td>Charisma</td>
+              <!-- ko with: attributes -->
+              <td data-bind="text: charisma"></td>
+              <!-- /ko -->
+              <!-- ko with: attributeEnhancers.charismaBonus -->
+              <td data-bind="text: augmentatorValue"></td>
+              <td><b data-bind="total:{value1:augmentatorValue, value2:$parent.attributes.perception}"></b></td>
+              <!-- /ko -->
+              <!-- ko ifnot: attributeEnhancers.charismaBonus -->
+              <td>-</td>
+              <td><b data-bind="text: attributes.charisma"></b></td>
+              <!-- /ko -->
+            </tr>
+            <tr>
+              <td>Perception</td>
+              <!-- ko with: attributes -->
+              <td data-bind="text: perception"></td>
+              <!-- /ko -->
+              <!-- ko with: attributeEnhancers.perceptionBonus -->
+              <td data-bind="text: augmentatorValue"></td>
+              <td><b data-bind="total:{value1:augmentatorValue, value2:$parent.attributes.perception}"></b></td>
+              <!-- /ko -->
+              <!-- ko ifnot: attributeEnhancers.perceptionBonus -->
+              <td>-</td>
+              <td><b data-bind="text: attributes.perception"></b></td>
+              <!-- /ko -->
+            </tr>
+            <tr>
+              <td>Willpower</td>
+              <!-- ko with: attributes -->
+              <td data-bind="text: willpower"></td>
+              <!-- /ko -->
+              <!-- ko with: attributeEnhancers.willpowerBonus -->
+              <td data-bind="text: augmentatorValue"></td>
+              <td><b data-bind="total:{value1:augmentatorValue, value2:$parent.attributes.perception}"></b></td>
+              <!-- /ko -->
+              <!-- ko ifnot: attributeEnhancers.willpowerBonus -->
+              <td>-</td>
+              <td><b data-bind="text: attributes.willpower"></b></td>
+              <!-- /ko -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="box">
+        <div class="tab-header">Skills</div>
+        <!-- ko ifnot: loaded -->
+        <div class="padded muted">Loading</div>
+        <!-- /ko -->
+        <!-- ko foreach: character -->
+        <ul class="badges padded" data-bind="foreach: skills">
+          <li data-bind="text: typeID"></li>
+        </ul>
+        <!-- /ko -->
+      </div>
+    </div>
+    <div class="span6">
+      <div class="box">
+        <div class="tab-header">Certificates</div>
+        <!-- ko ifnot: loaded -->
+        <div class="padded muted">Loading</div>
+        <!-- /ko -->
+        <!-- ko foreach: character -->
+        <ul class="badges padded" data-bind="foreach: certificates">
+          <li data-bind="text:certificateID"></li>
+        </ul>
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  dmp.character.sheet();
+</script>

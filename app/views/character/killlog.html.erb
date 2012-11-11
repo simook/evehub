@@ -4,7 +4,10 @@
     <div class="span12" data->
       <div class="box">
         <div class="tab-header">Kill Log</div>
-        <table class="table table-condensed table-bordered killlog">
+        <!-- ko ifnot: loaded -->
+        <div class="padded muted">Loading</div>
+        <!-- /ko -->
+        <table class="table table-condensed table-bordered killlog" data-bind="visible: loaded">
           <thead>
             <tr>
               <th>Victim</th>
@@ -12,7 +15,7 @@
               <th>Items</th>
             </tr>
           </thead>
-          <tbody data-bind="template:{name: 'kills', foreach: kills}">
+          <tbody data-bind="template:{name: 'kills', foreach: character}">
           </tbody>
         </table>
       </div>
@@ -30,7 +33,7 @@
   </td>
   <td data-bind="foreach: attackers">
     <div class="btn-group attacker">
-      <button class="btn type_icon" data-bind="icon:{id:shipTypeID, size:'32',type:'InventoryType'}"></button>
+      <button class="btn type_icon" rel="popover" data-content="" data-bind="icon:{id:shipTypeID, size:'32',type:'InventoryType'}"></button>
       <!-- ko if: weaponTypeID.length > 1 -->
       <button class="btn type_icon" data-bind="icon:{id:weaponTypeID, size:'32',type:'InventoryType'}"></button>
       <!-- /ko -->
@@ -71,5 +74,5 @@
 </tr>
 </script>
 <script type="text/javascript">
-  dmp.character.init();
+  dmp.character.killlog();
 </script>

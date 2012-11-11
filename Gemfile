@@ -22,6 +22,7 @@ gem "rolify", ">= 3.2.0"
 gem "simple_form", ">= 2.0.4"
 gem "eaal"
 gem "nokogiri"
+gem "active_link_to"
 
 group :production do
   gem "thin", ">= 1.5.0"

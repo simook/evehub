@@ -22,12 +22,6 @@ body.admin {
   border-right: 1px solid black;
   border-left: 1px solid black;
   ul {
-    .active a{
-      background: #C5C5C5;
-      @include background(linear-gradient(top, #ECECEC, #C5C5C5));
-      color: #35353C;
-      text-shadow: 0px 1px 1px rgba(248, 248, 248, 0.5);
-    }
     a {
       font-size: 12px;
       line-height: 28px;
@@ -36,6 +30,12 @@ body.admin {
       i {
         float: left;
         margin-right: 5px;
+      }
+      &.active {
+        background: #C5C5C5;
+        @include background(linear-gradient(top, #ECECEC, #C5C5C5));
+        color: #35353C;
+        text-shadow: 0px 1px 1px rgba(248, 248, 248, 0.5);
       }
     }
   }
@@ -64,10 +64,8 @@ body.admin {
           display: block;
           margin-top: 5px;
         }
-      }
-      &.active {
-        a {
-          font-weight: bold;
+        &.active {
+         font-weight: bold;
           background: rgba(0,0,0,.4);
         }
       }

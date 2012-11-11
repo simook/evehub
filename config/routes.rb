@@ -29,6 +29,8 @@ DmpSite::Application.routes.draw do
     end
   end
   namespace :eve do
-    resources :typename, :only => :show
+    resources :items, :only => :show
+    resources :skilltree, :only => :index
+    resources :certificatetree, :only => :index
   end
 end

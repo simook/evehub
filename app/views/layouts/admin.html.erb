@@ -12,14 +12,37 @@
 <body class="admin <%= controller_name %> <%= action_name %>">
   <nav id="primary" class="admin-nav" >
     <ul>
-      <li>
-        <a href="stats.html"><i class="icon-user icon-white"></i>Admin</a>
-      </li>
-      <%= nav_link 'Users', users_path %>
+     <li><%= active_link_to 'Users', users_path %></li>
     </ul>
   </nav>
   <%= yield(:secondary) %>
   <div id="main">
+    <div class="top-nav">
+      <div class="container-fluid">
+        <div class="row-fluid ">
+          <div class="span12">
+            <ul class="breadcrumb pull-left">
+              <%= yield(:breadcrumb) %>
+            </ul>
+            <ul class="nav pull-right">
+              <% if user_signed_in? %>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= current_user.username %> <b class="caret"></b></a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <%= nav_link 'Your Account', edit_user_registration_path %>
+                    <% if current_user.has_role? :admin %>
+                      <%= nav_link 'Admin', users_path %>
+                    <% end %>
+                    <li class="divider"></li>
+                    <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+                  </ul>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <%= render 'layouts/messages' %>
     <%= yield %>
   </div>

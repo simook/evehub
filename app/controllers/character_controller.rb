@@ -6,14 +6,22 @@ class CharacterController < ApplicationController
     @user = User.find(params[:user_id])
     @character = character_sheet_eve_api(@user,params[:id])
     @info = character_info_eve_api(@user,params[:id])
-    render :layout => 'admin'
+
+    respond_to do |format|
+      format.html {render :layout => 'admin'}
+      format.json {render json: @info}
+    end
   end
 
   def info
     @user = User.find(params[:user_id])
     @character = character_sheet_eve_api(@user,params[:id])
     @info = character_info_eve_api(@user,params[:id])
-    render :layout => 'admin'
+
+    respond_to do |format|
+      format.html {render :layout => 'admin'}
+      format.json {render json: @character}
+    end
   end
 
   def killlog
@@ -32,10 +40,22 @@ class CharacterController < ApplicationController
     @user = User.find(params[:user_id])
     @info = character_info_eve_api(@user,params[:id])
     @character = character_sheet_eve_api(@user,params[:id])
-    render :layout => 'admin'
+
+    respond_to do |format|
+      format.html {render :layout => 'admin'}
+      format.json {render json: @employment}
+    end
   end
 
   def skills
+    @user = User.find(params[:user_id])
+    @info = character_info_eve_api(@user,params[:id])
+    @character = character_sheet_eve_api(@user,params[:id])
+
+    respond_to do |format|
+      format.html {render :layout => 'admin'}
+      format.json {render json: @employment}
+    end
   end
 
   private
