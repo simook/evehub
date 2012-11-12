@@ -25,7 +25,6 @@ class RegistrationsController < Devise::RegistrationsController
           sign_in @user, :bypass => true
           redirect_to account_path, :notice => "Your account has been updated"
         elsif @verify === false
-          debugger
           flash[:alert] = "<h4>Your EVE API does not have full access.</h4>When creating your <a href='https://support.eveonline.com/api/Key/CreatePredefined/227488251' target='_blank'>EVE API key</a>, make sure the Access Mask has a value of at least 227488251.".html_safe
           render "edit"
         else
