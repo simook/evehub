@@ -11,12 +11,12 @@ $white: #fff;
 
 html{
   height: 100%;
-  overflow: hidden;
 }
 body {
   position: relative;
   padding-top: 40px;
   background-repeat: no-repeat;
+  height: 100%;
   &.recruitment,&.sessions {
     @include background(image-url('2.jpg'));
     background-color: #04090d;
