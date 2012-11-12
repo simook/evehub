@@ -1,21 +1,25 @@
 <ul class="nav">
-  <%= nav_link 'Home', root_path %>
-  <%= nav_link 'Recruitment', recruitment_index_path %>
+  <% if user_signed_in? %>
+    <%= nav_link 'Home', corporation_index_path %>
+  <% else %>
+    <%= nav_link 'Home', root_path %>
+    <%= nav_link 'Recruitment', recruitment_index_path %>
+  <% end %>
 </ul>
 <ul class="nav pull-right">
   <% if user_signed_in? %>
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= current_user.username %> <b class="caret"></b></a>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-        <%= nav_link 'Your Account', edit_user_registration_path %>
+        <%= nav_link 'Your Account', account_path %>
         <% if current_user.has_role? :admin %>
           <%= nav_link 'Admin', users_path %>
         <% end %>
         <li class="divider"></li>
-        <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+        <li><%= link_to 'Logout', logout_path, :method=>'delete' %></li>
       </ul>
     </li>
   <% else %>
-    <li><%= nav_link 'Login', new_user_session_path %></li>
+    <li><%= nav_link 'Login', login_path %></li>
   <% end %>
 </ul>

@@ -21,6 +21,7 @@ gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"
 gem "simple_form", ">= 2.0.4"
 gem "eaal"
+gem "nokogiri"
 
 group :production do
   gem "thin", ">= 1.5.0"

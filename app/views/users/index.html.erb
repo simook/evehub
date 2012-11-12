@@ -11,6 +11,7 @@
               <th>Email</th>
               <th>Registered</th>
               <th>Role</th>
+              <th>EVE API</th>
               <th></th>
               <th></th>
           </tr>
@@ -23,6 +24,7 @@
             <td><%= user.email %></td>
             <td><%= user.created_at.to_date %></td>
             <td><%= user.roles.first.name.titleize unless user.roles.first.nil? %></td>
+            <td><%= user.apiverified === 1 ? "<span class='text-success'>Verified</span>".html_safe : "<span class='muted'>Invalid</span>".html_safe %></td>
             <td>
               <a data-toggle="modal" href="#role-options-<%= user.id %>" class="btn btn-mini" type="button">Change role</a>
               <%= render user %>

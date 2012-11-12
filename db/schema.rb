@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121103213409) do
+ActiveRecord::Schema.define(:version => 20121111215506) do
+
+  create_table "items", :force => true do |t|
+    t.string   "typeID"
+    t.string   "typeName"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -51,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20121103213409) do
     t.string   "username"
     t.string   "apikey"
     t.string   "secretkey"
+    t.integer  "apiverified"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

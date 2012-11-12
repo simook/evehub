@@ -1,4 +1,10 @@
 class CorporationController < ApplicationController
+  def index
+    @user = current_user
+    if !@user
+     redirect_to login_path
+    end
+  end
 
   def show
     @user = User.find(params[:user_id])
