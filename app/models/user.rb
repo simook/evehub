@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :role_ids, :as => :admin
-  attr_accessible :name, :username, :email, :password, :password_confirmation, :remember_me, :apikey, :secretkey
+  attr_accessible :name, :username, :email, :password, :password_confirmation, :remember_me, :apikey, :secretkey, :primary_character_id, :apiverified
 
 end

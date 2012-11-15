@@ -26,25 +26,65 @@
     <div class="row">
       <div class="span6">
         <h3>Step 2</h3>
-        <p class="muted">Your EVE api key is required to be accepted into our corporation. Your api information is only visible to the corporation CEO and Director.</p>
-        <p><a class="btn btn-mini" href="https://support.eveonline.com/api/Key/CreatePredefined/227488251" target="_blank">Create API key</a></p>
+        <p class="muted">Your EVE api key is required to be accepted into our corporation. The button below will take you to EVE and prefill what we require access to.</p>
+        <p><a class="btn btn-mini" href="https://support.eveonline.com/api/Key/CreatePredefined/227488251" target="_blank">Create EVE API Key</a></p>
+        <p class="mt20">* All fields are required</p>
       </div>
       <div class="span6">
-        <%= f.input :apikey, :label => 'ID', :required => true %>
-        <%= f.input :secretkey, :label => 'Verification Code', :required => true  %>
+        <div class="alert alert-error" data-bind="visible:error,text:error"></div>
+        <%= f.input :apikey, :required=>true, :label => 'ID', :input_html=>{:data=>{:bind=>'value:apikey'}} %>
+        <%= f.input :secretkey, :required=>true, :label => 'Verification Code', :input_html=>{:data=>{:bind=>'value:secretkey'}}  %>
+        <!-- ko if: verified -->
+        <div class="control-group required">
+          <label class="string required control-label" for="user_primary_character_id"><abbr title="required">*</abbr> Character</label>
+          <div class="controls">
+            <select class="required" name="user[primary_character_id]" id="user_primary_character_id" data-bind="foreach: characters">
+              <option data-bind="text:characterName, value:characterID"></option>
+            </select>
+          </div>
+        </div>
+        <!-- /ko -->
+        <div class="controls">
+          <!-- ko ifnot: verified -->
+          <%= link_to 'Verify EVE API', '#', :class=>'btn btn-primary', :id=>'verifyApi', :data=>{:bind=>'click:verify',:"loading-text"=>'Verifying with EVE...'}%>
+          <!-- /ko -->
+        </div>
       </div>
     </div>
   </div>
-  <div class="span12 reg-step">
+  <div class="span12 reg-step mt20">
     <div class="row">
       <div class="span6">
         <h3>Final</h3>
         <p>After submitting your membership here, you will then need to go and apply to our corp in EVE.</p>
       </div>
       <div class="span5 mt20">
-        <%= f.button :submit, 'Submit My Membership', :class => 'btn btn-primary btn-large pull-right' %>
+        <!-- ko if: verified -->
+        <%= f.button :submit, 'Submit My Membership', :class => 'btn-primary btn-large pull-right' %>
+        <!-- /ko -->
+        <!-- ko ifnot: verified -->
+        <span class="btn btn-large disabled pull-right">Submit My Membership</span>
+        <!-- /ko -->
       </div>
+    </div>
+  </div>
+  <div class="modal hide fade" id="userCharacters">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>[D-M-P] Character</h3>
+    </div>
+    <div class="modal-body">
+      <p>We see you have a couple characters, please select the primary character that you want to join [D-M-P] with.</p>
+      <ul class="characters-list" data-bind="foreach: characters">
+        <li><a href="#" class="btn btn-large btn-block" data-bind="text:characterName"></a></li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary">Save changes</a>
     </div>
   </div>
   <% end %>
 </div>
+<script type="text/javascript">
+  dmp.eveapi.init();
+</script>

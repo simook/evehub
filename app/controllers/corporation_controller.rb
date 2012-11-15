@@ -2,7 +2,9 @@ class CorporationController < ApplicationController
   def index
     @user = current_user
     if !@user
-     redirect_to login_path
+      redirect_to login_path
+    else
+      render :layout => 'hub'
     end
   end
 

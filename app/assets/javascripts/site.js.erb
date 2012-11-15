@@ -1,3 +1,4 @@
+<% url = Rails.application.routes.url_helpers %>
 $(function(){
   $('#accountTabs a').click(function (e) {
     e.preventDefault();
@@ -23,3 +24,46 @@ $(function(){
   $('a[rel="tooltip"]').tooltip();
   $('.popover').popover('show');
 });
+
+if (typeof window.dmp !== 'object') window.dmp = {};
+dmp.eveapi = function(){
+  var viewModel = {
+    apikey: ko.observable(),
+    secretkey: ko.observable(),
+    characters: ko.observableArray(),
+    verified: ko.observable(false),
+    selectedCharacter: ko.observable(),
+    error: ko.observable(false),
+    verify: function(value,event){
+     var self = this;
+     $(event.target).button('loading');
+      $.getJSON('<%= url.eve_apikeyinfo_index_path %>', {key:this.apikey,secret:this.secretkey}, function(json){
+        self.characters.destroyAll();
+        if(json && json.status === 'error'){
+          self.error(json.msg);
+          self.verified(false);
+        } else {
+          self.error(false);
+          if(json.accessmask >= '227488251'){
+            self.verified(true);
+            for (var i = json.characters.length - 1; i >= 0; i--) {
+              self.characters.push(json.characters[i]);
+            };
+          } else {
+            self.verified(false);
+            self.error("Your EVE API does not have full access.");
+          };
+        };
+      }).complete(function(){
+        $(event.target).button('reset');
+      });
+    }
+  };
+
+  var init = function(){
+    ko.applyBindings(viewModel);
+  };
+
+  return {init:init,
+          viewModel:viewModel}
+}();

@@ -1,41 +1,41 @@
-<div class="mt20">
-  <ul class="nav nav-tabs" id="accountTabs">
-    <li class="active">
-      <a href="#account">Your Account</a>
-    </li>
-    <li>
-      <a href="#pilot">Pilot Info</a>
-    </li>
-  </ul>
-  <div class="mt15 tab-content">
-    <div class="tab-pane active row" id="account">
-      <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
-      <div class="span6 ">
-        <h5>General Info</h5>
-        <%= f.input :name %>
-        <%= f.input :username %>
-        <%= f.input :email, :required => true %>
+<% content_for :breadcrumb do %>
+<li class="active"><%= link_to 'Account', account_path %></li>
+<% end %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="box">
+        <div class="tab-header">General Info</div>
+        <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
+          <div class="padded">
+            <div class="row-fluid">
+              <div class="span6 ">
+                <h5>General Info</h5>
+                <%= f.input :name %>
+                <%= f.input :username %>
+                <%= f.input :email, :required => true %>
+              </div>
+              <div class="span5">
+                <h5><a href="https://support.eveonline.com/api/" target="_blank">EVE API</a></h5>
+                <%= f.input :apikey, :label => 'ID' %>
+                <%= f.input :secretkey, :label => 'Verification Code'  %>
+                <%= f.input :primary_character_id, :label => 'Character'  %>
+              </div>
+            </div>
+            <div class="row-fluid">
+              <div class="span5">
+                <h5>Change Password<h5>
+                <%= f.input :password, :autocomplete => "off", :required => false, :label => 'New Password' %>
+                <%= f.input :password_confirmation, :required => false %>
+              </div>
+            </div>
+          </div>
+          <div class="form-controls clearfix">
+            <%= link_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class=>"pull-left text-error mt10" %>
+            <%= f.button :submit, 'Save', :class => 'btn-primary pull-right' %>
+          </div>
+        <% end %>
       </div>
-      <div class="span5">
-        <h5><a href="https://support.eveonline.com/api/" target="_blank">EVE API</a></h5>
-        <%= f.input :apikey, :label => 'ID' %>
-        <%= f.input :secretkey, :label => 'Verification Code'  %>
-      </div>
-      <div class="span5">
-        <h5>Change Password<h5>
-        <%= f.input :password, :autocomplete => "off", :required => false, :label => 'New Password' %>
-        <%= f.input :password_confirmation, :required => false %>
-      </div>
-      <div class="span12 mt20">
-        <div class="well well-small clearfix">
-        <%= link_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class=>"pull-left text-error mt10" %>
-        <%= f.button :submit, 'Save', :class => 'btn-primary pull-right' %>
-        </div>
-      </div>
-      <% end %>
-    </div>
-    <div class="tab-pane" id="pilot">
-      <div class="well well-small muted">coming soon</div>
     </div>
   </div>
 </div>

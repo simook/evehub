@@ -3,7 +3,7 @@
   <div class="character-menu">
     <div class="pull-left">
       <div class="avatar">
-        <%= character_portrait(@character.characterID,'64') %>
+        <%= character_portrait(@user.primary_character_id,'64') %>
       </div>
     </div>
     <div class="pull-left">
@@ -11,15 +11,11 @@
     </div>
   </div>
   <ul class="secondary-nav-menu">
-    <li><%= active_link_to 'Character Sheet', info_user_character_path(@user, @character.characterID) %></li>
-    <li><%= active_link_to 'Employment History', employment_user_character_path(@user, @character.characterID) %></li>
-    <li><%= active_link_to 'Skills', skills_user_character_path(@user, @character.characterID) %></li>
-    <li><%= active_link_to 'Kill Log', killlog_user_character_path(@user, @character.characterID) %></li>
+    <li><%= active_link_to 'Character Sheet', info_character_path(@user.primary_character_id), :class => 'icon-list-alt' %></li>
+    <li><%= active_link_to 'Kill Log', killlog_character_path(@user.primary_character_id), :class => 'icon-screenshot' %></li>
   </ul>
 </nav>
 <% end %>
 <% content_for :breadcrumb do %>
-  <li><%= link_to 'Users', users_path %></li>
-  <li><%= link_to @user.username, @user %></li>
-  <li class="active"><%= link_to @character.name, user_character_path(@user, @character.characterID) %></li>
+  <li class="active"><%= link_to @character.name, character_path(@user.primary_character_id) %></li>
 <% end %>

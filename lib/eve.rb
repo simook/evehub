@@ -19,15 +19,13 @@ class Eve
     xml = response.body
 
     if xml
-      xml = Nokogiri::XML(response.body)
-      if (xml/"eveapi/error").length > 0
-        error = (xml/"eveapi/error").first
-        raise EAAL::Exception.raiseEveAPIException(error["code"], error.inner_html)
-      end
-      if (xml/"eveapi/result").length < 1
-        raise EAAL::Exception::EAALError.new("Unknown API error, no result element was found")
-      end
-      xml.xpath("//*[@accessMask]").first.attr('accessMask')
+      eaal = Hpricot.XML(xml)
+      mask = Nokogiri::XML(xml)
+
+      keyinfo = {}
+      keyinfo['characters'] = EAAL::Result.new('APIKeyInfo', eaal).key.characters
+      keyinfo['accessmask'] = mask.xpath("//*[@accessMask]").first.attr('accessMask')
+      keyinfo
     end
   end
 end

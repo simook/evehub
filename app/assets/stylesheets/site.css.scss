@@ -1,4 +1,55 @@
-@import 'bootstrap';
+// Core variables and mixins
+@import "bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+@import "bootstrap/mixins";
+
+// CSS Reset
+@import "bootstrap/reset";
+
+// Grid system and page structure
+@import "bootstrap/scaffolding";
+@import "bootstrap/grid";
+@import "bootstrap/layouts";
+
+// Base CSS
+@import "bootstrap/type";
+@import "bootstrap/code";
+@import "bootstrap/forms";
+@import "bootstrap/tables";
+
+// Components: common
+@import "font-awesome";
+@import "bootstrap/dropdowns";
+@import "bootstrap/wells";
+@import "bootstrap/component-animations";
+@import "bootstrap/close";
+
+// Components: Buttons & Alerts
+@import "bootstrap/buttons";
+@import "bootstrap/button-groups";
+@import "bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in _buttons.scss
+
+// Components: Nav
+@import "bootstrap/navs";
+@import "bootstrap/navbar";
+@import "bootstrap/breadcrumbs";
+//@import "bootstrap/pagination";
+//@import "bootstrap/pager";
+
+// Components: Popovers
+@import "bootstrap/modals";
+@import "bootstrap/tooltip";
+@import "bootstrap/popovers";
+
+// Components: Misc
+@import "bootstrap/thumbnails";
+@import "bootstrap/labels-badges";
+@import "bootstrap/progress-bars";
+@import "bootstrap/accordion";
+@import "bootstrap/carousel";
+@import "bootstrap/hero-unit";
+
+// Utility classes
+@import "bootstrap/utilities"; // Has to be last to override when necessary
 @import 'compass';
 @import 'compass/css3/filter';
 
@@ -21,7 +72,7 @@ body {
     @include background(image-url('2.jpg'));
     background-color: #04090d;
   }
-  &.home,&.registrations {
+  &.home,&.registrations.new {
     @include background(image-url('3.jpg'));
     background-color: #0d0e10;
   }
@@ -31,10 +82,6 @@ body {
   }
   &.sessions {
     @include background(url('5.jpg') top center no-repeat);
-    background-color: #000;
-  }
-  &.registrations.edit, &.corporation {
-    @include background(url('6.jpg') top center no-repeat);
     background-color: #000;
   }
 }
@@ -108,6 +155,13 @@ body {
   @include box-shadow(inset 0px 1px 0px rgba(255, 255, 255, 0.1));
   border-bottom: 1px solid #1D1E21;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+}
+.form-controls {
+  @include border-radius(0 0 6px 6px / 0 0 6px 6px);
+  padding: 19px 20px 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-top: 1px solid #E5E5E5;
 }
 .black-box {
   @include box-shadow(0px 0px 10px rgba(0, 0, 0, 0.6), inset 1px 0px 0px rgba(255, 255, 255, 0.1), inset -1px 0px 0px rgba(255, 255, 255, 0.1), inset 0px -1px 0px rgba(255, 255, 255, 0.1));
@@ -198,5 +252,13 @@ table {
     font-weight: bold;
     font-size: 11px;
     display: inline-block;
+  }
+}
+.characters-list {
+  margin: 0px;
+  padding: 0px;
+  li {
+    list-style: none;
+    margin: 0 0 5px 0;
   }
 }

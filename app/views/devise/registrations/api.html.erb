@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="hub">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "[D-M-P]" %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Dmp Site" %>">
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+</head>
+<body class="hub <%= controller_name %> <%= action_name %>">
+  <div id="hub">
+    <% if flash %>
+    <div class="container-fluid">
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %> mt20">
+            <a class="close" data-dismiss="alert">&#215;</a>
+            <%= content_tag :div, msg, :id => "flash_#{name}" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+    <div class="container-fluid">
+      <div class="row mt20">
+        <div class="span8 offset4">
+          <h1>Hello <%= @user.username.nil? ? @user.username : @user.name %></h1>
+        </div>
+      </div>
+      <div class="row mt20">
+        <div class="span8 offset4">
+          <div class="box">
+            <div class="tab-header">We've detected an issue with your EVE API</div>
+            <div class="padded">
+              <p>Don't worry, we can fix it. Just follow the steps below and you'll be good to go.</p>
+              <div class="well">
+                <div class="row">
+                  <div class="span4">
+                    <h5>First lets create a new EVE API</h5>
+                  </div>
+                  <div class="span3">
+                    <a class=" btn btn-primary pull-right" href="https://support.eveonline.com/api/Key/CreatePredefined/227488251" target="_blank">Create a New EVE API</a>
+                  </div>
+                  <div class="span7 mt15"><p class="muted">After logging into your EVE account, you will be taken to the create api key page with the api settings already filled out. Just enter a name and hit submit.</p></div
+                </div>
+              </div>
+            </div>
+            <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical clearfix' }) do |f| %>
+              <div class="well">
+                <h5>Next, fill in your newly API key info below</h5>
+
+                <div class="alert alert-error" data-bind="visible:error">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <span data-bind="text:error"></span>
+                </div>
+                <%= f.hidden_field :email, :value => @user.email %>
+                <%= f.input :apikey, :required=>true, :label => 'ID', :input_html=>{:data=>{:bind=>'value:apikey'}} %>
+                <%= f.input :secretkey, :required=>true, :label => 'Verification Code', :input_html=>{:data=>{:bind=>'value:secretkey'}}  %>
+                <!-- ko if: verified -->
+                <div class="control-group required">
+                  <label class="string required control-label" for="user_primary_character_id"><abbr title="required">*</abbr> Character</label>
+                  <div class="controls">
+                    <select class="required" name="user[primary_character_id]" id="user_primary_character_id" data-bind="foreach: characters">
+                      <option data-bind="text:characterName, value:characterID"></option>
+                    </select>
+                  </div>
+                </div>
+                <!-- /ko -->
+                <div class="controls">
+                  <!-- ko ifnot: verified -->
+                  <%= link_to 'Verify EVE API', '#', :class=>'btn btn-primary', :id=>'verifyApi', :data=>{:bind=>'click:verify',:"loading-text"=>'Verifying with EVE...'}%>
+                  <!-- /ko -->
+                </div>
+              </div>
+              <!-- ko if: verified -->
+              <%= f.hidden_field :apiverified, :value => "1" %>
+              <%= f.button :submit, 'Update My EVE API', :class => 'btn-primary btn-large pull-right' %>
+              <!-- /ko -->
+              <!-- ko ifnot: verified -->
+              <span class="btn btn-large disabled pull-right">Update My EVE API</span>
+              <!-- /ko -->
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  dmp.eveapi.init();
+</script>
+</body>
+</html>
