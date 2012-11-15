@@ -2,7 +2,7 @@ class CharacterController < ApplicationController
   def show
     @user = current_user
     @character = character_sheet_eve_api(@user,params[:id])
-    @info = character_info_eve_api(@user,params[:id])
+    #@info = character_info_eve_api(@user,params[:id])
 
     respond_to do |format|
       format.html {render :layout => 'hub'}
@@ -75,7 +75,11 @@ class CharacterController < ApplicationController
   end
 
   def init_eve_api(user)
-    EAAL.cache = EAAL::Cache::FileCache.new
-    EAAL::API.new(user.apikey,user.secretkey)
+    begin
+      EAAL.cache = EAAL::Cache::FileCache.new
+      EAAL::API.new(user.apikey,user.secretkey)
+    rescue EAAL::Exception::EveAPIException => e
+      e
+    end
   end
 end

@@ -11,7 +11,11 @@ DmpSite::Application.routes.draw do
     get "api" => "registrations#api"
   end
 
-  devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions" }
+  devise_for :users, :controllers => {
+    :registrations => "registrations",
+    :sessions => "sessions",
+    :confirmations => "confirmations"
+  }
 
   resources :character, :only => :show do
     member do
