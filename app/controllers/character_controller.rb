@@ -76,7 +76,7 @@ class CharacterController < ApplicationController
 
   def init_eve_api(user)
     begin
-      EAAL.cache = EAAL::Cache::FileCache.new
+      #EAAL.cache = EAAL::Cache::MemcachedCache.new
       EAAL::API.new(user.apikey,user.secretkey)
     rescue EAAL::Exception::EveAPIException => e
       e
