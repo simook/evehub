@@ -68,9 +68,7 @@ dmp.character = function(){
   var sheet = function(){
     ko.applyBindings(viewModel);
     $.getJSON(window.location.pathname, function(json){
-      console.log(json);
       viewModel.character.push(json);
-
     }).complete(function(){
       viewModel.loaded(true);
     });
