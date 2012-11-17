@@ -1,2 +1,130 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+<% url = Rails.application.routes.url_helpers %>
+if (typeof window.dmp !== 'object') window.dmp = {};
+dmp.corporation = function(){
+  var self = this;
+  var viewModel = {
+    sheet: ko.observable(),
+    accountBalance: ko.observable(),
+    starbaseList: ko.observableArray(),
+    members: ko.observableArray(),
+    loaded: ko.observable(false),
+    status: ko.observable()
+  };
+
+  viewModel.totalAccountBalance = ko.computed(function(){
+    var total = 0,
+        accountBalance = viewModel.accountBalance();
+    if(accountBalance && accountBalance.accounts){
+      ko.utils.arrayForEach(accountBalance.accounts, function(account){
+        total += parseInt(account.balance);
+      });
+      return formatNumber(total)+' ISK'
+    }
+  }, viewModel);
+
+  /*
+   * Usage: icon:{id:8291080,size:'32',type:'(InventoryType/Character/Corporation/Alliance/Render)'}
+   * http://wiki.eve-id.net/APIv2_Eve_Image_Service
+   */
+  ko.bindingHandlers.icon = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      var icon = allBindingsAccessor(valueAccessor()).icon;
+      var format = icon.type === 'Character' ? '.jpg' : '.png';
+      var url = 'http://image.eveonline.com/'+icon.type+'/'+icon.id+'_'+icon.size+format;
+      var img = '<img src="'+url+'" />';
+      ko.utils.setHtml(element, img);
+    }
+  };
+
+  ko.bindingHandlers.name = {
+   update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+     var id = allBindingsAccessor(valueAccessor()).name;
+     $.getJSON('/eve/items/'+id, function(data){
+       ko.utils.setHtml(element, data.typeName);
+     });
+    }
+  }
+
+  ko.bindingHandlers.total = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      var values = allBindingsAccessor(valueAccessor()).total;
+      var total = Math.round(parseInt(values.value1)+parseInt(values.value2));
+      ko.utils.setHtml(element, total);
+    }
+  };
+
+  ko.bindingHandlers.state = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      var state = allBindingsAccessor(valueAccessor()).state,
+          name, color;
+      if(state === '0'){
+        name = 'Unanchored';
+        color = 'gray'
+      } else if(state === '1'){
+        name = 'Offline';
+        color = 'black'
+      } else if(state === '2'){
+        name = 'Onlining';
+        color = 'yellow'
+      } else if(state === '3'){
+        name = 'Reinforced';
+        color = 'red'
+      } else if(state === '4'){
+        name = 'Online';
+        color= 'green';
+      };
+      var html = "<span class='badge "+color+"'>"+name+"</span>"
+      ko.utils.setHtml(element, html);
+    }
+  };
+
+  ko.bindingHandlers.isk = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
+      var value = allBindingsAccessor(valueAccessor()).isk;
+      var isk = formatNumber(value)+' ISK'
+      ko.utils.setHtml(element, isk);
+    }
+  };
+
+  var formatNumber = function(nStr){
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+  };
+
+  var init = function(){
+    ko.applyBindings(viewModel);
+    $.getJSON(window.location.pathname, function(json){
+      viewModel.sheet(json);
+    }).complete(function(){
+      viewModel.loaded(true);
+    });
+  };
+
+  var admin = function(){
+    $.getJSON('<%= url.account_corporation_index_path %>', function(json){
+      viewModel.accountBalance(json);
+    });
+    $.getJSON('<%= url.starbase_list_corporation_index_path %>', function(json){
+      for (var i = 0; i < json.starbases.length; i++) {
+       viewModel.starbaseList.push(json.starbases[i]);
+      };
+    });
+    $.getJSON('<%= url.member_tracking_corporation_index_path %>', function(json){
+      console.log(json);
+      for (var i = 0; i < json.members.length; i++) {
+       viewModel.members.push(json.members[i]);
+      };
+    });
+  };
+
+  return {init: init,
+          viewModel: viewModel,
+          admin: admin};
+}();

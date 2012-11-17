@@ -8,6 +8,7 @@ body.hub {
   width: 100%;
   @include background(url('linen-lighter.png') repeat);
   background-color: #000;
+  font-size: normal 12px;
 }
 #primary {
   float: left;
@@ -139,7 +140,7 @@ body.hub {
   }
 }
 .character-menu {
-  height: 70px;
+  min-height: 70px;
   border-bottom: 1px solid #1d1e21;
   border-top: 1px solid transparent;
   .avatar {
@@ -162,6 +163,16 @@ body.hub {
     font-size: 14px;
     margin-top: 10px;
     margin-bottom: 5px;
+    width: 130px;
+
+  }
+}
+.starbase {
+  .title {
+    font-size: 12px;
+  }
+  .state {
+    font-size: 12px;
   }
 }
 #hub {

@@ -1,14 +1,11 @@
 DmpSite::Application.routes.draw do
-  get "eveapi/index"
-
-  get "eveapi/update"
-
   devise_scope :user do
     get "/login" => "devise/sessions#new"
     delete "/logout" => "devise/sessions#destroy"
     get "/register" => "registrations#new"
     get "/account" => "registrations#edit"
-    get "api" => "registrations#api"
+    get "/api" => "registrations#api"
+    get "/corp/api" => "registrations#corpapi"
   end
 
   devise_for :users, :controllers => {
@@ -25,7 +22,13 @@ DmpSite::Application.routes.draw do
       get 'skills'
     end
   end
-  resources :corporation, :only => :index
+  resources :corporation do
+    collection do
+      get 'account'
+      get 'starbase/list' => "corporation#starbaselist"
+      get 'member/tracking' => 'corporation#membertracking'
+    end
+  end
 
   resources :recruitment, :only => :index do
     collection do
@@ -39,6 +42,7 @@ DmpSite::Application.routes.draw do
     resources :skilltree, :only => :index
     resources :certificatetree, :only => :index
     resources :apikeyinfo, :only => :index
+    resources :status, :only => :index
   end
 
   namespace :admin do
@@ -53,10 +57,6 @@ DmpSite::Application.routes.draw do
       end
       resources :corporation, :only => :show
     end
-  end
-
-  namespace :update do
-    resource :eveapi
   end
 
   root :to => "home#index"

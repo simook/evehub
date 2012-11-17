@@ -67,3 +67,24 @@ dmp.eveapi = function(){
   return {init:init,
           viewModel:viewModel}
 }();
+dmp.eve = function(){
+  var viewModel = {
+    time: ko.observable()
+  };
+
+  var eveTime = function(){
+    var now = new Date(),
+        hour = now.getUTCHours(),
+        minutes = now.getUTCMinutes();
+
+    viewModel.time(hour+':'+minutes);
+  };
+
+  var init = function(){
+    ko.applyBindings(viewModel, document.getElementById('eve'));
+    eveTime();
+    setInterval(eveTime, 3000);
+  };
+
+  return {init:init};
+}();

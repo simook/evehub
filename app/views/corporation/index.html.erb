@@ -1,7 +1,55 @@
-<% content_for :breadcrumb do %>
-<li class="active"><%= link_to 'Corp', corporation_index_path %></li>
-<% end %>
+<%= render 'nav' %>
 <div class="container-fluid">
+  <% if @corpadmin %>
+  <div class="row-fluid">
+    <div class="span3">
+      <div class="black-box">
+        <div class="tab-header">Account Balance</div>
+        <div class="separator">
+          <span data-bind="text:totalAccountBalance"></span>
+        </div>
+      </div>
+    </div>
+    <div class="span3">
+      <div class="black-box">
+        <div class="tab-header">
+          <span data-bind="text:starbaseList().length"></span> Starbase
+        </div>
+        <!-- ko foreach: starbaseList -->
+        <div class="separator starbase">
+          <span class="title" data-bind="name:typeID"></span>
+          <span class="state" data-bind="state:state"></span>
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+    <div class="span3">
+      <div class="black-box">
+        <div class="tab-header">Balance</div>
+        <div class="padded">
+
+        </div>
+      </div>
+    </div>
+    <div class="span3">
+      <div class="black-box">
+        <div class="tab-header" data-bind="with: sheet">
+          <span data-bind="text:memberCount"></span> Members
+        </div>
+        <ul class="nav nav-tabs">
+          <li><a href="#online" data-toggle="tab">Online</a></li>
+          <li><a href="#offline" data-toggle="tab">Offline</a></li>
+          <li><a href="#all" data-toggle="tab">All</a></li>
+        </ul>
+        <!-- ko foreach: members -->
+        <div class="separator mini">
+          <span data-bind="text:name"></span>
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
+  <% end %>
   <div class="row-fluid">
     <div class="span12">
       <div class="box">
@@ -41,3 +89,9 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  dmp.corporation.init();
+  <% if @corpadmin %>
+    dmp.corporation.admin();
+  <% end %>
+</script>

@@ -6,6 +6,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def api
     @user = current_user
+    @issue = @user.apiverified.nil? or @user.primary_character_id.nil?
+    render :layout => false
+  end
+
+  def corpapi
+    @user = current_user
     render :layout => false
   end
 

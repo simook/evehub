@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html class="hub">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "[D-M-P]" %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Dmp Site" %>">
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield(:head) %>
+</head>
+<body class="hub <%= controller_name %> <%= action_name %>">
+  <div id="hub">
+    <% if flash %>
+    <div class="container-fluid">
+      <% flash.each do |name, msg| %>
+        <% if msg.is_a?(String) %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %> mt20">
+            <a class="close" data-dismiss="alert">&#215;</a>
+            <%= content_tag :div, msg, :id => "flash_#{name}" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+    <div class="container-fluid">
+      <div class="row mt20">
+        <div class="span8 offset4">
+          <h1>Hello <%= @user.username.nil? ? @user.username : @user.name %></h1>
+        </div>
+      </div>
+      <div class="row mt20">
+        <div class="span8 offset4">
+          <div class="box">

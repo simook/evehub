@@ -1,0 +1,18 @@
+<% content_for :secondary do %>
+<nav id="secondary" class="user-nav" data-bind="with: sheet">
+  <div class="character-menu clearfix">
+    <div class="pull-left">
+      <div class="avatar" data-bind="icon:{id:corporationID,type:'Corporation',size:'32'}"></div>
+    </div>
+    <div class="pull-left">
+      <div class="title" data-bind="text:corporationName"></div>
+    </div>
+  </div>
+  <ul class="secondary-nav-menu">
+
+  </ul>
+</nav>
+<% end %>
+<% content_for :breadcrumb do %>
+  <li class="active"><%= link_to 'Corp', corporation_index_path %></li>
+<% end %>
