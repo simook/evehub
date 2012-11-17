@@ -23,31 +23,6 @@
         <!-- /ko -->
       </div>
     </div>
-    <div class="span3">
-      <div class="black-box">
-        <div class="tab-header">Balance</div>
-        <div class="padded">
-
-        </div>
-      </div>
-    </div>
-    <div class="span3">
-      <div class="black-box">
-        <div class="tab-header" data-bind="with: sheet">
-          <span data-bind="text:memberCount"></span> Members
-        </div>
-        <ul class="nav nav-tabs">
-          <li><a href="#online" data-toggle="tab">Online</a></li>
-          <li><a href="#offline" data-toggle="tab">Offline</a></li>
-          <li><a href="#all" data-toggle="tab">All</a></li>
-        </ul>
-        <!-- ko foreach: members -->
-        <div class="separator mini">
-          <span data-bind="text:name"></span>
-        </div>
-        <!-- /ko -->
-      </div>
-    </div>
   </div>
   <% end %>
   <div class="row-fluid">
@@ -93,5 +68,7 @@
   dmp.corporation.init();
   <% if @corpadmin %>
     dmp.corporation.admin();
+    dmp.corporation.starbaselist();
+    dmp.corporation.memberstracking();
   <% end %>
 </script>

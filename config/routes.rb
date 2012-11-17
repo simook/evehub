@@ -27,6 +27,8 @@ DmpSite::Application.routes.draw do
       get 'account'
       get 'starbase/list' => "corporation#starbaselist"
       get 'member/tracking' => 'corporation#membertracking'
+      get 'starbase/detail/:id' => 'corporation#starbasedetail', as: :starbase_detail
+      get 'starbase/location/:id' => 'corporation#starbaselocation', as: :starbase_location
     end
   end
 

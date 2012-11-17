@@ -1,6 +1,6 @@
 <% content_for :secondary do %>
-<nav id="secondary" class="user-nav" data-bind="with: sheet">
-  <div class="character-menu clearfix">
+<nav id="secondary" class="user-nav" data-bind="if: sheet">
+  <div class="character-menu clearfix" data-bind="with: sheet">
     <div class="pull-left">
       <div class="avatar" data-bind="icon:{id:corporationID,type:'Corporation',size:'32'}"></div>
     </div>
@@ -9,7 +9,9 @@
     </div>
   </div>
   <ul class="secondary-nav-menu">
-
+    <li><%= active_link_to 'Dashboard', corporation_index_path, :class=>'icon-dashboard', :active => ['corporation','index'] %></li>
+    <li><%= active_link_to 'Starbases', starbase_list_corporation_index_path %></li>
+    <li><%= active_link_to 'Members', member_tracking_corporation_index_path, :class=>'icon-group' %></li>
   </ul>
 </nav>
 <% end %>

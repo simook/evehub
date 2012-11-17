@@ -6,10 +6,28 @@ dmp.corporation = function(){
     sheet: ko.observable(),
     accountBalance: ko.observable(),
     starbaseList: ko.observableArray(),
+    starbaseDetail: ko.observable(false),
+    selectedStarbase: function(data){
+      viewModel.starbaseDetail(false);
+      $.getJSON('/corporation/starbase/detail/'+data.itemID,function(json){
+        viewModel.starbaseDetail(json)
+      });
+    },
     members: ko.observableArray(),
     loaded: ko.observable(false),
     status: ko.observable()
   };
+
+  viewModel.starbaseList.subscribe(function(starbases){
+    if(viewModel.starbaseDetail() === false){
+      ko.utils.arrayFirst(starbases, function(starbase){
+        viewModel.selectedStarbase(starbase);
+      });
+    };
+    setTimeout(function(){
+      $('#hub a[data-toggle="tab"]:first').tab('show');
+    },0);
+  });
 
   viewModel.totalAccountBalance = ko.computed(function(){
     var total = 0,
@@ -43,7 +61,30 @@ dmp.corporation = function(){
        ko.utils.setHtml(element, data.typeName);
      });
     }
-  }
+  };
+
+  ko.bindingHandlers.uptime = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    var values = allBindingsAccessor(valueAccessor()),
+        begin = values.begin,
+        end = values.end;
+    console.log(values);
+    var uptime = new Date(begin - end);
+    ko.utils.setHtml(element, uptime);
+    }
+  };
+
+  ko.bindingHandlers.location = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+      var id = allBindingsAccessor(valueAccessor()).location;
+      $.getJSON('/corporation/starbase/location/'+id, function(json){
+        ko.utils.arrayFirst(json.locations, function(location){
+          var location = 'x:'+location.x+'/y:'+location.y+'/z:'+location.z;
+          ko.utils.setHtml(element, location);
+        });
+      });
+    }
+  };
 
   ko.bindingHandlers.total = {
     update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
@@ -86,6 +127,22 @@ dmp.corporation = function(){
     }
   };
 
+  ko.bindingHandlers.boolean = {
+    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
+      var value = allBindingsAccessor(valueAccessor()).boolean,
+          name, color;
+      if(value==='1'){
+        color = 'green';
+        name = 'True';
+      } else if(value==='0'){
+        color = 'gray';
+        name = 'False';
+      };
+      var html = "<span class='badge "+color+"'>"+name+"</span>"
+      ko.utils.setHtml(element, html)
+    }
+  }
+
   var formatNumber = function(nStr){
     nStr += '';
     x = nStr.split('.');
@@ -100,10 +157,26 @@ dmp.corporation = function(){
 
   var init = function(){
     ko.applyBindings(viewModel);
-    $.getJSON(window.location.pathname, function(json){
+    $.getJSON('<%= url.corporation_index_path %>', function(json){
       viewModel.sheet(json);
     }).complete(function(){
       viewModel.loaded(true);
+    });
+  };
+
+  var starbaselist = function(){
+    $.getJSON('<%= url.starbase_list_corporation_index_path %>', function(json){
+      for (var i = 0; i < json.starbases.length; i++) {
+       viewModel.starbaseList.push(json.starbases[i]);
+      };
+    });
+  };
+
+  var memberstracking = function(){
+    $.getJSON('<%= url.member_tracking_corporation_index_path %>', function(json){
+      for (var i = 0; i < json.members.length; i++) {
+       viewModel.members.push(json.members[i]);
+      };
     });
   };
 
@@ -111,20 +184,11 @@ dmp.corporation = function(){
     $.getJSON('<%= url.account_corporation_index_path %>', function(json){
       viewModel.accountBalance(json);
     });
-    $.getJSON('<%= url.starbase_list_corporation_index_path %>', function(json){
-      for (var i = 0; i < json.starbases.length; i++) {
-       viewModel.starbaseList.push(json.starbases[i]);
-      };
-    });
-    $.getJSON('<%= url.member_tracking_corporation_index_path %>', function(json){
-      console.log(json);
-      for (var i = 0; i < json.members.length; i++) {
-       viewModel.members.push(json.members[i]);
-      };
-    });
   };
 
   return {init: init,
           viewModel: viewModel,
-          admin: admin};
+          admin: admin,
+          starbaselist: starbaselist,
+          memberstracking: memberstracking};
 }();

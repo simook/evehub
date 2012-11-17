@@ -31,7 +31,12 @@
               <%= yield(:breadcrumb) %>
             </ul>
             <ul class="nav pull-right" id="eve">
-              <li><span class="btn btn-mini" data-bind="text:time"></span></li>
+              <li>
+                <div class="btn btn-mini btn-inverse">
+                  <i class="icon-time"></i>
+                  <span data-bind="text:$data.time"></span>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
