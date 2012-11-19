@@ -4,6 +4,14 @@ class SessionsController < Devise::SessionsController
     sign_in(resource_name, resource)
     if resource.apiverified.nil? or resource.primary_character_id.nil?
       respond_with resource, :location => after_sign_in_eveapi_for(resource)
+    elsif resource.corporation_id.nil? or resource.corporation_id.empty?
+      debugger
+      api = init_eve_api
+      api.scope = 'eve'
+      resource.corporation_id = api.CharacterInfo(:characterID => resource.primary_character_id).corporationID
+      if resource.save
+        respond_with resource, :location => after_sign_in_path_for(resource)
+      end
     else
       respond_with resource, :location => after_sign_in_path_for(resource)
     end
@@ -28,7 +36,19 @@ class SessionsController < Devise::SessionsController
     api_path
   end
 
+  def after_sign_in_corpid_for(resource)
+    corp_id_path
+  end
+
   def after_sign_in_path_for(resource)
     corporation_index_path
+  end
+
+  def init_eve_api
+    begin
+      EAAL::API.new('','')
+    rescue EAAL::Exception::EveAPIException => e
+      e
+    end
   end
 end

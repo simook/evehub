@@ -15,6 +15,11 @@ class RegistrationsController < Devise::RegistrationsController
     render :layout => false
   end
 
+  def corpid
+    @user = current_user
+    render :layout => false
+  end
+
   def update
     @user = User.find(current_user.id)
     email_changed = @user.email != params[:user][:email]

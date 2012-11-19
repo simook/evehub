@@ -5,6 +5,7 @@ DmpSite::Application.routes.draw do
     get "/register" => "registrations#new"
     get "/account" => "registrations#edit"
     get "/api" => "registrations#api"
+    get "/corp/id" => "registrations#corpid"
     get "/corp/api" => "registrations#corpapi"
   end
 
