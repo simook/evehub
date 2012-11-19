@@ -3,7 +3,6 @@ class SessionsController < Devise::SessionsController
     self.resource = warden.authenticate!(auth_options)
     sign_in(resource_name, resource)
     if resource.apiverified.nil? or resource.primary_character_id.nil?
-      #redirect_to api_path
       respond_with resource, :location => after_sign_in_eveapi_for(resource)
     else
       respond_with resource, :location => after_sign_in_path_for(resource)

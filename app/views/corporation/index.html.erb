@@ -26,11 +26,55 @@
   </div>
   <% end %>
   <div class="row-fluid">
-    <div class="span12">
+    <div class="span12" data-bind="with: sheet">
+      <div class="row-fluid">
+        <div class="span6">
+          <div class="box">
+            <div class="tab-header"><span data-bind="text:ticker"></span> Info</div>
+            <table class="table table-condensed box">
+              <tbody>
+                <tr>
+                  <td><b>CEO</b></td>
+                  <td data-bind="text:ceoName"></td>
+                </tr>
+                <tr>
+                  <td><b>Location</b></td>
+                  <td data-bind="text:stationName"></td>
+                </tr>
+                <tr>
+                  <td><b>Members</b></td>
+                  <td data-bind="text:memberCount"></td>
+                </tr>
+                <tr>
+                  <td><b>Shares</b></td>
+                  <td data-bind="text:shares"></td>
+                </tr>
+                <tr>
+                  <td><b>Tax Rate</b></td>
+                  <td data-bind="text:taxRate+'%'"></td>
+                </tr>
+                <tr>
+                  <td><b>Alliance</b></td>
+                  <td data-bind="text:allianceID"></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+        <div class="span6">
+          <div class="box">
+            <div class="tab-header"><span data-bind="text:ticker"></span> Description</div>
+            <div class="padded">
+              <p data-bind="text:description"></p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="box">
-        <div class="tab-header">Corp Hub</div>
+        <div class="tab-header">Corp Features</div>
         <div class="padded">
-          <p class="lead">This isn't ready yet, but here's what you have to look forward too.</p>
+          <p class="lead" data-bind=>This isn't ready yet, but here's what you have to look forward too.</p>
           <div class="row-fluid">
             <div class="span3">
               <h4>Character Overview</h4>

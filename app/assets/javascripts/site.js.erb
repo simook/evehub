@@ -23,6 +23,7 @@ $(function(){
   $('.dropdown-toggle').dropdown();
   $('a[rel="tooltip"]').tooltip();
   $('.popover').popover('show');
+  $('.wysiwyg').wysihtml5();
 });
 
 if (typeof window.dmp !== 'object') window.dmp = {};
@@ -30,9 +31,10 @@ dmp.eveapi = function(){
   var viewModel = {
     apikey: ko.observable(),
     secretkey: ko.observable(),
+    character: ko.observable(),
     characters: ko.observableArray(),
     verified: ko.observable(false),
-    selectedCharacter: ko.observable(),
+    selectCharacter: ko.observable(),
     error: ko.observable(false),
     verify: function(value,event){
      var self = this;
@@ -60,6 +62,22 @@ dmp.eveapi = function(){
     }
   };
 
+  viewModel.characters.subscribe(function(){
+    var selected = $('#user_primary_character_id option:selected').val();
+    if(selected){
+      viewModel.selectCharacter(selected);
+    }
+  });
+  viewModel.selectCharacter.subscribe(function(selectedCharacter){
+    ko.utils.arrayFilter(viewModel.characters(), function(character){
+      if(selectedCharacter === character.characterID){
+        console.log(character);
+        viewModel.character(character);
+        $('#user_corporation_id').val(character.corporationID);
+      }
+    });
+  });
+
   var init = function(){
     ko.applyBindings(viewModel);
   };
@@ -77,7 +95,11 @@ dmp.eve = function(){
         hour = now.getUTCHours(),
         minutes = now.getUTCMinutes();
 
-    viewModel.time(hour+':'+minutes);
+    var pad = function(n){
+      return n<10 ? '0'+n : n;
+    };
+
+    viewModel.time([pad(hour),pad(minutes)].join(':'));
   };
 
   var init = function(){

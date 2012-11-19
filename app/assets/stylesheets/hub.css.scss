@@ -131,11 +131,18 @@ body.hub {
   .nav {
     margin: 0px;
     padding: 0px;
-    li {
+    > li {
       color: #fff;
       font-weight: bold;
       padding: 7px 0px;
       text-shadow: 0 1px 1px rgba(0,0,0,.5);
+      display: inline-block;
+    }
+    .user{
+      .dropdown-menu {
+        right: 0px;
+        left: auto;
+      }
     }
   }
 }
@@ -173,6 +180,16 @@ body.hub {
   }
   .state {
     font-size: 12px;
+  }
+}
+.wysihtml5-toolbar {
+  margin: 0 0 10px 0;
+  padding: 0px;
+  display: inline-block;
+  li {
+    list-style: none;
+    float: left;
+    margin-right: 10px;
   }
 }
 #hub {

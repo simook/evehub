@@ -1,7 +1,7 @@
 class CorporationController < ApplicationController
   def index
     @user = current_user
-    @corpadmin = !@user.corp_apikey.nil? or !@user.corp_apisecret.nil?
+    @corpadmin = corpadmin
     respond_to do |format|
       format.html {render :layout => 'hub'}
       format.json {render json: corpsheet_eve_api}
@@ -22,7 +22,7 @@ class CorporationController < ApplicationController
 
   def starbaselist
     @user = current_user
-    @corpadmin = !@user.corp_apikey.nil? or !@user.corp_apisecret.nil?
+    @corpadmin = corpadmin
     respond_to do |format|
       format.html {render :layout => 'hub'}
       format.json {render json: starbaselist_eve_api}
@@ -42,6 +42,7 @@ class CorporationController < ApplicationController
   end
 
   def membertracking
+    @corpadmin = corpadmin
     respond_to do |format|
       format.html {render :layout => 'hub'}
       format.json {render json: membertracking_eve_api}
@@ -53,10 +54,18 @@ class CorporationController < ApplicationController
     current_user
   end
 
+  def corpadmin
+    !user.corp_apikey.nil? or !user.corp_apisecret.nil?
+  end
+
   def corpsheet_eve_api
     api = init_eve_api
     api.scope = 'corp'
-    api.CorporationSheet()
+    if user.corp_apikey.nil? and user.corp_apisecret.nil?
+      api.CorporationSheet(:corporationID => user.corporation_id)
+    else
+      api.CorporationSheet()
+    end
   end
 
   def accountbalance_eve_api
@@ -92,9 +101,14 @@ class CorporationController < ApplicationController
   def init_eve_api
     begin
       #EAAL.cache = EAAL::Cache::FileCache.new
-      EAAL::API.new(user.corp_apikey,user.corp_apisecret)
+      if user.corp_apikey.nil? and user.corp_apisecret.nil?
+        eve = EAAL::API.new(user.apikey,user.secretkey)
+      else
+        eve = EAAL::API.new(user.corp_apikey,user.corp_apisecret)
+      end
     rescue EAAL::Exception::EveAPIException => e
-      {:status=>'error',:msg=>e.message}
+      eve = {:status=>'error',:msg=>e.message}
     end
+    eve
   end
 end

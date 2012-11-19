@@ -39,6 +39,8 @@ DmpSite::Application.routes.draw do
     end
   end
 
+  resources :posts
+
   namespace :eve do
     resources :items, :only => :show
     resources :skilltree, :only => :index
@@ -59,6 +61,7 @@ DmpSite::Application.routes.draw do
       end
       resources :corporation, :only => :show
     end
+    resources :corporations
   end
 
   root :to => "home#index"

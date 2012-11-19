@@ -11,11 +11,40 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116183506) do
+ActiveRecord::Schema.define(:version => 20121118231608) do
+
+  create_table "corporations", :force => true do |t|
+    t.integer  "corp_id"
+    t.string   "name"
+    t.string   "ticker"
+    t.integer  "ceoid"
+    t.string   "ceo_name"
+    t.integer  "station_id"
+    t.string   "station_name"
+    t.text     "description"
+    t.string   "url"
+    t.integer  "alliance_id"
+    t.string   "alliance_name"
+    t.string   "tax_rate"
+    t.integer  "member_count"
+    t.integer  "member_limit"
+    t.integer  "shares"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "items", :force => true do |t|
     t.string   "typeID"
     t.string   "typeName"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "posts", :force => true do |t|
+    t.string   "name"
+    t.string   "title"
+    t.text     "content"
+    t.string   "created_by"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -64,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20121116183506) do
     t.string   "primary_character_id"
     t.string   "corp_apikey"
     t.string   "corp_apisecret"
+    t.string   "corporation_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

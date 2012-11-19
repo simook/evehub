@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical clearfix' }) do |f| %>
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal clearfix' }) do |f| %>
     <div class="well">
       <h5>Next, fill in your newly API key info below</h5>
 
@@ -35,11 +35,13 @@
       <div class="control-group required">
         <label class="string required control-label" for="user_primary_character_id"><abbr title="required">*</abbr> Character</label>
         <div class="controls">
-          <select class="required" name="user[primary_character_id]" id="user_primary_character_id" data-bind="foreach: characters">
+          <select class="required" name="user[primary_character_id]" id="user_primary_character_id" data-bind="foreach: characters, value: selectCharacter">
             <option data-bind="text:characterName, value:characterID"></option>
           </select>
         </div>
       </div>
+      <%= f.hidden_field :corporation_id, :value => "" %>
+      <%= f.hidden_field :apiverified, :value => "1" %>
       <!-- /ko -->
       <div class="controls">
         <!-- ko ifnot: verified -->
@@ -48,7 +50,6 @@
       </div>
     </div>
     <!-- ko if: verified -->
-    <%= f.hidden_field :apiverified, :value => "1" %>
     <%= f.button :submit, 'Save Character API', :class => 'btn-primary btn-large pull-right' %>
     <!-- /ko -->
     <!-- ko ifnot: verified -->

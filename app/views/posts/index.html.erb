@@ -1,0 +1,27 @@
+<% content_for :breadcrumb do %>
+  <li class="active"><%= link_to 'Articles', posts_path %></li>
+<% end %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="box">
+        <div class="tab-header">
+          Articles
+          <%= link_to 'New', new_post_path, :class=>'btn btn-mini btn-primary pull-right' %>
+        </div>
+        <div class="padded">
+          <ul>
+            <% @posts.each do |post| %>
+              <li>
+                <%= link_to post.title, post %>
+              </li>
+            <% end %>
+            <% if @posts.length===0 %>
+              <li class="muted">No Articles</li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

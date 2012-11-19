@@ -16,4 +16,5 @@
 //= require jquery.cookie
 //= require knockout-2.2.0
 //= require knockout.mapping
+//= require bootstrap-wysihtml5
 //= require_tree .

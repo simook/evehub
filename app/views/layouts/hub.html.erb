@@ -13,7 +13,8 @@
   <nav id="primary" class="hub-nav" >
     <ul>
       <li><%= active_link_to 'Corp', corporation_index_path, :class=>'icon-globe' %></li>
-       <li><%= active_link_to 'Character', character_path(current_user.primary_character_id), :class=>'icon-user' %></li>
+      <li><%= active_link_to 'Character', character_path(current_user.primary_character_id), :class=>'icon-user' %></li>
+      <li><%= active_link_to 'Articles', posts_path, :class=>'icon-book' %>
       <li><%= active_link_to 'Account', account_path, :class=>'icon-cog' %></li>
       <% if current_user.has_role? :admin %>
         <li><%= active_link_to 'Admin', admin_users_path, :class=>'icon-cogs' %></li>
@@ -35,6 +36,22 @@
                 <div class="btn btn-mini btn-inverse">
                   <i class="icon-time"></i>
                   <span data-bind="text:$data.time"></span>
+                </div>
+              </li>
+              <li>
+                <div class="btn-group user">
+                  <button class="btn btn-mini btn-inverse"><%= current_user.username %></button>
+                  <button class="btn btn-mini btn-inverse dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <%= nav_link 'Your Account', account_path %>
+                    <% if current_user.has_role? :admin %>
+                      <%= nav_link 'Admin', admin_users_path %>
+                    <% end %>
+                    <li class="divider"></li>
+                    <li><%= link_to 'Logout', logout_path, :method=>'delete' %></li>
+                  </ul>
                 </div>
               </li>
             </ul>

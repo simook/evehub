@@ -1,6 +1,7 @@
 <ul class="nav">
   <% if user_signed_in? %>
-    <%= nav_link 'Home', corporation_index_path %>
+    <%= nav_link 'Home', root_path %>
+    <%= nav_link 'Corp', corporation_index_path %>
   <% else %>
     <%= nav_link 'Home', root_path %>
     <%= nav_link 'Recruitment', recruitment_index_path %>

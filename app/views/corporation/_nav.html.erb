@@ -10,8 +10,10 @@
   </div>
   <ul class="secondary-nav-menu">
     <li><%= active_link_to 'Dashboard', corporation_index_path, :class=>'icon-dashboard', :active => ['corporation','index'] %></li>
-    <li><%= active_link_to 'Starbases', starbase_list_corporation_index_path %></li>
+    <% if @corpadmin %>
+    <li><%= active_link_to 'Starbases', starbase_list_corporation_index_path, :class=>'icon-filter' %></li>
     <li><%= active_link_to 'Members', member_tracking_corporation_index_path, :class=>'icon-group' %></li>
+    <% end %>
   </ul>
 </nav>
 <% end %>

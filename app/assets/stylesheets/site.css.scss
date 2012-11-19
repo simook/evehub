@@ -138,6 +138,11 @@ body {
     @include background(linear-gradient(top, #EEE, #CCC));
     text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
     border-bottom: 1px solid #F8F8F8;
+    .btn {
+      &.btn-mini {
+        margin: 5px;
+      }
+    }
   }
   .nav-tabs {
     @include box-shadow(inset 0px 0px 7px rgba(0, 0, 0, 0.3));
@@ -295,6 +300,9 @@ body {
   background: #3A3A41;
   @include border-radius(5px);
   padding: 8px;
+}
+.input-wide {
+  width: 95%;
 }
 .nav-list {
   &.inner-well {

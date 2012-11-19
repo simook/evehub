@@ -12,7 +12,7 @@ class Admin::CharacterController < ApplicationController
   end
 
   def info
-    authorize! :index, @user, :message => 'Not authorized as an administrator.'
+    authorize! :info, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:user_id])
     @character = character_sheet_eve_api(@user,params[:id])
     @info = character_info_eve_api(@user,params[:id])
@@ -24,7 +24,7 @@ class Admin::CharacterController < ApplicationController
   end
 
   def killlog
-    authorize! :index, @user, :message => 'Not authorized as an administrator.'
+    authorize! :killlog, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:user_id])
     @character = character_sheet_eve_api(@user,params[:id])
     @info = character_info_eve_api(@user,params[:id])
@@ -37,7 +37,7 @@ class Admin::CharacterController < ApplicationController
   end
 
   def employment
-    authorize! :index, @user, :message => 'Not authorized as an administrator.'
+    authorize! :employment, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:user_id])
     @info = character_info_eve_api(@user,params[:id])
     @character = character_sheet_eve_api(@user,params[:id])
@@ -49,7 +49,7 @@ class Admin::CharacterController < ApplicationController
   end
 
   def skills
-    authorize! :index, @user, :message => 'Not authorized as an administrator.'
+    authorize! :skills, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:user_id])
     @info = character_info_eve_api(@user,params[:id])
     @character = character_sheet_eve_api(@user,params[:id])

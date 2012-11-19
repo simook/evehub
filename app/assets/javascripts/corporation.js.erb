@@ -29,6 +29,12 @@ dmp.corporation = function(){
     },0);
   });
 
+  viewModel.members.subscribe(function(menbers){
+    setTimeout(function(){
+      $('#hub a[data-toggle="tab"]:first').tab('show');
+    },0);
+  });
+
   viewModel.totalAccountBalance = ko.computed(function(){
     var total = 0,
         accountBalance = viewModel.accountBalance();
