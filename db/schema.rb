@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118231608) do
+ActiveRecord::Schema.define(:version => 20121124021421) do
+
+  create_table "account_balances", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "account_key"
+    t.decimal  "balance"
+    t.date     "cached_until"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "corporations", :force => true do |t|
     t.integer  "corp_id"
@@ -33,13 +43,6 @@ ActiveRecord::Schema.define(:version => 20121118231608) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "items", :force => true do |t|
-    t.string   "typeID"
-    t.string   "typeName"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "posts", :force => true do |t|
     t.string   "name"
     t.string   "title"
@@ -59,6 +62,21 @@ ActiveRecord::Schema.define(:version => 20121118231608) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "starbase_lists", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "type_id"
+    t.integer  "location_id"
+    t.integer  "moon_id"
+    t.integer  "state"
+    t.date     "state_timestamp"
+    t.date     "online_timestamp"
+    t.integer  "standing_owner_id"
+    t.date     "cached_until"
+    t.integer  "user_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
