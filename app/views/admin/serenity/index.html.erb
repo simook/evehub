@@ -1,0 +1,78 @@
+<% content_for :breadcrumb do %>
+<li class="active"><%= link_to 'Serenity', admin_serenity_index_path %></li>
+<% end %>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="box">
+        <div class="tab-header">Serenity</div>
+        <table class="table table-condensed table-hover box">
+          <thead>
+            <tr>
+              <th>Job ID</th>
+              <th>Priority</th>
+              <th>Attempts</th>
+              <th>Handler</th>
+              <th>Last Error</th>
+              <th>Run In</th>
+              <th>Locked At</th>
+              <th>Failed At</th>
+              <th>Locked By</th>
+              <th>Queue</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+      <% @jobs.each do |job| %>
+        <tr class="<%= job.failed_at.nil? || job.locked_at.nil? ? "":"error " %><%= job.attempts>1 ? 'pending':'' %>">
+          <td><%= job.id %></td>
+          <td><%= job.priority %></td>
+          <td><%= job.attempts %></td>
+          <td>
+            <a data-toggle="modal" href="#job-handler-<%= job.id %>" class="btn btn-mini" type="button">View Handler</a>
+            <div id="job-handler-<%= job.id %>" class="modal fullscreen-modal" style="display: none;">
+              <div class="modal-header">
+                <a class="close" data-dismiss="modal">&#215;</a>
+                <h3>Handler</h3>
+              </div>
+              <div class="modal-body">
+                <pre><%= job.handler %></pre>
+              </div>
+              <div class="modal-footer">
+                <a class="btn" data-dismiss="modal" href="#">Close</a>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a data-toggle="modal" href="#job-error-<%= job.id %>" class="btn btn-mini" type="button">View Error</a>
+            <div id="job-error-<%= job.id %>" class="modal fullscreen-modal" style="display: none;">
+              <div class="modal-header">
+                <a class="close" data-dismiss="modal">&#215;</a>
+                <h3>Last Error</h3>
+              </div>
+              <div class="modal-body">
+                <pre><%= job.last_error %></pre>
+              </div>
+              <div class="modal-footer">
+                <a class="btn" data-dismiss="modal" href="#">Close</a>
+              </div>
+            </div>
+          </td>
+          <td><%= distance_of_time_in_words(DateTime.now, job.run_at) %></td>
+          <td><%= job.locked_at %></td>
+          <td><%= job.failed_at %></td>
+          <td><%= job.locked_by %></td>
+          <td><%= job.queue %></td>
+          <td><%= job.created_at %></td>
+          <td><%= job.updated_at %></td>
+          <td>
+            <%= link_to("Delete", admin_serenity_path(job), :data => { :confirm => "Are you sure? This could really fuck things." }, :method => :delete, :class => 'btn btn-mini') %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

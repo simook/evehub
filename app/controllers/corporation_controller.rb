@@ -1,10 +1,11 @@
 class CorporationController < ApplicationController
   def index
     @user = current_user
+    @corporation = current_user.corporations.where(:corp_id => current_user.corporation_id).first
     @corpadmin = corpadmin
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render json: corpsheet_eve_api}
+      format.json {render json: @corporation}
     end
   end
 
@@ -22,10 +23,11 @@ class CorporationController < ApplicationController
 
   def starbaselist
     @user = current_user
+    @corporation = current_user.corporations.where(:corp_id => current_user.corporation_id).first
     @corpadmin = corpadmin
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render json: starbaselist_eve_api}
+      format.json {render json: @corporation.starbases.to_json(:include => [:starbase_detail])}
     end
   end
 

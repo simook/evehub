@@ -8,6 +8,3 @@ Role.create([
   { :name => 'member' }
 ], :without_protection => true)
 
-user = User.create! :name => 'blue coeur', :email => 'director@dmp-corp.com', :password => 'password', :password_confirmation => 'password'
-user.confirm!
-user.add_role :admin

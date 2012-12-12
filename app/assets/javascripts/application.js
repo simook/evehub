@@ -17,4 +17,6 @@
 //= require knockout-2.2.0
 //= require knockout.mapping
 //= require bootstrap-wysihtml5
+//= require jquery.dateFormat-1.0
+//= require jquery.timeago
 //= require_tree .

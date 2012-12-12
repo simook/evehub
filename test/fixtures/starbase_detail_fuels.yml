@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  StarbaseDetail: 
+  type_id: 1
+  quantity: 1
+
+two:
+  StarbaseDetail: 
+  type_id: 1
+  quantity: 1

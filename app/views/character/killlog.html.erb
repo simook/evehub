@@ -1,77 +1,77 @@
 <%= render 'nav' %>
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span12" data->
-      <div class="box">
-        <div class="tab-header">Kill Log</div>
-        <!-- ko ifnot: loaded -->
-        <div class="padded muted">Loading</div>
-        <!-- /ko -->
-        <table class="table table-condensed table-bordered killlog" data-bind="visible: loaded">
-          <thead>
-            <tr>
-              <th>Victim</th>
-              <th>Attacker/s</th>
-              <th>Items</th>
-            </tr>
-          </thead>
-          <tbody data-bind="template:{name: 'kills', foreach: character}">
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <div class="span12" data-bind="template:{name:'kills', foreach: kills}"></div>
+    <!-- ko if: kills().length === 0 -->
+      <h3 class="large-date">You have to actually attack someone to see something here.</h3>
+    <!-- /ko -->
   </div>
 </div>
 <script type="text/html" id="kills">
-<tr>
-  <td data-bind="if: victim">
-    <div class="btn-group attacker">
-      <button class="btn type_icon" data-bind="icon:{id:victim.attribs.shipTypeID,size:'32',type:'InventoryType'}"></button>
-      <button class="btn" data-bind="text:victim.attribs.characterName"></button>
-      <button class="btn btn-danger" data-bind="text:victim.attribs.damageTaken"></button>
-    </div>
-  </td>
-  <td data-bind="foreach: attackers">
-    <div class="btn-group attacker">
-      <button class="btn type_icon" rel="popover" data-content="" data-bind="icon:{id:shipTypeID, size:'32',type:'InventoryType'}"></button>
-      <!-- ko if: weaponTypeID.length > 1 -->
-      <button class="btn type_icon" data-bind="icon:{id:weaponTypeID, size:'32',type:'InventoryType'}"></button>
-      <!-- /ko -->
-      <button class="btn" data-bind="text: characterName.length === 0 ? corporationName : characterName"></button>
-      <button class="btn" rel="tooltip" title="Damage done to the victim"><span class="text-error" data-bind="text: damageDone"></span></button>
-    </div>
-  </td>
-  <td data-bind="if: items">
-    <a class="btn btn-mini" data-toggle="modal" data-bind="attr:{href:'#items'+$index()}">
-      <span data-bind="text: items.length"></span>
-      <span class="caret"></span>
-    </a>
-    <div class="modal hide fade black-box" role="dialog" data-bind="attr:{id:'items'+$index()}">
-      <div class="modal-header tab-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <span data-bind="text: items.length+' Items'"></span>
-      </div>
-      <div class="modal-body" data-bind="foreach: items">
-        <div class="inner-well item clearfix ">
-          <div class="item-info">
-            <span class="span1" data-bind="icon:{id:typeID,size:'32',type:'InventoryType'}"></span>
-            <span class="span6">
-              <h5 data-bind="name:typeID"></h5>
-            </span>
-            <div class="item-count">
-              <!-- ko if: qtyDestroyed >= qtyDropped -->
-              <span class="badge red" data-bind="text: qtyDestroyed"></span>
+<div class="row-fluid">
+  <div class="span2">
+    <h4 class="large-date" data-bind="date: time()"></h4>
+    <h6 class="large-date" data-bind="dateInWords: time()"></h6>
+  </div>
+  <div class="span10">
+    <div class="black-box">
+      <div class="row-fluid">
+        <div class="span3 victims" data-bind="foreach: victims">
+          <div class="victim avatar pull-left" data-bind="icon:{id:ship(),size:'64',type:'InventoryType'}">
+          </div>
+          <h5 data-bind="text:name"></h5>
+          <ul class="meta unstyled">
+            <li data-bind="text: 'Damage Taken: '+damageTaken()"></li>
+            <li>
+              <a data-toggle="modal" data-bind="attr:{href:'#items'+$index()}">Items: <span data-bind="text: $parent.items().length"></span></a>
+            </li>
+          </ul>
+        </div>
+        <div class="span9" data-bind="foreach: attackers">
+          <div class="attacker">
+            <div class="btn-group character">
+              <button class="btn btn-large type-icon" data-bind="icon:{id:ship(), size:'32',type:'InventoryType'}"></button>
+              <button class="btn btn-large type-icon" data-bind="icon:{id:weapon(), size:'32',type:'InventoryType'}"></button>
+              <!-- ko if: name -->
+              <button class="btn" data-bind="text: name"></button>
               <!-- /ko -->
-              <!-- ko if: qtyDropped > qtyDestroyed -->
-              <span class="badge black" data-bind="text: qtyDropped"></span>
+              <!-- ko ifnot: name -->
+              <button class="btn" data-bind="text: corporation"></button>
               <!-- /ko -->
+            </div>
+            <div class="progress damage-given">
+              <div class="bar bar-danger" data-bind="damageGraph: {total: $parent.totalDamage(), attacker: damageDone()}"></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </td>
-</tr>
+  </div>
+</div>
+<div class="modal hide fade black-box" role="dialog" data-bind="attr:{id:'items'+$index()}">
+  <div class="modal-header tab-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <span data-bind="text: items().length+' Items'"></span>
+  </div>
+  <div class="modal-body" data-bind="foreach: items">
+    <div class="inner-well item clearfix ">
+      <div class="item-info">
+        <span class="span1" data-bind="icon:{id:id(),size:'32',type:'InventoryType'}"></span>
+        <span class="span10">
+          <h5 data-bind="name:id()"></h5>
+        </span>
+        <div class="item-count">
+          <!-- ko if: destroyed() >= dropped() -->
+          <span class="badge red" data-bind="text: destroyed"></span>
+          <!-- /ko -->
+          <!-- ko if: dropped() > destroyed() -->
+          <span class="badge black" data-bind="text: dropped"></span>
+          <!-- /ko -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </script>
 <script type="text/javascript">
   dmp.character.killlog();

@@ -4,6 +4,9 @@ gem 'rails', '3.2.8'
 
 group :development, :test do
  gem 'sqlite3'
+ gem 'debugger'
+ gem 'better_errors'
+ gem 'binding_of_caller'
 end
 
 group :assets do
@@ -23,6 +26,10 @@ gem 'simple_form', '>= 2.0.4'
 gem 'eaal'
 gem 'nokogiri'
 gem 'active_link_to'
+gem 'delayed_job_active_record'
+gem 'daemons'
+gem 'clockwork'
+gem 'foreman'
 
 group :production do
   gem 'thin', '>= 1.5.0'

@@ -11,19 +11,67 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124021421) do
+ActiveRecord::Schema.define(:version => 20121208174608) do
 
-  create_table "account_balances", :force => true do |t|
-    t.integer  "account_id"
-    t.integer  "account_key"
-    t.decimal  "balance"
-    t.date     "cached_until"
-    t.integer  "user_id"
+  create_table "character_attributes", :force => true do |t|
+    t.integer  "character_id"
+    t.string   "name"
+    t.integer  "value"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "character_certificates", :force => true do |t|
+    t.integer  "character_id"
+    t.integer  "certificate_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "character_skills", :force => true do |t|
+    t.integer  "character_id"
+    t.integer  "type_id"
+    t.decimal  "skillpoints"
+    t.integer  "level"
+    t.integer  "published"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "characters", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "character_id"
+    t.string   "name"
+    t.date     "dob"
+    t.string   "race"
+    t.string   "bloodline"
+    t.string   "ancestry"
+    t.string   "gender"
+    t.string   "corporation_name"
+    t.integer  "corporation_id"
+    t.string   "alliance_name"
+    t.integer  "alliance_id"
+    t.string   "clone_name"
+    t.integer  "clone_skill_points"
+    t.decimal  "balance"
+    t.datetime "cached_until"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.datetime "killlog_cached_until"
+  end
+
+  create_table "corporation_account_balances", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "account_key"
+    t.decimal  "balance"
+    t.date     "cached_until"
+    t.integer  "corporation_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "corporations", :force => true do |t|
+    t.integer  "user_id"
     t.integer  "corp_id"
     t.string   "name"
     t.string   "ticker"
@@ -39,8 +87,81 @@ ActiveRecord::Schema.define(:version => 20121124021421) do
     t.integer  "member_count"
     t.integer  "member_limit"
     t.integer  "shares"
+    t.datetime "cached_until"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "killlog_attackers", :force => true do |t|
+    t.integer  "killlog_id"
+    t.integer  "alliance_id"
+    t.string   "alliance_name"
+    t.integer  "character_id"
+    t.string   "character_name"
+    t.integer  "corporation_id"
+    t.string   "corporation_name"
+    t.integer  "damage_done"
+    t.integer  "faction_id"
+    t.string   "faction_name"
+    t.boolean  "final_blow"
+    t.float    "security_status"
+    t.integer  "ship_type_id"
+    t.integer  "weapon_type_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "killlog_items", :force => true do |t|
+    t.integer  "killlog_id"
+    t.integer  "flag"
+    t.integer  "qty_dropped"
+    t.integer  "qty_destroyed"
+    t.integer  "type_id"
+    t.integer  "singleton"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "killlog_victims", :force => true do |t|
+    t.integer  "killlog_id"
+    t.integer  "alliance_id"
+    t.string   "alliance_name"
+    t.integer  "character_id"
+    t.string   "character_name"
+    t.integer  "corporation_id"
+    t.string   "corporation_name"
+    t.integer  "damage_taken"
+    t.integer  "faction_id"
+    t.string   "faction_name"
+    t.integer  "ship_type_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "killlogs", :force => true do |t|
+    t.integer  "character_id"
+    t.integer  "kill_id"
+    t.integer  "solar_system_id"
+    t.datetime "kill_time"
+    t.integer  "moon_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "posts", :force => true do |t|
@@ -63,7 +184,49 @@ ActiveRecord::Schema.define(:version => 20121124021421) do
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
-  create_table "starbase_lists", :force => true do |t|
+  create_table "starbase_detail_combat_setting_attribs", :force => true do |t|
+    t.integer  "starbase_detail_combat_setting_id"
+    t.string   "name"
+    t.integer  "value"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  create_table "starbase_detail_combat_settings", :force => true do |t|
+    t.integer  "starbase_detail_id"
+    t.string   "name"
+    t.integer  "value"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "starbase_detail_fuels", :force => true do |t|
+    t.integer  "starbase_detail_id"
+    t.integer  "type_id"
+    t.integer  "quantity"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "starbase_detail_settings", :force => true do |t|
+    t.integer  "starbase_detail_id"
+    t.string   "name"
+    t.integer  "value"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "starbase_details", :force => true do |t|
+    t.datetime "cached_until"
+    t.integer  "starbase_id"
+    t.integer  "state"
+    t.datetime "state_timestamp"
+    t.datetime "online_timestamp"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "starbases", :force => true do |t|
     t.integer  "item_id"
     t.integer  "type_id"
     t.integer  "location_id"
@@ -72,16 +235,14 @@ ActiveRecord::Schema.define(:version => 20121124021421) do
     t.date     "state_timestamp"
     t.date     "online_timestamp"
     t.integer  "standing_owner_id"
-    t.date     "cached_until"
-    t.integer  "user_id"
+    t.datetime "cached_until"
+    t.integer  "corporation_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "", :null => false
-    t.string   "api_id",                               :default => ""
-    t.string   "api_key",                              :default => ""
     t.string   "encrypted_password",                   :default => ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

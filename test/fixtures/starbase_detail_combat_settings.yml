@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  starbase_detail_id: 1
+  name: MyString
+  value: 1
+  ownder_id: 1
+
+two:
+  starbase_detail_id: 1
+  name: MyString
+  value: 1
+  ownder_id: 1

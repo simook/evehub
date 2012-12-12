@@ -2,6 +2,7 @@
 if (typeof window.dmp !== 'object') window.dmp = {};
 dmp.corporation = function(){
   var self = this;
+  var token = "e2c45427379d115acf5efcf1786c15f2";
   var viewModel = {
     sheet: ko.observable(),
     accountBalance: ko.observable(),
@@ -60,21 +61,11 @@ dmp.corporation = function(){
     }
   };
 
-  ko.bindingHandlers.name = {
-   update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-     var id = allBindingsAccessor(valueAccessor()).name;
-     $.getJSON('/eve/items/'+id, function(data){
-       ko.utils.setHtml(element, data.typeName);
-     });
-    }
-  };
-
   ko.bindingHandlers.uptime = {
     update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
     var values = allBindingsAccessor(valueAccessor()),
         begin = values.begin,
         end = values.end;
-    console.log(values);
     var uptime = new Date(begin - end);
     ko.utils.setHtml(element, uptime);
     }

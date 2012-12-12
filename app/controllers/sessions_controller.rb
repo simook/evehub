@@ -5,7 +5,6 @@ class SessionsController < Devise::SessionsController
     if resource.apiverified.nil? or resource.primary_character_id.nil?
       respond_with resource, :location => after_sign_in_eveapi_for(resource)
     elsif resource.corporation_id.nil? or resource.corporation_id.empty?
-      debugger
       api = init_eve_api
       api.scope = 'eve'
       resource.corporation_id = api.CharacterInfo(:characterID => resource.primary_character_id).corporationID

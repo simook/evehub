@@ -1,6 +1,7 @@
 class CreateCorporations < ActiveRecord::Migration
   def change
     create_table :corporations do |t|
+      t.integer :user_id
       t.integer :corp_id
       t.string :name
       t.string :ticker
@@ -16,6 +17,7 @@ class CreateCorporations < ActiveRecord::Migration
       t.integer :member_count
       t.integer :member_limit
       t.integer :shares
+      t.datetime :cached_until
 
       t.timestamps
     end

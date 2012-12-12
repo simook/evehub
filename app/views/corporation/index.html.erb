@@ -30,20 +30,23 @@
       <div class="row-fluid">
         <div class="span6">
           <div class="box">
-            <div class="tab-header"><span data-bind="text:ticker"></span> Info</div>
+            <div class="tab-header">
+              <span data-bind="text:ticker"></span> Info
+              <span class="pull-right muted last-updated" data-bind="date:'Last Updated: '+updated_at"></span>
+            </div>
             <table class="table table-condensed box">
               <tbody>
                 <tr>
                   <td><b>CEO</b></td>
-                  <td data-bind="text:ceoName"></td>
+                  <td data-bind="text:ceo_name"></td>
                 </tr>
                 <tr>
                   <td><b>Location</b></td>
-                  <td data-bind="text:stationName"></td>
+                  <td data-bind="text:station_name"></td>
                 </tr>
                 <tr>
                   <td><b>Members</b></td>
-                  <td data-bind="text:memberCount"></td>
+                  <td data-bind="text:member_count"></td>
                 </tr>
                 <tr>
                   <td><b>Shares</b></td>
@@ -51,11 +54,11 @@
                 </tr>
                 <tr>
                   <td><b>Tax Rate</b></td>
-                  <td data-bind="text:taxRate+'%'"></td>
+                  <td data-bind="text:tax_rate+'%'"></td>
                 </tr>
                 <tr>
                   <td><b>Alliance</b></td>
-                  <td data-bind="text:allianceID"></td>
+                  <td data-bind="text:alliance_name"></td>
                 </tr>
               </tbody>
             </table>
@@ -64,7 +67,10 @@
         </div>
         <div class="span6">
           <div class="box">
-            <div class="tab-header"><span data-bind="text:ticker"></span> Description</div>
+            <div class="tab-header">
+              <span data-bind="text:ticker"></span> Description
+              <span class="pull-right muted last-updated" data-bind="date:'Last Updated: '+updated_at"></span>
+            </div>
             <div class="padded">
               <p data-bind="text:description"></p>
             </div>

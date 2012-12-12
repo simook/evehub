@@ -22,8 +22,16 @@ $(function(){
 
   $('.dropdown-toggle').dropdown();
   $('a[rel="tooltip"]').tooltip();
+  $('[rel="tooltip"]').tooltip();
   $('.popover').popover('show');
   $('.wysiwyg').wysihtml5();
+  $(".collapse").on('show',function(){
+    $(this).parents('.accordion').find('.accordion-heading.active').removeClass('active');
+    $(this).siblings('.accordion-heading').addClass('active');
+  });
+  $('#hub').on('hover','[rel="tooltip"]',function(){
+    $(this).tooltip();
+  });
 });
 
 if (typeof window.dmp !== 'object') window.dmp = {};
@@ -37,8 +45,8 @@ dmp.eveapi = function(){
     selectCharacter: ko.observable(),
     error: ko.observable(false),
     verify: function(value,event){
-     var self = this;
-     $(event.target).button('loading');
+      var self = this;
+      $(event.target).button('loading');
       $.getJSON('<%= url.eve_apikeyinfo_index_path %>', {key:this.apikey,secret:this.secretkey}, function(json){
         self.characters.destroyAll();
         if(json && json.status === 'error'){
@@ -62,16 +70,18 @@ dmp.eveapi = function(){
     }
   };
 
-  viewModel.characters.subscribe(function(){
+  viewModel.characters.subscribe(function(characters){
     var selected = $('#user_primary_character_id option:selected').val();
-    if(selected){
+    if(characters && characters.length === 1){
+      viewModel.selectCharacter(characters[0]);
+    }
+    if(selected && characters.length > 1){
       viewModel.selectCharacter(selected);
     }
   });
   viewModel.selectCharacter.subscribe(function(selectedCharacter){
     ko.utils.arrayFilter(viewModel.characters(), function(character){
       if(selectedCharacter === character.characterID){
-        console.log(character);
         viewModel.character(character);
         $('#user_corporation_id').val(character.corporationID);
       }

@@ -3,7 +3,7 @@
   <div class="character-menu">
     <div class="pull-left">
       <div class="avatar">
-        <%= character_portrait(@user.primary_character_id,'64') %>
+        <%= character_portrait(@character.character_id,'64') %>
       </div>
     </div>
     <div class="pull-left">
@@ -11,11 +11,11 @@
     </div>
   </div>
   <ul class="secondary-nav-menu">
-    <li><%= active_link_to 'Character Sheet', info_character_path(@user.primary_character_id), :class => 'icon-list-alt' %></li>
-    <li><%= active_link_to 'Kill Log', killlog_character_path(@user.primary_character_id), :class => 'icon-screenshot' %></li>
+    <li><%= active_link_to 'Character', info_character_index_path, :class => 'icon-list-alt' %></li>
+    <li><%= active_link_to 'Kill Log', killlog_character_index_path, :class => 'icon-screenshot' %></li>
   </ul>
 </nav>
 <% end %>
 <% content_for :breadcrumb do %>
-  <li class="active"><%= link_to @character.name, character_path(@user.primary_character_id) %></li>
+  <li class="active"><%= link_to @character.name, character_index_path %></li>
 <% end %>

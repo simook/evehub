@@ -15,12 +15,14 @@ DmpSite::Application.routes.draw do
     :confirmations => "confirmations"
   }
 
-  resources :character, :only => :show do
-    member do
+  resources :character, :only => :index do
+    collection do
       get 'info'
       get 'killlog'
       get 'employment'
       get 'skills'
+      get 'attributes'
+      get 'certificates'
     end
   end
   resources :corporation do
@@ -63,6 +65,7 @@ DmpSite::Application.routes.draw do
       resources :corporation, :only => :show
     end
     resources :corporations
+    resources :serenity
   end
 
   root :to => "home#index"
