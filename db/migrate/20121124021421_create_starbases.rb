@@ -6,8 +6,8 @@ class CreateStarbases < ActiveRecord::Migration
       t.integer :location_id
       t.integer :moon_id
       t.integer :state
-      t.date :state_timestamp
-      t.date :online_timestamp
+      t.datetime :state_timestamp
+      t.datetime :online_timestamp
       t.integer :standing_owner_id
       t.datetime :cached_until
       t.integer :corporation_id

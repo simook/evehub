@@ -4,8 +4,8 @@
     <div class="span3">
       <ul class="nav nav-list inner-well" data-bind="foreach:starbaseList">
         <li>
-          <a href="#tab1" data-toggle="tab" data-bind="attr:{href:'#starbase'+itemID}, click:$parent.selectedStarbase">
-            <span class="title" data-bind="name:typeID"></span>
+          <a href="#tab1" data-toggle="tab" data-bind="attr:{href:'#starbase'+$index()}">
+            <span class="title" data-bind="name:type_id"></span>
             <i class="icon-chevron-right pull-right"></i>
           </a>
         </li>
@@ -13,92 +13,77 @@
     </div>
     <div class="span9 transparent-box">
       <div class="tab-content" data-bind="foreach:starbaseList">
-        <div class="tab-pane padded" data-bind="attr:{id:'starbase'+itemID}">
+        <div class="tab-pane padded" data-bind="attr:{id:'starbase'+$index()}">
           <div class="row-fluid">
-            <div class="span7">
+            <div class="span12">
               <div class="box">
-                <div class="tab-header">Info</div>
+                <div class="tab-header">
+                  Info
+                  <span class="pull-right muted last-updated" data-bind="date:updated_at"></span>
+                </div>
                 <table class="table table-condensed box">
                   <tbody>
                     <tr>
                       <td><b>Type</b></td>
-                      <td data-bind="name:typeID"></td>
+                      <td data-bind="name:type_id"></td>
                     </tr>
                     <tr>
                       <td><b>Location</b></td>
-                      <td data-bind="location:itemID"></td>
+                      <td data-bind="text:item_id"></td>
                     </tr>
                     <tr>
                       <td><b>Moon</b></td>
-                      <td data-bind="text:moonID"></td>
+                      <td data-bind="text:moon_id"></td>
                     </tr>
                     <tr>
                       <td><b>Status</b></td>
-                      <td data-bind="state:state">
-                        <span data-bind="state:state"></span>
-                        <span data-bind="uptime:{begin:onlineTimestamp,end:stateTimestamp}"></span>
+                      <td>
+                        <span data-bind="state: state"></span>
+                        <span data-bind="uptime:{begin:online_timestamp,end:state_timestamp}"></span>
                       </td>
                     </tr>
                     <tr>
                       <td><b>Owner</b></td>
-                      <td data-bind="text:standingOwnerID"></td>
+                      <td data-bind="text:standing_owner_id"></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <div class="span5">
-              <div class="box" data-bind="with: $parent.starbaseDetail">
+          </div>
+          <div class="row-fluid" data-bind="with: details">
+            <div class="span6">
+              <div class="box">
                 <div class="tab-header">Combat Settings</div>
-                <table class="table table-condensed box" data-bind="with: combatSettings">
-                  <tr data-bind="with: onAggression">
-                    <td><b>On Aggression</b></td>
-                    <td data-bind="boolean: attribs.enabled"></td>
+                <table class="table table-condensed box" data-bind="foreach: combat_settings">
+                  <tr>
+                    <td><b data-bind="text: name"></b></td>
+                    <td data-bind="foreach: attribs">
+                      <span data-bind="text:name+' '+value"></span>
+                    </td>
                   </tr>
-                  <tr data-bind="with: onCorporationWar">
-                    <td><b>On Corporation War</b></td>
-                    <td data-bind="boolean: attribs.enabled"></td>
-                  </tr>
-                  <tr data-bind="with: onStandingDrop">
-                    <td><b>On Standing Drop</b></td>
-                    <td data-bind="text: attribs.standing"></td>
-                  </tr>
-                  <tr data-bind="with: onStatusDrop">
-                    <td><b>On Status Drop</b></td>
-                    <td data-bind="boolean: attribs.enabled"></td>
-                  </tr>
-                  <tr data-bind="with: useStandingsFrom">
-                    <td><b>Use Standings From</b></td>
-                    <td data-bind="text: attribs.ownerID"></td>
+                </table>
+              </div>
+            </div>
+            <div class="span6">
+              <div class="box">
+                <div class="tab-header">General Settings</div>
+                <table class="table table-condensed box" data-bind="foreach: settings">
+                  <tr>
+                    <td><b data-bind="text: name"></b></td>
+                    <td data-bind="text: value"></td>
                   </tr>
                 </table>
               </div>
             </div>
           </div>
           <div class="row-fluid">
-            <div class="span4">
-              <div class="box" data-bind="with: $parent.starbaseDetail">
-                <div class="tab-header">Access Control</div>
-                <table class="table table-condensed box" data-bind="with: generalSettings">
-                  <tr>
-                    <td><b>Alliance Members</b></td>
-                    <td data-bind="boolean: allowAllianceMembers"></td>
-                  </tr>
-                  <tr>
-                    <td><b>Corporation Members</b></td>
-                    <td data-bind="boolean: allowCorporationMembers"></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="row-fluid">
-            <div class="box" data-bind="with: $parent.starbaseDetail">
+            <div class="box" data-bind="with: details">
               <div class="tab-header">Fuel</div>
               <div class="padded" data-bind="foreach: fuel">
-                <div class="progress">
-                  <div class="bar" style="width:60%">
-                    <span data-bind="name:typeID"></span>
+                <div class="progress starbase-fuel">
+                  <div class="bar" style="width:100%">
+                    <span data-bind="name:type_id"></span>
                     x <span data-bind="text:quantity"></span>
                   </div>
                 </div>

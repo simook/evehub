@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   has_many :character_attributes, :through => :characters
   has_many :killlogs, :through => :characters
 
-  has_many :corporations
-  has_many :starbases, :through => :corporations
+  has_one :corporation
+  has_many :starbases, :through => :corporation
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

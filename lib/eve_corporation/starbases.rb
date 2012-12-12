@@ -65,20 +65,22 @@ module EveCorporation
 
     def self.init(user)
       @corporation = user.corporations.where(:corp_id => user.corporation_id).first
-      @corporation.starbases.each do |starbase|
-        if starbase.starbase_detail.exists?
-          if starbase.starbase_detail.first.cached_until <= DateTime.now
-            starbase.starbase_detail.destroy
+      if @corporation.starbases.exists?
+        @corporation.starbases.each do |starbase|
+          unless starbase.starbase_detail.nil?
+            if starbase.starbase_detail.cached_until <= DateTime.now
+              starbase.starbase_detail.destroy
+              create(user,starbase)
+            end
+          else
             create(user,starbase)
           end
-        else
-          create(user,starbase)
         end
       end
     end
 
     def self.create(user,starbase)
-      @eve2 = starbase_detail_eve_api(user, starbase.itemID)
+      @eve2 = starbase_detail_eve_api(user, starbase.item_id)
       if @eve2
         @detail = StarbaseDetail.new
         @detail.cached_until = @eve2.cached_until

@@ -177,15 +177,6 @@ dmp.character = function(){
   ko.bindingHandlers.name = {
    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
      var id = allBindingsAccessor(valueAccessor()).name;
-     $.getJSON('/eve/items/'+id, function(data){
-       ko.utils.setHtml(element, data.typeName);
-     });
-    }
-  };
-
-  ko.bindingHandlers.name = {
-   update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-     var id = allBindingsAccessor(valueAccessor()).name;
      $.getJSON(evesqlUri+'api/v1/inventory/type/'+id+'.js', {token:evesqlToken}, function(json){
        ko.utils.setHtml(element, json.typeName);
      });

@@ -10,7 +10,7 @@ class CharacterController < ApplicationController
     @character = current_user.characters.where(:character_id => current_user.primary_character_id).first
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render json: @character}
+      format.json {render :json => @character}
     end
   end
 
@@ -18,7 +18,7 @@ class CharacterController < ApplicationController
     @character = current_user.characters.where(:character_id => current_user.primary_character_id).first
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render json: @character.killlogs.to_json(:include => [:killlog_victims, :killlog_attackers, :killlog_items])}
+      format.json {render :json => @character.killlogs, :root => false}
     end
   end
 
@@ -26,21 +26,21 @@ class CharacterController < ApplicationController
     @character = current_user.characters.where(:character_id => current_user.primary_character_id).first
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render json: @character.character_skills}
+      format.json {render :json => @character.character_skills, :root => false }
     end
   end
 
   def attributes
     @character = current_user.characters.where(:character_id => current_user.primary_character_id).first
     respond_to do |format|
-      format.json {render json: @character.character_attributes}
+      format.json {render :json => @character.character_attributes, :root => false}
     end
   end
 
   def certificates
     @character = current_user.characters.where(:character_id => current_user.primary_character_id).first
     respond_to do |format|
-      format.json {render json: @character.character_certificates}
+      format.json {render :json => @character.character_certificates, :root => false}
     end
   end
 

@@ -30,6 +30,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'clockwork'
 gem 'foreman'
+gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 
 group :production do
   gem 'thin', '>= 1.5.0'

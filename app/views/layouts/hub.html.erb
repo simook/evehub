@@ -13,7 +13,7 @@
   <nav id="primary" class="hub-nav" >
     <ul>
       <li><%= active_link_to 'Corp', corporation_index_path, :class=>'icon-globe' %></li>
-      <li><%= active_link_to 'Character', character_index_path, :class=>'icon-user' %></li>
+      <li><%= active_link_to 'Character', info_character_index_path, :class=>'icon-user' %></li>
       <li><%= active_link_to 'Articles', posts_path, :class=>'icon-book' %>
       <li><%= active_link_to 'Account', account_path, :class=>'icon-cog' %></li>
       <% if current_user.has_role? :admin %>

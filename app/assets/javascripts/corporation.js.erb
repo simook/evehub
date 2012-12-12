@@ -2,29 +2,18 @@
 if (typeof window.dmp !== 'object') window.dmp = {};
 dmp.corporation = function(){
   var self = this;
-  var token = "e2c45427379d115acf5efcf1786c15f2";
+  var evesqlUri = 'http://evesql.com/'
+  var evesqlToken = 'e9164e07c72eb2f8c8c1529553ab8b83';
   var viewModel = {
     sheet: ko.observable(),
     accountBalance: ko.observable(),
     starbaseList: ko.observableArray(),
-    starbaseDetail: ko.observable(false),
-    selectedStarbase: function(data){
-      viewModel.starbaseDetail(false);
-      $.getJSON('/corporation/starbase/detail/'+data.itemID,function(json){
-        viewModel.starbaseDetail(json)
-      });
-    },
     members: ko.observableArray(),
     loaded: ko.observable(false),
     status: ko.observable()
   };
 
   viewModel.starbaseList.subscribe(function(starbases){
-    if(viewModel.starbaseDetail() === false){
-      ko.utils.arrayFirst(starbases, function(starbase){
-        viewModel.selectedStarbase(starbase);
-      });
-    };
     setTimeout(function(){
       $('#hub a[data-toggle="tab"]:first').tab('show');
     },0);
@@ -95,19 +84,19 @@ dmp.corporation = function(){
     update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
       var state = allBindingsAccessor(valueAccessor()).state,
           name, color;
-      if(state === '0'){
+      if(state === 0){
         name = 'Unanchored';
         color = 'gray'
-      } else if(state === '1'){
+      } else if(state === 1){
         name = 'Offline';
         color = 'black'
-      } else if(state === '2'){
+      } else if(state === 2){
         name = 'Onlining';
         color = 'yellow'
-      } else if(state === '3'){
+      } else if(state === 3){
         name = 'Reinforced';
         color = 'red'
-      } else if(state === '4'){
+      } else if(state === 4){
         name = 'Online';
         color= 'green';
       };
@@ -163,8 +152,8 @@ dmp.corporation = function(){
 
   var starbaselist = function(){
     $.getJSON('<%= url.starbase_list_corporation_index_path %>', function(json){
-      for (var i = 0; i < json.starbases.length; i++) {
-       viewModel.starbaseList.push(json.starbases[i]);
+      for (var i = 0; i < json.length; i++) {
+       viewModel.starbaseList.push(json[i]);
       };
     });
   };

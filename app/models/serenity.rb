@@ -25,6 +25,7 @@ class Serenity
         end
         unless user.corp_apisecret.nil? and user.corp_apikey.nil?
           EveCorporation::Starbases.init(user)
+          EveCorporation::StarbaseDetails.init(user)
         end
       else
         EveCorporation::Sheet.create(user)
