@@ -19,8 +19,8 @@ class Serenity
         EveCharacter::Killmails.create(user)
       end
 
-      if user.corporations.exists?
-        if user.corporations.first.cached_until <= DateTime.now
+      unless user.corporation.nil?
+        if user.corporation.cached_until <= DateTime.now
           EveCorporation::Sheet.update(user)
         end
         unless user.corp_apisecret.nil? and user.corp_apikey.nil?

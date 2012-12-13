@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   def seed_primary_character
     # lets go ahead and seed this character so the user has something to look at.
     EveCharacter::Sheet.delay.create(self)
-    EveCharacter::Killmails.delay.init(self)
+    EveCharacter::Killmails.delay.create(self)
     EveCorporation::Sheet.delay.create(self)
   end
 

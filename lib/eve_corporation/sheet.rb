@@ -1,7 +1,7 @@
 module EveCorporation
   module Sheet
     def self.update(user)
-      @corporation = user.corporations.where(:corp_id => user.corporation_id).first
+      @corporation = user.corporation
       if @corporation
         @eve = corporation_sheet_eve_api(user)
         @corporation.station_id = @eve.stationID
