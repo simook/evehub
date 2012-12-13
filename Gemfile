@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 
 group :development, :test do
- gem 'sqlite3'
  gem 'debugger'
  gem 'better_errors'
  gem 'binding_of_caller'
@@ -31,8 +30,8 @@ gem 'daemons'
 gem 'clockwork'
 gem 'foreman'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
+gem 'mysql2'
 
 group :production do
   gem 'thin', '>= 1.5.0'
-  gem 'pg'
 end

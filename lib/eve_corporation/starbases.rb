@@ -2,7 +2,7 @@ module EveCorporation
   module Starbases
 
     def self.init(user)
-      @corporation = user.corporations.where(:corp_id => user.corporation_id).first
+      @corporation = user.corporation
       @starbases = @corporation.starbases
       if @starbases.exists?
         if @starbases.first.cached_until <= DateTime.now
@@ -18,21 +18,23 @@ module EveCorporation
 
     def self.create(user)
       @eve = starbase_list_eve_api(user)
-      @corporation = user.corporations.where(:corp_id => user.corporation_id).first
+      @corporation = user.corporation
 
-      @eve.starbases.each do |starbase|
-        @pos = Starbase.new
-        @pos.corporation_id = @corporation.id
-        @pos.item_id = starbase.itemID
-        @pos.type_id = starbase.typeID
-        @pos.location_id = starbase.locationID
-        @pos.moon_id = starbase.moonID
-        @pos.state = starbase.state
-        @pos.state_timestamp = starbase.stateTimestamp
-        @pos.online_timestamp = starbase.onlineTimestamp
-        @pos.standing_owner_id = starbase.standingOwnerID
-        @pos.cached_until = @eve.cached_until
-        @pos.save
+      if @eve
+        @eve.starbases.each do |starbase|
+          @pos = Starbase.new
+          @pos.corporation_id = @corporation.id
+          @pos.item_id = starbase.itemID
+          @pos.type_id = starbase.typeID
+          @pos.location_id = starbase.locationID
+          @pos.moon_id = starbase.moonID
+          @pos.state = starbase.state
+          @pos.state_timestamp = starbase.stateTimestamp
+          @pos.online_timestamp = starbase.onlineTimestamp
+          @pos.standing_owner_id = starbase.standingOwnerID
+          @pos.cached_until = @eve.cached_until
+          @pos.save
+        end
       end
     end
 
@@ -64,7 +66,7 @@ module EveCorporation
   module StarbaseDetails
 
     def self.init(user)
-      @corporation = user.corporations.where(:corp_id => user.corporation_id).first
+      @corporation = user.corporation
       if @corporation.starbases.exists?
         @corporation.starbases.each do |starbase|
           unless starbase.starbase_detail.nil?

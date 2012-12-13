@@ -29,31 +29,33 @@ module EveCorporation
 
     def self.create(user)
       @eve = corporation_sheet_eve_api(user)
-      @corp = Corporation.new
-      @corp.user_id = user.id
-      @corp.corp_id = @eve.corporationID
-      @corp.name = @eve.corporationName
-      @corp.ticker = @eve.ticker
-      @corp.ceoid = @eve.ceoID
-      @corp.ceo_name = @eve.ceoName
-      @corp.station_id = @eve.stationID
-      @corp.station_name = @eve.stationName
-      @corp.description = @eve.description
-      @corp.url = @eve.url
-      if @eve.respond_to?('allianceID')
-        @corp.alliance_id = @eve.allianceID
+      if @eve
+        @corp = Corporation.new
+        @corp.user_id = user.id
+        @corp.corp_id = @eve.corporationID
+        @corp.name = @eve.corporationName
+        @corp.ticker = @eve.ticker
+        @corp.ceoid = @eve.ceoID
+        @corp.ceo_name = @eve.ceoName
+        @corp.station_id = @eve.stationID
+        @corp.station_name = @eve.stationName
+        @corp.description = @eve.description
+        @corp.url = @eve.url
+        if @eve.respond_to?('allianceID')
+          @corp.alliance_id = @eve.allianceID
+        end
+        if @eve.respond_to?('allianceName')
+          @corp.alliance_name = @eve.allianceName
+        end
+        @corp.tax_rate = @eve.taxRate
+        @corp.member_count = @eve.memberCount
+        if @eve.respond_to?('memberLimit')
+          @corp.member_limit = @eve.memberLimit
+        end
+        @corp.shares = @eve.shares
+        @corp.cached_until = @eve.cached_until
+        @corp.save
       end
-      if @eve.respond_to?('allianceName')
-        @corp.alliance_name = @eve.allianceName
-      end
-      @corp.tax_rate = @eve.taxRate
-      @corp.member_count = @eve.memberCount
-      if @eve.respond_to?('memberLimit')
-        @corp.member_limit = @eve.memberLimit
-      end
-      @corp.shares = @eve.shares
-      @corp.cached_until = @eve.cached_until
-      @corp.save
     end
 
     private
