@@ -12,8 +12,10 @@
               <th>Username</th>
               <th>Email</th>
               <th>Registered</th>
+              <th><%= link_to 'Serenity', admin_serenity_index_path %></th>
               <th>Role</th>
               <th>EVE API</th>
+              <th>EVE Character</th>
               <th></th>
               <th></th>
           </tr>
@@ -24,8 +26,15 @@
             <td><%= link_to user.username, admin_user_path(user) %></td>
             <td><%= user.email %></td>
             <td><%= user.created_at.to_date %></td>
+            <td>
+              <small>
+                <%= distance_of_time_in_words(DateTime.now, user.character.cached_until) %> <%= user.character.cached_until.future? ? 'to update' : 'ago' %>
+              </small>
+            </td>
             <td><%= user.roles.first.name.titleize unless user.roles.first.nil? %></td>
-            <td><%= user.apiverified === 1 ? "<span class='text-success'>Verified</span>".html_safe : "<span class='muted'>Invalid</span>".html_safe %></td>
+            <td><%= user.apiverified === 1 ? "<span class='text-success'>Verified</span>".html_safe : "<span class='muted'>Invalid</span>".html_safe %>
+            </td>
+            <td><%= user.character.name %></td>
             <td>
               <a data-toggle="modal" href="#role-options-<%= user.id %>" class="btn btn-mini" type="button">Change role</a>
               <%= render user %>

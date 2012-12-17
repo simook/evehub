@@ -31,11 +31,11 @@ ActiveRecord::Schema.define(:version => 20121208174608) do
   create_table "character_skills", :force => true do |t|
     t.integer  "character_id"
     t.integer  "type_id"
-    t.decimal  "skillpoints"
+    t.decimal  "skillpoints",  :precision => 10, :scale => 0
     t.integer  "level"
     t.integer  "published"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
   end
 
   create_table "characters", :force => true do |t|
@@ -53,21 +53,21 @@ ActiveRecord::Schema.define(:version => 20121208174608) do
     t.integer  "alliance_id"
     t.string   "clone_name"
     t.integer  "clone_skill_points"
-    t.decimal  "balance"
+    t.decimal  "balance",              :precision => 10, :scale => 0
     t.datetime "cached_until"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.datetime "killlog_cached_until"
   end
 
   create_table "corporation_account_balances", :force => true do |t|
     t.integer  "account_id"
     t.integer  "account_key"
-    t.decimal  "balance"
+    t.decimal  "balance",        :precision => 10, :scale => 0
     t.date     "cached_until"
     t.integer  "corporation_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   create_table "corporations", :force => true do |t|
@@ -232,8 +232,8 @@ ActiveRecord::Schema.define(:version => 20121208174608) do
     t.integer  "location_id"
     t.integer  "moon_id"
     t.integer  "state"
-    t.date     "state_timestamp"
-    t.date     "online_timestamp"
+    t.datetime "state_timestamp"
+    t.datetime "online_timestamp"
     t.integer  "standing_owner_id"
     t.datetime "cached_until"
     t.integer  "corporation_id"
@@ -242,29 +242,23 @@ ActiveRecord::Schema.define(:version => 20121208174608) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                :default => "", :null => false
-    t.string   "encrypted_password",                   :default => ""
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                        :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "name"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "invitation_token",       :limit => 60
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
     t.string   "username"
     t.string   "apikey"
     t.string   "secretkey"
@@ -276,8 +270,6 @@ ActiveRecord::Schema.define(:version => 20121208174608) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token"
-  add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "users_roles", :id => false, :force => true do |t|

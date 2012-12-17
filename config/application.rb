@@ -20,6 +20,12 @@ module DmpSite
       g.helper_specs false
     end
 
+    config.middleware.use ExceptionNotifier, {
+      :email_prefix => "[DMP] Error",
+      :sender_address => '"Error Notifier" <error@dmp-corp.com> ',
+      :exception_recipients => ['admin@dmp-corp.com']
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

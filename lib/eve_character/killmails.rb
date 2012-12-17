@@ -1,7 +1,7 @@
 module EveCharacter
   module Killmails
     def self.create(user)
-      @character = user.characters.where(:character_id => user.primary_character_id).first
+      @character = user.character
       @eve = character_killlog_eve_api(user)
 
       if @eve

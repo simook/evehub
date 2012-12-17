@@ -10,7 +10,6 @@ class Admin::UsersController < ApplicationController
   def show
     authorize! :show, @user, :message => 'Not authorized as an administrator.'
     @user = User.find(params[:id])
-    @eve = init_eve_api(@user)
     render :layout => 'hub'
   end
 
@@ -32,17 +31,6 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path, :notice => "User deleted."
     else
       redirect_to admin_users_path, :notice => "Can't delete yourself."
-    end
-  end
-
-  private
-  def init_eve_api(user)
-    begin
-      EAAL.cache = EAAL::Cache::FileCache.new
-      EAAL::API.new(user.apikey,user.secretkey)
-    rescue EAAL::Exception::EveAPIException => e
-      flash[:notice] = "#{e.message}"
-      render "show"
     end
   end
 end

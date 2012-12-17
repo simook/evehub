@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   rolify
 
-  has_many :characters
+  has_one :character
   has_many :character_skills, :through => :characters
   has_many :character_certificates, :through => :characters
   has_many :character_attributes, :through => :characters
@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model

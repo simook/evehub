@@ -65,16 +65,14 @@
             </tr>
           </thead>
           <tbody>
-            <% @user.characters.each do |character| %>
             <tr>
-              <td><%= character.character_id %></td>
-              <td><%= character.name %></td>
-              <td><%= character.corporation_name %> <small class="muted">(<%= character.corporation_id %>)</small></td>
-              <td><%= character.created_at %><br/><%= distance_of_time_in_words(DateTime.now, character.created_at) %></td>
-              <td><%= character.updated_at %><br/><%= distance_of_time_in_words(DateTime.now, character.updated_at) %></td>
-              <td><%= character.cached_until %><br/><%= distance_of_time_in_words(DateTime.now, character.cached_until) %></td>
+              <td><%= @user.character.character_id %></td>
+              <td><%= @user.character.name %></td>
+              <td><%= @user.character.corporation_name %> <small class="muted">(<%= @user.character.corporation_id %>)</small></td>
+              <td><%= @user.character.created_at %><br/><%= distance_of_time_in_words(DateTime.now, @user.character.created_at) %></td>
+              <td><%= @user.character.updated_at %><br/><%= distance_of_time_in_words(DateTime.now, @user.character.updated_at) %></td>
+              <td><%= @user.character.cached_until %><br/><%= distance_of_time_in_words(DateTime.now, @user.character.cached_until) %></td>
             </tr>
-            <% end %>
           </tbody>
         </table>
       </div>

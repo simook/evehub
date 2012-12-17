@@ -31,6 +31,7 @@ gem 'clockwork'
 gem 'foreman'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 gem 'mysql2'
+gem 'exception_notification'
 
 group :production do
   gem 'thin', '>= 1.5.0'

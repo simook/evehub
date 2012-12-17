@@ -138,6 +138,9 @@ module EveCorporation
           api.StarbaseDetail(:itemID => starbase_id)
         end
       rescue EAAL::Exception::EveAPIException => e
+        Rails.logger.debug "Starbase Detail EVE API: #{api.inspect}"
+        Rails.logger.debug "Starbase ID: #{starbase_id.inspect}"
+        Rails.logger.debug "Starbase User: #{user.inspect}"
         Rails.logger.error "EVE API Exception: #{e.inspect}"
         return false
       end
@@ -149,6 +152,7 @@ module EveCorporation
           EAAL::API.new(user.corp_apikey,user.corp_apisecret)
         end
       rescue EAAL::Exception::EveAPIException => e
+        Rails.logger.debug "Init EVE API: #{user.inspect}"
         Rails.logger.error "EVE API Exception: #{e.inspect}"
       end
     end

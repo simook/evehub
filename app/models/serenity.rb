@@ -2,15 +2,15 @@
 class Serenity
   def perform
     User.all.each do |user|
-      if user.characters.exists?
+      unless user.character.nil?
         # Get the latest from EVE if the cache time has expired.
-        if user.characters.first.cached_until <= DateTime.now
+        if user.character.cached_until <= DateTime.now
           EveCharacter::Sheet.update(user)
         end
         # Get the latest killlogs if the cache time has expired.
-        if user.characters.first.killlog_cached_until.nil?
+        if user.character.killlog_cached_until.nil?
           EveCharacter::Killmails.create(user)
-        elsif user.characters.first.killlog_cached_until <= DateTime.now
+        elsif user.character.killlog_cached_until <= DateTime.now
           EveCharacter::Killmails.create(user)
         end
       else
