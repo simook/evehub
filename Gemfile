@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
+ruby '1.9.2'
 gem 'rails', '3.2.8'
-gem 'rake', '10.0.2'
 
 group :development, :test do
  gem 'debugger'
@@ -28,8 +27,9 @@ gem 'eaal'
 gem 'nokogiri'
 gem 'active_link_to'
 gem 'delayed_job_active_record'
-gem 'daemons'
-gem 'clockwork'
+#gem 'daemons'
+#gem 'clockwork'
+gem 'workless'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 gem 'mysql2'
 gem 'exception_notification'

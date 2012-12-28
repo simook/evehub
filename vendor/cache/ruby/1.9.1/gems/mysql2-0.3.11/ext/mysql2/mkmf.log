@@ -1,0 +1,89 @@
+have_func: checking for rb_thread_blocking_region()... -------------------- yes
+
+"/usr/bin/gcc -o conftest -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin12.2.0 -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/mpapis/.sm/pkg/active/include -pipe conftest.c  -L. -L/Users/simook/.rvm/rubies/ruby-1.9.3-p327/lib -L. -Bstatic -L/Users/mpapis/.sm/pkg/active/lib   -arch x86_64   -lruby-static  -lpthread -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/mpapis/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"/usr/bin/gcc -o conftest -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin12.2.0 -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/mpapis/.sm/pkg/active/include -pipe conftest.c  -L. -L/Users/simook/.rvm/rubies/ruby-1.9.3-p327/lib -L. -Bstatic -L/Users/mpapis/.sm/pkg/active/lib   -arch x86_64   -lruby-static  -lpthread -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/mpapis/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))rb_thread_blocking_region; return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_wait_for_single_fd()... -------------------- yes
+
+"/usr/bin/gcc -o conftest -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin12.2.0 -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/mpapis/.sm/pkg/active/include -pipe conftest.c  -L. -L/Users/simook/.rvm/rubies/ruby-1.9.3-p327/lib -L. -Bstatic -L/Users/mpapis/.sm/pkg/active/lib   -arch x86_64   -lruby-static  -lpthread -ldl -lobjc "
+conftest.c: In function ‘t’:
+conftest.c:5: error: ‘rb_wait_for_single_fd’ undeclared (first use in this function)
+conftest.c:5: error: (Each undeclared identifier is reported only once
+conftest.c:5: error: for each function it appears in.)
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { void ((*volatile p)()); p = (void ((*)()))rb_wait_for_single_fd; return 0; }
+/* end */
+
+"/usr/bin/gcc -o conftest -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin12.2.0 -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/Users/mpapis/.sm/pkg/active/include -pipe conftest.c  -L. -L/Users/simook/.rvm/rubies/ruby-1.9.3-p327/lib -L. -Bstatic -L/Users/mpapis/.sm/pkg/active/lib   -arch x86_64   -lruby-static  -lpthread -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/mpapis/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: int main() {return 0;}
+5: int t() { rb_wait_for_single_fd(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for mysql.h... -------------------- yes
+
+"/usr/bin/gcc -E -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin12.2.0 -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/usr/local/Cellar/mysql/5.5.27/include -Os -w -pipe  -g -I/Users/mpapis/.sm/pkg/active/include -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysql.h>
+/* end */
+
+--------------------
+
+have_header: checking for errmsg.h... -------------------- yes
+
+"/usr/bin/gcc -E -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin12.2.0 -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/usr/local/Cellar/mysql/5.5.27/include -Os -w -pipe  -g -I/Users/mpapis/.sm/pkg/active/include -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <errmsg.h>
+/* end */
+
+--------------------
+
+have_header: checking for mysqld_error.h... -------------------- yes
+
+"/usr/bin/gcc -E -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/x86_64-darwin12.2.0 -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1/ruby/backward -I/Users/simook/.rvm/rubies/ruby-1.9.3-p327/include/ruby-1.9.1 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -I/usr/local/Cellar/mysql/5.5.27/include -Os -w -pipe  -g -I/Users/mpapis/.sm/pkg/active/include -pipe  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <mysqld_error.h>
+/* end */
+
+--------------------
+
