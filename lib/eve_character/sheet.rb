@@ -127,9 +127,9 @@ module EveCharacter
           @cert.character_id = @character.id
           @cert.save
         end
-      end
 
-      EveCharacter::Killmails.create(user)
+        EveCharacter::Killmails.create(user)
+      end
     end
 
     private
