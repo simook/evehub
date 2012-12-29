@@ -20,12 +20,6 @@ module DmpSite
       g.helper_specs false
     end
 
-    config.middleware.use ExceptionNotifier, {
-      :email_prefix => "[DMP] Error",
-      :sender_address => '"Error Notifier" <error@dmp-corp.com> ',
-      :exception_recipients => ['admin@dmp-corp.com']
-    }
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -51,7 +45,7 @@ module DmpSite
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = "UTF-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]

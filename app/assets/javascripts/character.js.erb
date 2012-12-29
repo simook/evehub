@@ -279,11 +279,13 @@ dmp.character = function(){
   };
 
   var killlog = function(){
-    ko.applyBindings(viewModel);
+    ko.applyBindings(viewModel,document.getElementById('character_killlogs'));
     $.getJSON('<%= url.killlog_character_index_path %>', function(json){
-      for (var i = 0; i < json.length; i++) {
-       viewModel.lastUpdated.killlog(json.updated_at);
-       viewModel.kills.push(new Kill(json[i]));
+      if(json){
+        for (var i = 0; i < json.length; i++) {
+         viewModel.lastUpdated.killlog(json.updated_at);
+         viewModel.kills.push(new Kill(json[i]));
+        };
       };
     }).complete(function(){
       viewModel.loaded.killlog(true);
@@ -292,9 +294,17 @@ dmp.character = function(){
 
   var sheet = function(){
     ko.applyBindings(viewModel,document.getElementById('character_sheet'));
+  };
+
+  var init = function(){
+    ko.applyBindings(viewModel,document.getElementById('secondary'));
     $.getJSON('<%= url.info_character_index_path %>', function(json){
-      viewModel.lastUpdated.character(json.updated_at);
-      viewModel.character.push(json);
+      if(json){
+        viewModel.lastUpdated.character(json.updated_at);
+        viewModel.character.push(json);
+      } else {
+        alert('Your character information is missing. Either we haven\'t gotten your character info from EVE or we\'re experiencing technical issues.');
+      };
     }).complete(function(){
       viewModel.loaded.character(true);
     });
@@ -316,19 +326,21 @@ dmp.character = function(){
     });
     $.getJSON('<%= url.skills_character_index_path %>', function(json){
       var self = this;
-      for (var i = 0; i < json.length; i++) {
-        viewModel.lastUpdated.skills(json[i].updated_at);
-        var trainedSkill = json[i];
-        var skill = ko.utils.arrayFirst(viewModel.skills(),function(skill){
-          return parseInt(skill.id()) === trainedSkill.type_id;
-        });
-        if(skill){
-          var skillIndex = viewModel.skills.indexOf(skill);
-          skill.published(trainedSkill.published);
-          skill.skillpoints(trainedSkill.skillpoints);
-          skill.level(trainedSkill.level);
-          viewModel.skills.splice(skillIndex, skill);
-        }
+      if(json){
+        for (var i = 0; i < json.length; i++) {
+          viewModel.lastUpdated.skills(json[i].updated_at);
+          var trainedSkill = json[i];
+          var skill = ko.utils.arrayFirst(viewModel.skills(),function(skill){
+            return parseInt(skill.id()) === trainedSkill.type_id;
+          });
+          if(skill){
+            var skillIndex = viewModel.skills.indexOf(skill);
+            skill.published(trainedSkill.published);
+            skill.skillpoints(trainedSkill.skillpoints);
+            skill.level(trainedSkill.level);
+            viewModel.skills.splice(skillIndex, skill);
+          }
+        };
       };
     }).complete(function(){
       viewModel.loaded.skills(true);
@@ -338,9 +350,11 @@ dmp.character = function(){
   var attributes = function(){
     ko.applyBindings(viewModel,document.getElementById('character_attributes'));
     $.getJSON('<%= url.attributes_character_index_path %>', function(json){
-      for (var i = 0; i < json.length; i++) {
-        viewModel.lastUpdated.attributes(json[i].updated_at);
-        viewModel.attributes.push(json[i]);
+      if(json){
+        for (var i = 0; i < json.length; i++) {
+          viewModel.lastUpdated.attributes(json[i].updated_at);
+          viewModel.attributes.push(json[i]);
+        };
       };
     }).complete(function(){
       viewModel.loaded.attributes(true);
@@ -350,10 +364,12 @@ dmp.character = function(){
   var certificates = function(){
     ko.applyBindings(viewModel,document.getElementById('character_certificates'));
     $.getJSON('<%= url.certificates_character_index_path %>', function(json){
-      for (var i = 0; i < json.length; i++) {
-        var certificate = json[i];
-        viewModel.certificates.push(new Certificate(certificate));
-        viewModel.lastUpdated.certificates(json[i].updated_at);
+      if(json){
+        for (var i = 0; i < json.length; i++) {
+          var certificate = json[i];
+          viewModel.certificates.push(new Certificate(certificate));
+          viewModel.lastUpdated.certificates(json[i].updated_at);
+        };
       };
     }).complete(function(){
       viewModel.loaded.certificates(true);
@@ -361,6 +377,7 @@ dmp.character = function(){
   };
 
   return {killlog: killlog,
+          init: init,
           sheet: sheet,
           skills: skills,
           attributes: attributes,

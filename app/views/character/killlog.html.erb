@@ -1,9 +1,9 @@
 <%= render 'nav' %>
-<div class="container-fluid">
+<div class="container-fluid" id="character_killlogs">
   <div class="row-fluid">
     <div class="span12" data-bind="template:{name:'kills', foreach: kills}"></div>
     <!-- ko if: kills().length === 0 -->
-      <h3 class="large-date">You have to actually attack someone to see something here.</h3>
+      <h3 class="large-date">Your character doesn't have any kills or losses.</h3>
     <!-- /ko -->
   </div>
 </div>
@@ -74,5 +74,6 @@
 </div>
 </script>
 <script type="text/javascript">
-  dmp.character.killlog();
+  dmp.character.init();
+  //dmp.character.killlog();
 </script>

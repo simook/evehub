@@ -28,13 +28,15 @@
             <td><%= user.created_at.to_date %></td>
             <td>
               <small>
-                <%= distance_of_time_in_words(DateTime.now, user.character.cached_until) %> <%= user.character.cached_until.future? ? 'to update' : 'ago' %>
+                <% if user.character %>
+                  <%= distance_of_time_in_words(DateTime.now, user.character.cached_until) %> <%= user.character.cached_until.future? ? 'to update' : 'ago' %>
+                <% end %>
               </small>
             </td>
             <td><%= user.roles.first.name.titleize unless user.roles.first.nil? %></td>
             <td><%= user.apiverified === 1 ? "<span class='text-success'>Verified</span>".html_safe : "<span class='muted'>Invalid</span>".html_safe %>
             </td>
-            <td><%= user.character.name %></td>
+            <td><%= user.character ? user.character.name : '' %></td>
             <td>
               <a data-toggle="modal" href="#role-options-<%= user.id %>" class="btn btn-mini" type="button">Change role</a>
               <%= render user %>

@@ -1,46 +1,63 @@
 class CharacterController < ApplicationController
   def index
-    @character = current_user.character
-    respond_to do |format|
-      format.html {render :layout => 'hub'}
-    end
+    redirect_to :action => 'info'
   end
 
   def info
-    @character = current_user.character
+    if current_user.character
+      @info = current_user.character
+    else
+      @info = false
+    end
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render :json => @character}
+      format.json {render :json => @info}
     end
   end
 
   def killlog
-    @character = current_user.character
+    if current_user.character
+      @killlogs = current_user.character.killlogs
+    else
+      @killlogs = false
+    end
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render :json => @character.killlogs, :root => false}
+      format.json {render :json => @killlogs, :root => false}
     end
   end
 
   def skills
-    @character = current_user.character
+    if current_user.character
+      @skills = current_user.character.character_skills
+    else
+      @skills = false
+    end
     respond_to do |format|
       format.html {render :layout => 'hub'}
-      format.json {render :json => @character.character_skills, :root => false }
+      format.json {render :json => @skills, :root => false }
     end
   end
 
   def attributes
-    @character = current_user.character
+    if current_user.character
+      @attributes = current_user.character.character_attributes
+    else
+      @attributes = false
+    end
     respond_to do |format|
-      format.json {render :json => @character.character_attributes, :root => false}
+      format.json {render :json => @attributes, :root => false}
     end
   end
 
   def certificates
-    @character = current_user.character
+    if current_user.character
+      @certificates = current_user.character.character_certificates
+    else
+      @certificates = false
+    end
     respond_to do |format|
-      format.json {render :json => @character.character_certificates, :root => false}
+      format.json {render :json => @certificates, :root => false}
     end
   end
 

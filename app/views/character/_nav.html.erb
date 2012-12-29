@@ -1,13 +1,11 @@
 <% content_for :secondary do %>
 <nav id="secondary" class="user-nav">
-  <div class="character-menu">
+  <div class="character-menu" data-bind="foreach: character">
     <div class="pull-left">
-      <div class="avatar">
-        <%= character_portrait(@character.character_id,'64') %>
-      </div>
+      <div class="avatar" data-bind="icon:{id:character_id,type:'Character',size:'32'}"></div>
     </div>
     <div class="pull-left">
-      <div class="title"><%= @character.name %></div>
+      <div class="title" data-bind="text: name"></div>
     </div>
   </div>
   <ul class="secondary-nav-menu">
@@ -17,5 +15,5 @@
 </nav>
 <% end %>
 <% content_for :breadcrumb do %>
-  <li class="active"><%= link_to @character.name, character_index_path %></li>
+  <li class="active"><%= link_to 'Character', info_character_index_path %></li>
 <% end %>
