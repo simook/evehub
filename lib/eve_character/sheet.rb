@@ -128,7 +128,9 @@ module EveCharacter
           @cert.save
         end
 
-        EveCharacter::Killmails.create(user)
+        if user.character
+          EveCharacter::Killmails.create(user)
+        end
       end
     end
 
