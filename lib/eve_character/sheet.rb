@@ -128,6 +128,8 @@ module EveCharacter
           @cert.save
         end
       end
+
+      EveCharacter::Killmails.create(user)
     end
 
     private

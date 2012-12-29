@@ -7,16 +7,15 @@ class Serenity
         if user.character.cached_until <= DateTime.now
           EveCharacter::Sheet.update(user)
         end
+
         # Get the latest killlogs if the cache time has expired.
-        if user.character.killlog_cached_until.nil?
-          EveCharacter::Killmails.create(user)
-        elsif user.character.killlog_cached_until <= DateTime.now
+        if user.character.killlog_cached_until.nil? or user.character.killlog_cached_until <= DateTime.now
           EveCharacter::Killmails.create(user)
         end
       else
+
         # If a user doesn't have a charcter, lets create one (most likely a legacy user). Probably should make a special log of this.
         EveCharacter::Sheet.create(user)
-        EveCharacter::Killmails.create(user)
       end
 
       unless user.corporation.nil?
