@@ -2,8 +2,6 @@
 if (typeof window.dmp !== 'object') window.dmp = {};
 dmp.corporation = function(){
   var self = this;
-  var evesqlUri = 'http://evesql.com/'
-  var evesqlToken = 'e9164e07c72eb2f8c8c1529553ab8b83';
   var viewModel = {
     sheet: ko.observable(),
     accountBalance: ko.observable(),
@@ -35,111 +33,6 @@ dmp.corporation = function(){
       return formatNumber(total)+' ISK'
     }
   }, viewModel);
-
-  /*
-   * Usage: icon:{id:8291080,size:'32',type:'(InventoryType/Character/Corporation/Alliance/Render)'}
-   * http://wiki.eve-id.net/APIv2_Eve_Image_Service
-   */
-  ko.bindingHandlers.icon = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-      var icon = allBindingsAccessor(valueAccessor()).icon;
-      var format = icon.type === 'Character' ? '.jpg' : '.png';
-      var url = 'http://image.eveonline.com/'+icon.type+'/'+icon.id+'_'+icon.size+format;
-      var img = '<img src="'+url+'" />';
-      ko.utils.setHtml(element, img);
-    }
-  };
-
-  ko.bindingHandlers.uptime = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-    var values = allBindingsAccessor(valueAccessor()),
-        begin = values.begin,
-        end = values.end;
-    var uptime = new Date(begin - end);
-    ko.utils.setHtml(element, uptime);
-    }
-  };
-
-  ko.bindingHandlers.location = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-      var id = allBindingsAccessor(valueAccessor()).location;
-      $.getJSON('/corporation/starbase/location/'+id, function(json){
-        ko.utils.arrayFirst(json.locations, function(location){
-          var location = 'x:'+location.x+'/y:'+location.y+'/z:'+location.z;
-          ko.utils.setHtml(element, location);
-        });
-      });
-    }
-  };
-
-  ko.bindingHandlers.total = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-      var values = allBindingsAccessor(valueAccessor()).total;
-      var total = Math.round(parseInt(values.value1)+parseInt(values.value2));
-      ko.utils.setHtml(element, total);
-    }
-  };
-
-  ko.bindingHandlers.state = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-      var state = allBindingsAccessor(valueAccessor()).state,
-          name, color;
-      if(state === 0){
-        name = 'Unanchored';
-        color = 'gray'
-      } else if(state === 1){
-        name = 'Offline';
-        color = 'black'
-      } else if(state === 2){
-        name = 'Onlining';
-        color = 'yellow'
-      } else if(state === 3){
-        name = 'Reinforced';
-        color = 'red'
-      } else if(state === 4){
-        name = 'Online';
-        color= 'green';
-      };
-      var html = "<span class='badge "+color+"'>"+name+"</span>"
-      ko.utils.setHtml(element, html);
-    }
-  };
-
-  ko.bindingHandlers.isk = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
-      var value = allBindingsAccessor(valueAccessor()).isk;
-      var isk = formatNumber(value)+' ISK'
-      ko.utils.setHtml(element, isk);
-    }
-  };
-
-  ko.bindingHandlers.boolean = {
-    update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext){
-      var value = allBindingsAccessor(valueAccessor()).boolean,
-          name, color;
-      if(value==='1'){
-        color = 'green';
-        name = 'True';
-      } else if(value==='0'){
-        color = 'gray';
-        name = 'False';
-      };
-      var html = "<span class='badge "+color+"'>"+name+"</span>"
-      ko.utils.setHtml(element, html)
-    }
-  }
-
-  var formatNumber = function(nStr){
-    nStr += '';
-    x = nStr.split('.');
-    x1 = x[0];
-    x2 = x.length > 1 ? '.' + x[1] : '';
-    var rgx = /(\d+)(\d{3})/;
-    while (rgx.test(x1)) {
-      x1 = x1.replace(rgx, '$1' + ',' + '$2');
-    }
-    return x1 + x2;
-  };
 
   var init = function(){
     ko.applyBindings(viewModel);

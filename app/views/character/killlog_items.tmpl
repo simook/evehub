@@ -1,0 +1,24 @@
+<div class="modal hide fade black-box" role="dialog" data-bind="attr:{id:'items'+$index()}">
+  <div class="modal-header tab-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <span data-bind="text: items().length+' Items'"></span>
+  </div>
+  <div class="modal-body" data-bind="foreach: items">
+    <div class="inner-well item clearfix ">
+      <div class="item-info">
+        <span class="span1" data-bind="icon:{id:id(),size:'32',type:'InventoryType'}"></span>
+        <span class="span10">
+          <h5 data-bind="name:id()"></h5>
+        </span>
+        <div class="item-count">
+          <!-- ko if: destroyed() >= dropped() -->
+          <span class="badge red" data-bind="text: destroyed"></span>
+          <!-- /ko -->
+          <!-- ko if: dropped() > destroyed() -->
+          <span class="badge black" data-bind="text: dropped"></span>
+          <!-- /ko -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,7 @@
   <div class="span2">
     <h4 class="large-date" data-bind="date: time()"></h4>
     <h6 class="large-date" data-bind="dateInWords: time()"></h6>
+    <h6 class="large-date" data-bind="text: solarSystem"></h6>
   </div>
   <div class="span10">
     <div class="black-box">
@@ -19,54 +20,27 @@
         <div class="span3 victims" data-bind="foreach: victims">
           <div class="victim avatar pull-left" data-bind="icon:{id:ship(),size:'64',type:'InventoryType'}">
           </div>
-          <h5 data-bind="text:name"></h5>
+          <h5 data-bind="name:ship()"></h5>
           <ul class="meta unstyled">
-            <li data-bind="text: 'Damage Taken: '+damageTaken()"></li>
+            <li class="text-error" data-bind="text: 'Damage Taken: '+damageTaken()"></li>
             <li>
-              <a data-toggle="modal" data-bind="attr:{href:'#items'+$index()}">Items: <span data-bind="text: $parent.items().length"></span></a>
+              Inv.: <span data-bind="text: $parent.items().length"></span>
             </li>
           </ul>
         </div>
         <div class="span9" data-bind="foreach: attackers">
-          <div class="attacker">
-            <div class="btn-group character">
-              <button class="btn btn-large type-icon" data-bind="icon:{id:ship(), size:'32',type:'InventoryType'}"></button>
-              <button class="btn btn-large type-icon" data-bind="icon:{id:weapon(), size:'32',type:'InventoryType'}"></button>
-              <!-- ko if: name -->
-              <button class="btn" data-bind="text: name"></button>
-              <!-- /ko -->
-              <!-- ko ifnot: name -->
-              <button class="btn" data-bind="text: corporation"></button>
-              <!-- /ko -->
+          <div class="attacker" data-bind="css: finalBlow() ? 'final-blow':''">
+            <div class="icons">
+              <div class="pull-left avatar" data-bind="icon:{id:id(), size:'64',type:'Character'}"></div>
+              <div class="ship-icon" data-bind="icon:{id:ship(), size:'32',type:'InventoryType'}"></div>
+              <div class="weapon-icon" data-bind="icon:{id:weapon(), size:'32',type:'InventoryType'}"></div>
             </div>
-            <div class="progress damage-given">
-              <div class="bar bar-danger" data-bind="damageGraph: {total: $parent.totalDamage(), attacker: damageDone()}"></div>
+            <div class="info">
+              <h5 class="name" data-bind="text: name"></h5>
+              <span class="muted corp" data-bind="text: corporation"></span>
+              <span class="text-error damage-done" data-bind="damage: {total: $parent.totalDamage(), attacker: damageDone()}"></span>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal hide fade black-box" role="dialog" data-bind="attr:{id:'items'+$index()}">
-  <div class="modal-header tab-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <span data-bind="text: items().length+' Items'"></span>
-  </div>
-  <div class="modal-body" data-bind="foreach: items">
-    <div class="inner-well item clearfix ">
-      <div class="item-info">
-        <span class="span1" data-bind="icon:{id:id(),size:'32',type:'InventoryType'}"></span>
-        <span class="span10">
-          <h5 data-bind="name:id()"></h5>
-        </span>
-        <div class="item-count">
-          <!-- ko if: destroyed() >= dropped() -->
-          <span class="badge red" data-bind="text: destroyed"></span>
-          <!-- /ko -->
-          <!-- ko if: dropped() > destroyed() -->
-          <span class="badge black" data-bind="text: dropped"></span>
-          <!-- /ko -->
         </div>
       </div>
     </div>
@@ -75,5 +49,5 @@
 </script>
 <script type="text/javascript">
   dmp.character.init();
-  //dmp.character.killlog();
+  dmp.character.killlog();
 </script>
