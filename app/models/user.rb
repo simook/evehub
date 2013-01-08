@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
   private
   def seed_primary_character
     # lets go ahead and seed this character so the user has something to look at.
-    EveCharacter::Sheet.delay.create(self)
-    EveCorporation::Sheet.delay.create(self)
+    EveCharacter::Sheet.create(self)
+    EveCorporation::Sheet.create(self)
   end
 
   def default_role
