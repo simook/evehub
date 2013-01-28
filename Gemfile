@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '1.9.2'
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 group :development, :test do
  gem 'debugger'

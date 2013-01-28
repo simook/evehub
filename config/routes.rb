@@ -1,4 +1,4 @@
-DmpSite::Application.routes.draw do
+EveHub::Application.routes.draw do
   devise_scope :user do
     get "/login" => "devise/sessions#new"
     delete "/logout" => "devise/sessions#destroy"

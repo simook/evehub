@@ -1,13 +1,13 @@
---- 
-applications: 
-  .: 
-    name: dmp
-    framework: 
+---
+applications:
+  .:
+    name: evehub
+    framework:
       name: rails3
-      info: 
+      info:
         mem: 256M
         description: Rails Application
-        exec: 
+        exec:
     url: ${name}.${target-base}
     mem: 256M
     instances: 1

@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-DmpSite::Application.load_tasks
+EveHub::Application.load_tasks
