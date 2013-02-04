@@ -1,16 +1,16 @@
 <div class="row">
   <div class="span12">
     <div class="page-header">
-      <h2>Membership</h2>
+      <h2>Sign Up</h2>
     </div>
-    <p class="lead">Registering with the [D-M-P] website is required to be accepted into the corporation.</p>
+    <p class="lead">This will take only a minute.</p>
   </div>
   <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal clearfix' }) do |f| %>
   <div class="span12 reg-step">
     <div class="row">
       <div class="span6">
         <h3>Step 1</h3>
-        <p class="muted">Please fill in the general account information. You will recieve a verification email after submitting your membership.</p>
+        <p class="muted">Please fill in the general account information. You'll recieve a verification email after signing up.</p>
         <p class="mt20">* All fields are required</p>
       </div>
       <div class="span6">
@@ -24,32 +24,80 @@
   </div>
   <div class="span12 reg-step">
     <div class="row">
-      <div class="span6">
+      <div class="span12">
         <h3>Step 2</h3>
-        <p class="muted">Your EVE api key is required to be accepted into our corporation. The button below will take you to EVE and prefill what we require access to.</p>
-        <p><a class="btn btn-mini" href="https://support.eveonline.com/api/Key/CreatePredefined/227488251" target="_blank">Create EVE API Key</a></p>
-        <p class="mt20">* All fields are required</p>
-      </div>
-      <div class="span6">
-        <div class="alert alert-error" data-bind="visible:error,text:error"></div>
-        <%= f.input :apikey, :required=>true, :label => 'ID', :input_html=>{:data=>{:bind=>'value:apikey'}} %>
-        <%= f.input :secretkey, :required=>true, :label => 'Verification Code', :input_html=>{:data=>{:bind=>'value:secretkey'}}  %>
-        <!-- ko if: verified -->
-        <div class="control-group required">
-          <label class="string required control-label" for="user_primary_character_id"><abbr title="required">*</abbr> Character</label>
-          <div class="controls">
-            <select class="required" name="user[primary_character_id]" id="user_primary_character_id" data-bind="foreach: characters, value: selectCharacter">
-              <option data-bind="text:characterName, value:characterID"></option>
-            </select>
+        <p class="muted">Select the type of account you want to create.</p>
+        <div class="tabbable tabs-left account-type">
+          <ul class="nav nav-tabs">
+            <li><a href="#tab1" data-toggle="tab">Test</a></li>
+            <li><a href="#tab2" data-toggle="tab">Basic</a></li>
+            <li><a href="#tab3" data-toggle="tab">Enyo</a></li>
+            <li><a href="#tab4" data-toggle="tab">Thorax</a></li>
+            <li><a href="#tab5" data-toggle="tab">Myrmidon</a></li>
+            <li><a href="#tab6" data-toggle="tab">Erebus</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane" id="tab1">
+              <ul class="features-list">
+                <li>Member Limit <b class="pull-right">1</b></li>
+                <li>Access all your character information <i class="pull-right icon-ok text-success"></i></li>
+                <li>Access all your corporation information <small class="muted">(CEO or Director API required)</small><i class="pull-right icon-ok text-success"></i></li>
+                <li class="muted">Custom EVE hub subdomain & member signup page</li>
+                <li class="muted">Member EVE API management</li>
+                <li class="muted">Automated EVE API data retrival & indexing</i></li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="tab2">
+              <ul class="features-list">
+                <li>Member Limit <b class="pull-right">10</b></li>
+                <li>Access all your character information <i class="pull-right icon-ok text-success"></i></li>
+                <li>Access all your corporation information <small class="muted">(CEO or Director API required)</small><i class="pull-right icon-ok text-success"></i></li>
+                <li>Custom EVE hub subdomain & member signup page <i class="pull-right icon-ok text-success"></i></li>
+                <li>Member EVE API management <i class="pull-right icon-ok text-success"></i></li>
+                <li>Automated EVE API data retrival & indexing <i class="pull-right icon-ok text-success"></i></li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="tab3">
+              <ul class="features-list">
+                <li>Member Limit <b class="pull-right">20</b></li>
+                <li>Access all your character information <i class="pull-right icon-ok text-success"></i></li>
+                <li>Access all your corporation information <small class="muted">(CEO or Director API required)</small><i class="pull-right icon-ok text-success"></i></li>
+                <li>Custom EVE hub subdomain & member signup page <i class="pull-right icon-ok text-success"></i></li>
+                <li>Member EVE API management <i class="pull-right icon-ok text-success"></i></li>
+                <li>Automated EVE API data retrival & indexing <i class="pull-right icon-ok text-success"></i></li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="tab4">
+              <ul class="features-list">
+                <li>Member Limit <b class="pull-right">30</b></li>
+                <li>Access all your character information <i class="pull-right icon-ok text-success"></i></li>
+                <li>Access all your corporation information <small class="muted">(CEO or Director API required)</small><i class="pull-right icon-ok text-success"></i></li>
+                <li>Custom EVE hub subdomain & member signup page <i class="pull-right icon-ok text-success"></i></li>
+                <li>Member EVE API management <i class="pull-right icon-ok text-success"></i></li>
+                <li>Automated EVE API data retrival & indexing <i class="pull-right icon-ok text-success"></i></li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="tab5">
+              <ul class="features-list">
+                <li>Member Limit <b class="pull-right">40</b></li>
+                <li>Access all your character information <i class="pull-right icon-ok text-success"></i></li>
+                <li>Access all your corporation information <small class="muted">(CEO or Director API required)</small><i class="pull-right icon-ok text-success"></i></li>
+                <li>Custom EVE hub subdomain & member signup page <i class="pull-right icon-ok text-success"></i></li>
+                <li>Member EVE API management <i class="pull-right icon-ok text-success"></i></li>
+                <li>Automated EVE API data retrival & indexing <i class="pull-right icon-ok text-success"></i></li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="tab6">
+              <ul class="features-list">
+                <li>Member Limit <b class="pull-right">50+</b></li>
+                <li>Access all your character information <i class="pull-right icon-ok text-success"></i></li>
+                <li>Access all your corporation information <small class="muted">(CEO or Director API required)</small><i class="pull-right icon-ok text-success"></i></li>
+                <li>Custom EVE hub subdomain & member signup page <i class="pull-right icon-ok text-success"></i></li>
+                <li>Member EVE API management <i class="pull-right icon-ok text-success"></i></li>
+                <li>Automated EVE API data retrival & indexing <i class="pull-right icon-ok text-success"></i></li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <%= f.hidden_field :corporation_id, :value => "" %>
-        <%= f.hidden_field :apiverified, :value => "1" %>
-        <!-- /ko -->
-        <div class="controls">
-          <!-- ko ifnot: verified -->
-          <%= link_to 'Verify EVE API', '#', :class=>'btn btn-primary', :id=>'verifyApi', :data=>{:bind=>'click:verify',:"loading-text"=>'Verifying with EVE...'}%>
-          <!-- /ko -->
         </div>
       </div>
     </div>

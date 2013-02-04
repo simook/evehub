@@ -473,3 +473,80 @@ table {
   margin-top: 0px;
   margin-bottom: 0px;
 }
+.account-type {
+  margin-top: 20px;
+  .tab-content {
+    padding-left: 50px;
+  }
+  .features-list {
+    list-style: none;
+    margin: 0px;
+    padding-right: 50px;
+    li {
+      padding: 10px;
+      border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+  }
+  .nav-tabs {
+    border-right: none;
+    li {
+      a {
+        min-width: 150px;
+        background: rgba(0,0,0,.02);
+        @include border-radius(5px);
+        height: 20px;
+        position: relative;
+        &:hover {
+          @include transition(all,0.3s);
+          background: #62c462;
+          color: #fff;
+          text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+          @include border-radius(5px 0 0 5px);
+          border: none;
+          &:after {
+            left: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+          }
+          &:after {
+            @include transition(all, 0.3s);
+            border-color: rgba(136, 183, 213, 0);
+            border-left-color: #62c462;
+            border-width: 18px;
+            top: 50%;
+            margin-top: -18px;
+          }
+        }
+      }
+      &.active {
+        a {
+          border: none;
+          background: #62c462;
+          color: #fff;
+          text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+          @include border-radius(5px 0 0 5px);
+          &:after {
+            left: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+          }
+          &:after {
+            border-color: rgba(136, 183, 213, 0);
+            border-left-color: #62c462;
+            border-width: 18px;
+            top: 50%;
+            margin-top: -18px;
+          }
+        }
+      }
+    }
+  }
+}

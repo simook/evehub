@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="span12">
+    <div class="page-header">
+      <h2>Membership</h2>
+    </div>
+    <p class="lead">Registering with the [D-M-P] website is required to be accepted into the corporation.</p>
+  </div>
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal clearfix' }) do |f| %>
+  <div class="span12 reg-step">
+    <div class="row">
+      <div class="span6">
+        <h3>Step 1</h3>
+        <p class="muted">Please fill in the general account information. You will recieve a verification email after submitting your membership.</p>
+        <p class="mt20">* All fields are required</p>
+      </div>
+      <div class="span6">
+        <%= f.error_notification %>
+        <%= f.input :username, :autofocus => true, :required => true %>
+        <%= f.input :email, :required => true %>
+        <%= f.input :password, :required => true %>
+        <%= f.input :password_confirmation, :required => true %>
+      </div>
+    </div>
+  </div>
+  <div class="span12 reg-step">
+    <div class="row">
+      <div class="span6">
+        <h3>Step 2</h3>
+        <p class="muted">Your EVE api key is required to be accepted into our corporation. The button below will take you to EVE and prefill what we require access to.</p>
+        <p><a class="btn btn-mini" href="https://support.eveonline.com/api/Key/CreatePredefined/227488251" target="_blank">Create EVE API Key</a></p>
+        <p class="mt20">* All fields are required</p>
+      </div>
+      <div class="span6">
+        <div class="alert alert-error" data-bind="visible:error,text:error"></div>
+        <%= f.input :apikey, :required=>true, :label => 'ID', :input_html=>{:data=>{:bind=>'value:apikey'}} %>
+        <%= f.input :secretkey, :required=>true, :label => 'Verification Code', :input_html=>{:data=>{:bind=>'value:secretkey'}}  %>
+        <!-- ko if: verified -->
+        <div class="control-group required">
+          <label class="string required control-label" for="user_primary_character_id"><abbr title="required">*</abbr> Character</label>
+          <div class="controls">
+            <select class="required" name="user[primary_character_id]" id="user_primary_character_id" data-bind="foreach: characters, value: selectCharacter">
+              <option data-bind="text:characterName, value:characterID"></option>
+            </select>
+          </div>
+        </div>
+        <%= f.hidden_field :corporation_id, :value => "" %>
+        <%= f.hidden_field :apiverified, :value => "1" %>
+        <!-- /ko -->
+        <div class="controls">
+          <!-- ko ifnot: verified -->
+          <%= link_to 'Verify EVE API', '#', :class=>'btn btn-primary', :id=>'verifyApi', :data=>{:bind=>'click:verify',:"loading-text"=>'Verifying with EVE...'}%>
+          <!-- /ko -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="span12 reg-step mt20">
+    <div class="row">
+      <div class="span6">
+        <h3>Final</h3>
+        <p>After submitting your membership here, you will then need to go and apply to our corp in EVE.</p>
+      </div>
+      <div class="span5 mt20">
+        <!-- ko if: verified -->
+        <%= f.button :submit, 'Submit My Membership', :class => 'btn-primary btn-large pull-right' %>
+        <!-- /ko -->
+        <!-- ko ifnot: verified -->
+        <span class="btn btn-large disabled pull-right">Submit My Membership</span>
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  dmp.eveapi.init();
+</script>
