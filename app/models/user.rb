@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   rolify
+  has_and_belongs_to_many :plans, :join_table => :users_plans
+  has_and_belongs_to_many :subdomains, :join_table => :users_subdomains
 
   has_one :character
   has_many :character_skills, :through => :characters
@@ -18,6 +20,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :role_ids, :as => :admin
+  attr_accessible :plan_ids, :plans
   attr_accessible :name, :username, :email, :password, :password_confirmation, :remember_me, :apikey, :secretkey, :primary_character_id, :apiverified, :corp_apikey, :corp_apisecret, :corporation_id
 
   after_create :seed_primary_character
@@ -26,8 +29,8 @@ class User < ActiveRecord::Base
   private
   def seed_primary_character
     # lets go ahead and seed this character so the user has something to look at.
-    EveCharacter::Sheet.create(self)
-    EveCorporation::Sheet.create(self)
+    #EveCharacter::Sheet.create(self)
+    #EveCorporation::Sheet.create(self)
   end
 
   def default_role

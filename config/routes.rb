@@ -3,6 +3,7 @@ EveHub::Application.routes.draw do
     get "/login" => "devise/sessions#new"
     delete "/logout" => "devise/sessions#destroy"
     get "/register" => "registrations#new"
+    get "/register/almostdone" => "registrations#almostdone"
     get "/account" => "registrations#edit"
     get "/api" => "registrations#api"
     get "/corp/id" => "registrations#corpid"
@@ -25,9 +26,11 @@ EveHub::Application.routes.draw do
       get 'certificates'
     end
   end
+
   resources :corporation do
     collection do
       get 'account'
+      get 'settings'
       get 'starbase/list' => "corporation#starbaselist"
       get 'member/tracking' => 'corporation#membertracking'
       get 'starbase/detail/:id' => 'corporation#starbasedetail', as: :starbase_detail
@@ -43,6 +46,8 @@ EveHub::Application.routes.draw do
   end
 
   resources :posts
+  resources :hello, :only => :index
+  resources :legal, :only => :index
 
   namespace :eve do
     resources :items, :only => :show

@@ -1,0 +1,11 @@
+<div class="page-header">
+  <h2>Welcome <%= @user.username %></h2>
+</div>
+<div class="row-fluid">
+  <div class="span8">
+    <p class="lead">Let's get your corporation setup and running with EVE Hub</p>
+  </div>
+  <div class="span4">
+    <%= link_to "Let's Get Started", corporation_index_path, :class=>'btn btn-large btn-primary btn-block' %>
+  </div>
+</div>

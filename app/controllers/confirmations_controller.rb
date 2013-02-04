@@ -1,6 +1,6 @@
 class ConfirmationsController < Devise::ConfirmationsController
   protected
   def after_confirmation_path_for(resource_name, resource)
-    welcome_recruitment_index_path(resource)
+    hello_index_path
   end
 end

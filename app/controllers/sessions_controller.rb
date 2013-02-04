@@ -2,18 +2,19 @@ class SessionsController < Devise::SessionsController
   def create
     self.resource = warden.authenticate!(auth_options)
     sign_in(resource_name, resource)
-    if resource.apiverified.nil? or resource.primary_character_id.nil?
-      respond_with resource, :location => after_sign_in_eveapi_for(resource)
-    elsif resource.corporation_id.nil? or resource.corporation_id.empty?
-      api = init_eve_api
-      api.scope = 'eve'
-      resource.corporation_id = api.CharacterInfo(:characterID => resource.primary_character_id).corporationID
-      if resource.save
-        respond_with resource, :location => after_sign_in_path_for(resource)
-      end
-    else
-      respond_with resource, :location => after_sign_in_path_for(resource)
-    end
+    #if resource.apiverified.nil? or resource.primary_character_id.nil?
+    #  respond_with resource, :location => after_sign_in_eveapi_for(resource)
+    #elsif resource.corporation_id.nil? or resource.corporation_id.empty?
+    #  api = init_eve_api
+    #  api.scope = 'eve'
+    #  resource.corporation_id = api.CharacterInfo(:characterID => resource.primary_character_id).corporationID
+    #  if resource.save
+    #    respond_with resource, :location => after_sign_in_path_for(resource)
+    #  end
+    #else
+    #  respond_with resource, :location => after_sign_in_path_for(resource)
+    #end
+    respond_with resource, :location => after_sign_in_path_for(resource)
   end
 
   def destroy

@@ -20,6 +20,9 @@ class RegistrationsController < Devise::RegistrationsController
     render :layout => false
   end
 
+  def almostdone
+  end
+
   def update
     @user = User.find(current_user.id)
     email_changed = @user.email != params[:user][:email]
@@ -43,41 +46,58 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource
-    apikey = resource.apikey
-    apisecret = resource.secretkey
-    @verify = verify_eve_api(apikey,apisecret)
-    if @verify === true
-      resource.apiverified = '1'
-      if resource.save
-        if resource.active_for_authentication?
-          set_flash_message :notice, :signed_up if is_navigational_format?
-          sign_up(resource_name, resource)
-          respond_with resource, :location => after_sign_up_path_for(resource)
-        else
-          set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
-          expire_session_data_after_sign_in!
-          respond_with resource, :location => after_inactive_sign_up_path_for(resource)
-        end
+    plan = params[:plan]
+
+    #apikey = resource.apikey
+    #apisecret = resource.secretkey
+    #@verify = verify_eve_api(apikey,apisecret)
+    #if @verify === true
+    #  resource.apiverified = '1'
+    #  if resource.save
+    #    if resource.active_for_authentication?
+    #      set_flash_message :notice, :signed_up if is_navigational_format?
+    #      sign_up(resource_name, resource)
+    #      respond_with resource, :location => after_sign_up_path_for(resource)
+    #    else
+    #      set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
+    #      expire_session_data_after_sign_in!
+    #      respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+    #    end
+    #  else
+    #    clean_up_passwords resource
+    #    respond_with resource
+    #  end
+    #elsif @verify === false
+    #  flash[:alert] = "<h4>Your EVE API does not have full access.</h4>When creating your <a href='https://support.eveonline.com/api/Key/CreatePredefined/227488251' target='_blank'>EVE API key</a>, make sure the Access Mask has a value of at least 227488251.".html_safe
+    #  render "new"
+    #else
+    #  flash[:alert] = "<h4>EVE API</h4> #{@verify}".html_safe
+    #  render "new"
+    #end
+
+    if resource.save
+      if resource.active_for_authentication?
+        set_flash_message :notice, :signed_up if is_navigational_format?
+        sign_up(resource_name, resource)
+        respond_with resource, :location => after_sign_up_path_for(resource)
       else
-        clean_up_passwords resource
-        respond_with resource
+        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
+        expire_session_data_after_sign_in!
+        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
-    elsif @verify === false
-      flash[:alert] = "<h4>Your EVE API does not have full access.</h4>When creating your <a href='https://support.eveonline.com/api/Key/CreatePredefined/227488251' target='_blank'>EVE API key</a>, make sure the Access Mask has a value of at least 227488251.".html_safe
-      render "new"
     else
-      flash[:alert] = "<h4>EVE API</h4> #{@verify}".html_safe
-      render "new"
+      clean_up_passwords resource
+      respond_with resource
     end
   end
 
   protected
     def after_inactive_sign_up_path_for(resource)
-      hello_recruitment_index_path
+      register_almostdone_path
     end
 
     def after_sign_up_path_for(resource)
-      corporation_index_path
+      root_path
     end
 
   private

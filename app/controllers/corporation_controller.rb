@@ -21,6 +21,11 @@ class CorporationController < ApplicationController
     end
   end
 
+  def settings
+    @user = current_user
+    render :layout => 'slim'
+  end
+
   def starbaselist
     @user = current_user
     @starbases = current_user.starbases

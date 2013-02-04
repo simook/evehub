@@ -34,8 +34,8 @@ $(function(){
   });
 });
 
-if (typeof window.dmp !== 'object') window.dmp = {};
-dmp.eveapi = function(){
+if (typeof window.hub !== 'object') window.hub = {};
+hub.eveapi = function(){
   var viewModel = {
     apikey: ko.observable(),
     secretkey: ko.observable(),
@@ -95,7 +95,8 @@ dmp.eveapi = function(){
   return {init:init,
           viewModel:viewModel}
 }();
-dmp.eve = function(){
+
+hub.eve = function(){
   var viewModel = {
     time: ko.observable()
   };
@@ -116,6 +117,21 @@ dmp.eve = function(){
     ko.applyBindings(viewModel, document.getElementById('eve'));
     eveTime();
     setInterval(eveTime, 3000);
+  };
+
+  return {init:init};
+}();
+
+hub.signup = function(){
+  var viewModel = {
+    plan: ko.observable('1'),
+    setPlan: function(data, event){
+      this.plan(event.target.dataset.plan);
+    }
+  };
+
+  var init = function(){
+    ko.applyBindings(viewModel);
   };
 
   return {init:init};

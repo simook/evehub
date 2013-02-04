@@ -15,10 +15,12 @@
       </div>
       <div class="span6">
         <%= f.error_notification %>
-        <%= f.input :username, :autofocus => true, :required => true %>
-        <%= f.input :email, :required => true %>
+        <%= f.input :username, :autofocus => true, :required => true, :placeholder => 'Your username please' %>
+        <%= f.input :email, :required => true, :placeholder => "user@domain.com" %>
         <%= f.input :password, :required => true %>
         <%= f.input :password_confirmation, :required => true %>
+        <%= f.input :plan_ids, :as => :hidden, :input_html=>{:data=>{:bind=>'value:plan'}} %>
+        <%# f.association :plans %>
       </div>
     </div>
   </div>
@@ -26,15 +28,15 @@
     <div class="row">
       <div class="span12">
         <h3>Step 2</h3>
-        <p class="muted">Select the type of account you want to create.</p>
+        <p class="muted">Select a plan.</p>
         <div class="tabbable tabs-left account-type">
           <ul class="nav nav-tabs">
-            <li><a href="#tab1" data-toggle="tab">Test</a></li>
-            <li><a href="#tab2" data-toggle="tab">Basic</a></li>
-            <li><a href="#tab3" data-toggle="tab">Enyo</a></li>
-            <li><a href="#tab4" data-toggle="tab">Thorax</a></li>
-            <li><a href="#tab5" data-toggle="tab">Myrmidon</a></li>
-            <li><a href="#tab6" data-toggle="tab">Erebus</a></li>
+            <li><a href="#tab1" data-toggle="tab" data-bind="click:setPlan" data-plan="1">Tester</a></li>
+            <li><a href="#tab2" data-toggle="tab" data-bind="click:setPlan" data-plan="2">Basic</a></li>
+            <li><a href="#tab3" data-toggle="tab" data-bind="click:setPlan" data-plan="3">Enyo</a></li>
+            <li><a href="#tab4" data-toggle="tab" data-bind="click:setPlan" data-plan="4">Thorax</a></li>
+            <li><a href="#tab5" data-toggle="tab" data-bind="click:setPlan" data-plan="5">Myrmidon</a></li>
+            <li><a href="#tab6" data-toggle="tab" data-bind="click:setPlan" data-plan="6">Erebus</a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane" id="tab1">
@@ -104,16 +106,12 @@
   </div>
   <div class="span12 reg-step mt20">
     <div class="row">
-      <div class="span6">
-        <h3>Final</h3>
-        <p>After submitting your membership here, you will then need to go and apply to our corp in EVE.</p>
+      <div class="span6 mt20">
+        <small>By clicking Sign Up, you agree to EVE Hub's <%= link_to 'Terms of Service', legal_index_path(:anchor => 'terms') %> and <%= link_to 'Privacy Policy', legal_index_path(:anchor => 'privacy') %>.</small>
       </div>
       <div class="span5 mt20">
-        <!-- ko if: verified -->
-        <%= f.button :submit, 'Submit My Membership', :class => 'btn-primary btn-large pull-right' %>
-        <!-- /ko -->
-        <!-- ko ifnot: verified -->
-        <span class="btn btn-large disabled pull-right">Submit My Membership</span>
+        <!-- ko if:plan -->
+        <%= f.button :submit, 'Sign Up', :class => 'btn-primary btn-large pull-right' %>
         <!-- /ko -->
       </div>
     </div>
@@ -121,5 +119,5 @@
   <% end %>
 </div>
 <script type="text/javascript">
-  dmp.eveapi.init();
+  hub.signup.init();
 </script>

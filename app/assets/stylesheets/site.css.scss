@@ -72,11 +72,11 @@ body {
     @include background(image-url('2.jpg'));
     background-color: #04090d;
   }
-  &.home,&.registrations.new {
+  &.home,&.registrations.new,&.registrations.almostdone {
     @include background(image-url('3.jpg'));
     background-color: #0d0e10;
   }
-  &.recruitment, &.registrations.new, &.registrations.create, &.confirmations {
+  &.registrations.new, &.registrations.create, &.confirmations, &.hello {
     @include background(url('4.jpg') top center no-repeat);
     background-color: #000;
   }
@@ -498,28 +498,11 @@ table {
         position: relative;
         &:hover {
           @include transition(all,0.3s);
-          background: #62c462;
+          background: rgba(98, 196, 98, .5);
           color: #fff;
           text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-          @include border-radius(5px 0 0 5px);
+          @include border-radius(5px);
           border: none;
-          &:after {
-            left: 100%;
-            border: solid transparent;
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
-          }
-          &:after {
-            @include transition(all, 0.3s);
-            border-color: rgba(136, 183, 213, 0);
-            border-left-color: #62c462;
-            border-width: 18px;
-            top: 50%;
-            margin-top: -18px;
-          }
         }
       }
       &.active {
